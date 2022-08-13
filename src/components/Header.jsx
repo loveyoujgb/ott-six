@@ -7,12 +7,24 @@ const Header = () => {
 
   return (
     <HeaderWrap>
-      <HeaderText>모두의 투두리스트</HeaderText>
+      <HeaderButtonLogo>
+
+      </HeaderButtonLogo>
+
     </HeaderWrap>
   );
 };
 export default Header;
 
-const HeaderText = styled.div``;
+const HeaderWrap = styled.header`
+  background-color: rgb(33,33,33);
+  border: 1px solid rgb(221, 221, 221);
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 12px;
+`;
 
-const HeaderWrap = styled.header``;
+const HeaderButtonLogo = styled.button``
