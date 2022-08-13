@@ -12,6 +12,15 @@ const Layout = (props) => {
 
 export default Layout;
 
-const StLayoutContainer = styled.div``;
+const StLayoutContainer = styled.div`
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  text-decoration: none;
+  outline: none;
+`;
 
-const StLayoutContents = styled.div``;
+const StLayoutContents = styled.div`
+  height: calc(100vh - 70px);
+  background-color: #181818;
+`;
