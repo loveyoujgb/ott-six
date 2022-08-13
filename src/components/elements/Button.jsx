@@ -32,9 +32,10 @@ const StButton = styled.button`
         background-color: #35247b;
         border: transparent;
         color: white;
-        margin: 5px;
-        width: 80px;
-        height: 30px;
+        border-radius: 5px;
+        width: 400px;
+        height: 50px;
+        margin-top: 10px;
       `
     );
   }}
