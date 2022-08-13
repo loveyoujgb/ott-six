@@ -33,8 +33,9 @@ export const __getUserInfo = createAsyncThunk("userInfo/getuserInfo", async (pay
 export const __postUserInfo = createAsyncThunk("userInfo/postuserInfo", async (payload, thunkAPI) => {
   try {
     console.log(payload);
-    const data = await axios.post("http://localhost:3000/data/userInfo.json", { username: "아아" });
-    // return thunkAPI.fulfillWithValue(data.data);
+    const data = await axios.post("http://localhost:3000/data/userInfo.json", payload);
+    console.log(data.data);
+    return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -50,6 +51,7 @@ export const userInfoSlice = createSlice({
     },
     [__getUserInfo.fulfilled]: (state, action) => {
       state.isLoading = false;
+      console.log(action.payload);
       state.userInfo = action.payload;
     },
     [__getUserInfo.rejected]: (state, action) => {

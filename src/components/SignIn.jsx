@@ -8,29 +8,26 @@ import Input from "./elements/Input";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const [username, onChangeUsername] = useInputs("");
-  const [nickname, onChangeNickname] = useInputs("");
-  const [password, onChangePassword] = useInputs("");
-  const [validpassword, onChangeValidPassword] = useInputs("");
+  const [userInfo, onChange, reset] = useInputs({
+    username: "",
+    nickname: "",
+    password: "",
+    validpassword: "",
+  });
+
+  const { username, nickname, password, validpassword } = userInfo;
 
   useEffect(() => {
     dispatch(__getUserInfo());
   }, [dispatch]);
 
-  const [userInfo, setUserInfo] = useState({});
-
-  console.log(username, nickname, password, validpassword);
+  // const [userInfo, setUserInfo] = useState({});
 
   const onCreate = (e) => {
     e.preventDefault();
-    setUserInfo({
-      username: username,
-      nickname: nickname,
-      password: password,
-      validpassword: validpassword,
-    });
     console.log(userInfo);
-    // dispatch(__postUserInfo(userInfo));
+    dispatch(__postUserInfo(userInfo));
+    reset();
   };
   // const onCreate = useCallback(
   //   (e) => {
@@ -52,10 +49,10 @@ const SignIn = () => {
       <LoginContainer onSubmit={onCreate}>
         <Title>회원가입</Title>
         <Footer>
-          <Input name="username" onChange={onChangeUsername} value={username} placeholder="아이디" type="text" inputType="basic"></Input>
-          <Input name="nickname" onChange={onChangeNickname} value={nickname} placeholder="닉네임" type="text" inputType="basic"></Input>
-          <Input name="password" onChange={onChangePassword} value={password} placeholder="비밀번호" type="text" inputType="basic"></Input>
-          <Input name="validpassword" onChange={onChangeValidPassword} value={validpassword} placeholder="비밀번호 확인" type="text" inputType="basic"></Input>
+          <Input name="username" onChange={onChange} value={username} placeholder="아이디" type="text" inputType="basic"></Input>
+          <Input name="nickname" onChange={onChange} value={nickname} placeholder="닉네임" type="text" inputType="basic"></Input>
+          <Input name="password" onChange={onChange} value={password} placeholder="비밀번호" type="password" inputType="basic"></Input>
+          <Input name="validpassword" onChange={onChange} value={validpassword} placeholder="비밀번호 확인" type="password" inputType="basic"></Input>
           <Button type="submit" btntype="blue">
             로그인
           </Button>
