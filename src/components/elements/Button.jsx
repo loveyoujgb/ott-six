@@ -20,8 +20,8 @@ const StButton = styled.button`
         border: transparent;
         color: white;
         margin: 5px;
-        width: 80px;
-        height: 30px;
+        width: 100px;
+        height: 35px;
       `
     );
   }}
