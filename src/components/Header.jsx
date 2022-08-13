@@ -5,6 +5,10 @@ import Button from "./elements/Button";
 
 const Header = () => {
   const navigate = useNavigate();
+  const onClickeee = () => {
+    // navigate("/");
+    console.log("hello");
+  };
 
   const onClickBoardHandler = () => {
     navigate("/reviewboard")

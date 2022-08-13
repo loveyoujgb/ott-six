@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 
-const Input = ({ type, value, defaultValue, id, title, name, placeholder, width, labelText, changeHandler, minLength, maxLength }) => {
+const Input = ({ defaultValue, type, inputType, value, id, title, name, placeholder, width, labelText, onChange, minLength, maxLength }) => {
   return (
     <FormInputContainer>
       <label htmlFor={id}>{labelText}</label>
       <FormInput
         type={type}
+        inputType={inputType}
         id={id}
         title={title}
         name={name}
@@ -13,7 +14,7 @@ const Input = ({ type, value, defaultValue, id, title, name, placeholder, width,
         defaultValue={defaultValue}
         placeholder={placeholder}
         width={width}
-        onChange={changeHandler}
+        onChange={onChange}
         minLength={minLength}
         maxLength={maxLength}
       />
@@ -23,7 +24,9 @@ const Input = ({ type, value, defaultValue, id, title, name, placeholder, width,
 
 Input.defaultValue = {
   value: "",
-  defaultValue: "",
+  inputType: "",
+  type: "",
+  // defaultValue: "",
   id: "",
   name: "",
   placeholder: "",
@@ -44,7 +47,7 @@ const FormInput = styled.input`
   outline: none;
   ${(props) => {
     return (
-      props.type === "basic" &&
+      props.inputType === "basic" &&
       css`
         box-sizing: border-box;
         background-color: #363636;

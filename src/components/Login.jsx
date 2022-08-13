@@ -17,8 +17,8 @@ const Login = () => {
       <LoginContainer>
         <Title>로그인</Title>
         <Footer>
-          <Input placeholder="아이디" type="basic"></Input>
-          <Input placeholder="비밀번호" type="basic"></Input>
+          <Input placeholder="아이디" inputType="basic"></Input>
+          <Input placeholder="비밀번호" inputType="basic"></Input>
           <Button 
           btntype="blue"
           onClick={onClickLoginHandler}

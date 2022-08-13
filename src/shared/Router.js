@@ -2,8 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
+import SignUpPage from "../pages/SignUpPage";
 import ReviewForm from "../pages/ReviwForm";
-import ReviewBoard from "../pages/ReviewBoard.jsx"
+import ReviewBoard from "../pages/ReviewBoard.jsx";
 import TestPage from "../pages/TestPage";
 import ReviewDetail from "../pages/ReviewDetail";
 
@@ -12,7 +13,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/Login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/reviewform" element={<ReviewForm />} />
         <Route path="/reviewboard" element={<ReviewBoard />} />
         <Route path="/reviewdetail" element={<ReviewDetail />} />
