@@ -53,7 +53,8 @@ const LogoButton = styled.button`
   border: none;
   width: 120px;
   font-size: 40px;
-  color: #4729be;
+  /* color: #4729be; */
+  color: red;
   font-weight: bold;
 `
 const ButtonWrap = styled.div`

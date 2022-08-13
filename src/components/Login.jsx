@@ -1,8 +1,17 @@
+import React from "react";
 import styled from "styled-components";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  const onClickLoginHandler = () => {
+    navigate("/")
+  }
+
   return (
     <Whole>
       <LoginContainer>
@@ -10,12 +19,16 @@ const Login = () => {
         <Footer>
           <Input placeholder="아이디" type="basic"></Input>
           <Input placeholder="비밀번호" type="basic"></Input>
-          <Button btntype="blue">로그인</Button>
+          <Button 
+          btntype="blue"
+          onClick={onClickLoginHandler}
+          >로그인</Button>
         </Footer>
       </LoginContainer>
     </Whole>
   );
 };
+
 export default Login;
 
 const Whole = styled.div`

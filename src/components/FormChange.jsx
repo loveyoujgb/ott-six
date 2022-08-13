@@ -20,6 +20,12 @@ const FormChange = () => {
         // navigate(`/reviewdetail/${param.id}`)
     }
 
+    const onClickDeleteHandler = (e) => {
+        // e.stopPropagation();
+        if(window.confirm("정말 삭제하시겠습니까?"))
+        navigate(`/reviewboard`)
+    }
+
     return (
         <FormContainer onSubmit={onSubmitHandler}>
             <FormSecondWrap>
@@ -39,7 +45,7 @@ const FormChange = () => {
                     >수정하기</StButton>
                     <StButton
                     onClick={() => {
-                        navigate(`/reviewboard`)
+                        onClickDeleteHandler()
                     }}
                     >삭제하기</StButton>
                 </Buttons>
@@ -52,8 +58,8 @@ export default FormChange;
 
 const FormContainer = styled.form`
     /* border: 1px solid white; */
-    width: 90%;
-    height: 90%;
+    width: 1400px;
+    height: 90vh;
     display: flex;
     margin: auto;
     flex-direction: column;
