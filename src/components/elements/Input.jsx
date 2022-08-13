@@ -37,9 +37,23 @@ Input.defaultValue = {
 
 export default Input;
 
+const FormInputContainer = styled.div``;
+
 const FormInput = styled.input`
+  padding-left: 10px;
   outline: none;
   ${(props) => {
-    return props.type === "text" && css``;
+    return (
+      props.type === "basic" &&
+      css`
+        box-sizing: border-box;
+        background-color: #363636;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 400px;
+        height: 45px;
+      `
+    );
   }}
 `;
