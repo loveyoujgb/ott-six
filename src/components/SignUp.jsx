@@ -6,7 +6,7 @@ import useInputs from "../hooks/useInputs";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
 
-const SignIn = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
   const [userInfo, onChange, reset] = useInputs({
     username: "",
@@ -61,7 +61,7 @@ const SignIn = () => {
     </Whole>
   );
 };
-export default SignIn;
+export default SignUp;
 
 const Whole = styled.div`
   display: flex;
