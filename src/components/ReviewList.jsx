@@ -41,8 +41,8 @@ export default ReviewList;
 
 const FormContainer = styled.form`
     /* border: 1px solid white; */
-    width: 90%;
-    height: 90%;
+    width: 1400px;
+    height: 90vh;
     display: flex;
     margin: auto;
     flex-direction: column;

@@ -27,6 +27,20 @@ const StButton = styled.button`
   }}
   ${(props) => {
     return (
+      props.btntype === "gray" &&
+      css`
+        background-color: #363636;
+        border: transparent;
+        color: white;
+        border-radius: 5px;
+        margin: 5px;
+        width: 200px;
+        height: 40px;
+      `
+    );
+  }}
+  ${(props) => {
+    return (
       props.btntype === "blue" &&
       css`
         background-color: #35247b;

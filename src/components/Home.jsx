@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
 import logo from "../assets/logo.jpg"
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(__getMovies());
   }, [dispatch]);
   return (
-    <>
+
       <HomeWrap>
         <HomeUpWrap>
-          <HomeImg>이미지</HomeImg>
-          <HomeImg>이미지</HomeImg>
+          <HomeImg
+          onClick={() => {
+            navigate("/reviewform")
+          }}
+          >영화 리뷰 작성</HomeImg>
+          <HomeImg
+          onClick={() => {
+            navigate("/reviewboard")
+          }}
+          >리뷰 둘러보기</HomeImg>
         </HomeUpWrap>
         <HomeBottomWrap>
           <BottomLeftImg>로고이미지</BottomLeftImg>
           <BottomRightImg>OTTSIX에서 TOP RANK에 있는 영화와 드라마에 리뷰를 남기면서 소통하세요</BottomRightImg>
         </HomeBottomWrap>
       </HomeWrap>
-    </>
   );
 };
 
@@ -39,8 +50,8 @@ const HomeWrap = styled.div`
   justify-content: flex-start;
   flex-direction: column; */
   /* border: 1px solid white; */
-  width: 90%;
-  height: 90%;
+  width: 1400px;
+    height: 90vh;
   display: flex;
   margin: auto;
   flex-direction: column;
