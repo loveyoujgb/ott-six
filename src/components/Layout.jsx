@@ -17,10 +17,10 @@ const StLayoutContainer = styled.div`
   padding: 0px;
   margin: 0px;
   text-decoration: none;
-  outline: none;`;
+  outline: none;
+`;
 
 const StLayoutContents = styled.div`
-  height: calc(100vh - 100px);
-  background-color: rgb(255, 255, 255);
-  padding: 24px;
+  height: calc(100vh - 70px);
+  background-color: #181818;
 `;

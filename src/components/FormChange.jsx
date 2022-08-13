@@ -1,24 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 // import Button from "./elements/Button";
 
-const Form = () => {
+const FormChange = () => {
 
     const navigate = useNavigate()
 
     const onSubmitHandler = (e) => {
-        // e.preventDefault();
-        //dispatch(__postTtodos(review));
-        // navigate("/reviewboard")
+        e.preventDefault();
+        // dispatchEvent(
+        //     __putTodos({
+        //         ...review,
+        //         id:param.id,
+        //         content: updateContet,
+        //     })
+        // )
+        // dispatch(__getTodos());
+        // navigate(`/reviewdetail/${param.id}`)
     }
 
     return (
         <FormContainer onSubmit={onSubmitHandler}>
-            <FormFirstWrap>
-                {/* <StFormTitle>리뷰 작성하기</StFormTitle> */}
-                <div>리뷰 작성하기</div>
-            </FormFirstWrap>
             <FormSecondWrap>
                 <FormTitleWrap>
                     <StLabel>글 제목</StLabel>
@@ -28,20 +31,24 @@ const Form = () => {
                     <StLabel>글 내용</StLabel>
                     <StSecondInput />
                 </FormContentWrap>
-                <StButton
-                type="submit"
-                    // onChange={onChangeHandler}
-                onClick={() => {
-                    navigate("/reviewboard")
-                }}
-                >작성하기</StButton>
+                <Buttons>
+                    <StButton
+                    onClick={() => {
+                        navigate(`/reviewboard`)
+                    }}
+                    >수정하기</StButton>
+                    <StButton
+                    onClick={() => {
+                        navigate(`/reviewboard`)
+                    }}
+                    >삭제하기</StButton>
+                </Buttons>
             </FormSecondWrap>
         </FormContainer>
-
     )
 }
 
-export default Form;
+export default FormChange;
 
 const FormContainer = styled.form`
     /* border: 1px solid white; */
@@ -53,28 +60,19 @@ const FormContainer = styled.form`
     padding: 20px;
 `
 
-const FormFirstWrap = styled.div`
-    background-color: rgb(53,36,123);
-    color: white;
-    border: none;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
 const FormSecondWrap = styled.form`
     background-color: rgb(45,45,45);
     height: 100%; 
     margin-top: 20px;
     display:flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
 `
 const FormTitleWrap = styled.div`
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
     width: 95%;
 `
 
@@ -95,9 +93,17 @@ const StLabel = styled.label`
 `
 const StSecondInput = styled.input`
     margin-top: 10px;
-    margin-bottom: 50px;
-    height: 400px
+    margin-bottom: 20px;
+    height: 400px;
 `
+const Buttons = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 20px;
+    width: 95%;
+`
+
 const StButton = styled.button`
     background-color: rgb(53,36,123);
     color: white;
@@ -107,4 +113,5 @@ const StButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 `
