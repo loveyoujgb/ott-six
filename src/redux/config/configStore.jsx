@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modules from "../modules/modulesSlice";
+import movies from "../modules/moviesSlice";
 
 export const store = configureStore({
   // devTools: process.env.NODE_ENV !== "production",
   reducer: {
-    modules,
+    movies,
   },
 });
 
