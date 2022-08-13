@@ -59,4 +59,32 @@ const FormInput = styled.input`
       `
     );
   }}
+  ${(props) => {
+    return (
+      props.type === "title" &&
+      css`
+        box-sizing: border-box;
+        background-color: #363636;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 1300px;
+        height: 50px;
+      `
+    );
+  }}
+    ${(props) => {
+    return (
+      props.type === "content" &&
+      css`
+        box-sizing: border-box;
+        background-color: #363636;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 1300px;
+        height: 450px;
+      `
+    );
+  }}
 `;

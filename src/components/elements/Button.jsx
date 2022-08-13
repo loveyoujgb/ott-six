@@ -20,8 +20,22 @@ const StButton = styled.button`
         border: transparent;
         color: white;
         margin: 5px;
-        width: 80px;
-        height: 30px;
+        width: 100px;
+        height: 35px;
+      `
+    );
+  }}
+  ${(props) => {
+    return (
+      props.btntype === "gray" &&
+      css`
+        background-color: #363636;
+        border: transparent;
+        color: white;
+        border-radius: 5px;
+        margin: 5px;
+        width: 200px;
+        height: 40px;
       `
     );
   }}
