@@ -5,7 +5,10 @@ import Button from "./elements/Button";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const onClickeee = () => {
+    // navigate("/");
+    console.log("hello");
+  };
   return (
     <HeaderWrap>
       <HeaderText
@@ -16,7 +19,9 @@ const Header = () => {
         로고
       </HeaderText>
       <ButtonWrap>
-        <Button btntype="basic">게시판</Button>
+        <Button onClick={onClickeee} btntype="basic">
+          게시판
+        </Button>
         <Button btntype="basic">로그인</Button>
         <Button btntype="basic">회원가입</Button>
       </ButtonWrap>
@@ -33,7 +38,7 @@ const ButtonWrap = styled.div`
   font-size: 24px;
 `;
 
-const HeaderWrap = styled.header`
+const HeaderWrap = styled.div`
   background-color: #212121;
   height: 70px;
   display: flex;
