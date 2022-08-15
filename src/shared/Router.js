@@ -6,6 +6,7 @@ import ReviewForm from "../pages/ReviwForm";
 import ReviewBoard from "../pages/ReviewBoard.jsx"
 import TestPage from "../pages/TestPage";
 import ReviewDetail from "../pages/ReviewDetail";
+import ReviewDetailChange from "../pages/ReviewDetailChange";
 
 const Router = () => {
   return (
@@ -15,8 +16,9 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reviewform" element={<ReviewForm />} />
         <Route path="/reviewboard" element={<ReviewBoard />} />
-        <Route path="/reviewdetail" element={<ReviewDetail />} />
-        <Route path="/test" element={<TestPage />} />
+        <Route path="/detail/:id" element={<ReviewDetail />} />
+        <Route path="/detail/:id/change" element={<ReviewDetailChange/>}/>
+        {/* <Route path="/test" element={<TestPage />} /> */}
       </Routes>
     </BrowserRouter>
   );

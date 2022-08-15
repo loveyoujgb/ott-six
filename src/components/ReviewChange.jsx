@@ -1,37 +1,67 @@
-import React from "react";
+import React,{useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { __deleteMovies, __getMovies, __putMovies } from "../redux/modules/moviesSlice";
 // import Button from "./elements/Button";
 
-const FormChange = () => {
+const ReviewChange = () => {
 
+    const param = useParams();
+    const dispatch = useDispatch();
     const navigate = useNavigate()
+
+    const { isLoading, error, movies } = useSelector((state) => state.movies);
+    const movie = movies.find((movie) => movie.id === parseInt(movie.id))
+
+    const [updateTitle, setUpdateTitle] = useState("");
+    const [updateContent, setUpdateContent] = useState("")
+
+    const onChangeTitleHandler = (e) => {
+        setUpdateTitle(e.target.value);
+    }
+
+    const onChangeContentHandler = (e) => {
+        setUpdateContent(e.target.value);
+    }
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        // dispatchEvent(
-        //     __putTodos({
-        //         ...review,
-        //         id:param.id,
-        //         content: updateContet,
-        //     })
-        // )
-        // dispatch(__getTodos());
-        // navigate(`/reviewdetail/${param.id}`)
+        dispatch(
+            __putMovies({
+                ...movie,
+                id:param.id,
+                title: updateTitle,
+                content: updateContent,
+            })
+        )
+        dispatch(__getMovies());
+        navigate(`/detail/${param.id}`)
     }
 
-    const onClickDeleteHandler = (e) => {
-        // e.stopPropagation();
-        if(window.confirm("정말 삭제하시겠습니까?"))
-        navigate(`/reviewboard`)
+    if(isLoading) {
+        return <div>로딩중 ...</div>
     }
+    if(error) {
+        return <div>{error.message}</div>
+    }
+
+    // const onClickDeleteHandler = (e) => {
+    //     e.stopPropagation();
+    //     if(window.confirm("정말 삭제하시겠습니까?"))
+    //     dispatch(__deleteMovies(movie.id))
+    //     // navigate(`/reviewboard`)
+    // }
 
     return (
         <FormContainer onSubmit={onSubmitHandler}>
             <FormSecondWrap>
                 <FormTitleWrap>
                     <StLabel>글 제목</StLabel>
-                    <StFirstInput />
+                    <StFirstInput 
+                    value={updateTitle}
+                    onChange={onChangeTitleHandler}
+                    />
                 </FormTitleWrap>
                 <FormContentWrap>
                     <StLabel>글 내용</StLabel>
@@ -42,19 +72,19 @@ const FormChange = () => {
                     onClick={() => {
                         navigate(`/reviewboard`)
                     }}
-                    >수정하기</StButton>
-                    <StButton
+                    >완료하기</StButton>
+                    {/* <StButton
                     onClick={() => {
                         onClickDeleteHandler()
                     }}
-                    >삭제하기</StButton>
+                    >삭제하기</StButton> */}
                 </Buttons>
             </FormSecondWrap>
         </FormContainer>
     )
 }
 
-export default FormChange;
+export default ReviewChange;
 
 const FormContainer = styled.form`
     /* border: 1px solid white; */
@@ -66,7 +96,7 @@ const FormContainer = styled.form`
     padding: 20px;
 `
 
-const FormSecondWrap = styled.form`
+const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
     height: 100%; 
     margin-top: 20px;
@@ -111,7 +141,7 @@ const Buttons = styled.div`
 `
 
 const StButton = styled.button`
-    background-color: rgb(53,36,123);
+    background-color: rgb(251,188,4);
     color: white;
     border: none;
     width: 10%;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { __getMovies } from "../redux/modules/moviesSlice";
+import { __getMovies, __postMovies } from "../redux/modules/moviesSlice";
 import Input from "./elements/Input";
 import Button from "./elements/Button";
 
@@ -11,8 +11,7 @@ const Form = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const [review, setReview] = useState({
-        usename: "",
+    const [movie, setMovie] = useState({
         title: "",
         content: "",
     })
@@ -21,12 +20,12 @@ const Form = () => {
         dispatch(__getMovies())
     }, [dispatch])
 
-    const { username, title, content } = review;
+    const { title, content } = movie;
 
     const onChangeHandler = (e) => {
         const { value, name } = e.target;
-        setReview({
-            ...review,
+        setMovie({
+            ...movie,
             [name]: value,
         })
     }
@@ -38,20 +37,20 @@ const Form = () => {
         } else if (content === "") {
             return alert("내용을 입력해주세요");
         }
-        // dispatch(__postTtodos(review));
+        dispatch(__postMovies(movie));
         navigate("/reviewboard")
+        console.log(movie.title)
     }
 
     return (
         <FormContainer onSubmit={onSubmitHandler}>
             <FormFirstWrap>
-                {/* <StFormTitle>리뷰 작성하기</StFormTitle> */}
                 <div>리뷰 작성하기</div>
             </FormFirstWrap>
             <FormSecondWrap>
                 <FormTitleWrap>
                     <StLabel>글 제목</StLabel>
-                    <Input
+                    {/* <Input
                         maxLength="50"
                         fontsize="24px"
                         pattern=".{1.5}"
@@ -59,16 +58,21 @@ const Form = () => {
                         type="title"
                         name="title"
                         value={title}
-                        onChane={onChangeHandler}
+                        onChange={onChangeHandler}
                         placeholder="제목을 입력해주세요.(50자 이내)"
                         width="100%"
                         height="100%"
+                    /> */}
+                    <StFirstInput 
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={onChangeHandler}
                     />
-                    {/* <StFirstInput /> */}
                 </FormTitleWrap>
                 <FormContentWrap>
                     <StLabel>글 내용</StLabel>
-                    <Input
+                    {/* <Input
                         maxLength="200"
                         fontsize="24px"
                         pattern=".{1.5}"
@@ -76,23 +80,22 @@ const Form = () => {
                         type="content"
                         name="content"
                         value={content}
-                        onChane={onChangeHandler}
+                        onChange={onChangeHandler}
                         placeholder="내용을 입력해주세요.(200자 이내)"
                         width="100%"
                         height="500%"
+                    /> */}
+                    <StSecondInput 
+                    type="text"
+                    name="content"
+                    value={content}
+                    onChange={onChangeHandler}
                     />
-                    {/* <StSecondInput /> */}
                 </FormContentWrap>
-                {/* <StButton
-                    type="submit"
-                    // onChange={onChangeHandler}
-                    onClick={() => {
-                        navigate("/reviewboard")
-                    }}
-                >작성하기</StButton> */}
                 <Button
                     btntype="gray"
-                    // onClick={onClickLoginHandler}
+                    type="submit"
+                // onClick={onClickLoginHandler}
                 >작성하기</Button>
             </FormSecondWrap>
         </FormContainer>
@@ -123,7 +126,7 @@ const FormFirstWrap = styled.div`
     justify-content: center;
     align-items: center;
 `
-const FormSecondWrap = styled.form`
+const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
     height: 80vh; 
     margin-top: 20px;
@@ -138,10 +141,15 @@ const FormTitleWrap = styled.div`
     width: 95%;
 `
 
-// const StFirstInput = styled.input`
-//     margin-top: 10px;
-//     height: 50px;
-// `
+const StFirstInput = styled.input`
+    box-sizing: border-box;
+    background-color: #363636;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 1300px;
+    height: 50px;
+`
 
 const FormContentWrap = styled.div`
     margin-top: 30px;
@@ -154,11 +162,15 @@ const StLabel = styled.label`
     color: white;
     margin-bottom: 20px;
 `
-// const StSecondInput = styled.input`
-//     margin-top: 10px;
-//     margin-bottom: 50px;
-//     height: 400px
-// `
+const StSecondInput = styled.input`
+    box-sizing: border-box;
+    background-color: #363636;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 1300px;
+    height: 450px;
+`
 const StButton = styled.button`
     background-color: rgb(53,36,123);
     color: white;

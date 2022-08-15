@@ -1,19 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 
-const Review = () => {
+const Review = ({movie}) => {
 
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     return (
         <ListForm
             onClick={() => {
-                navigate(`/reviewdetail`)
+                navigate(`/detail/${movie.id}`)
             }}
+            // 상세페이지로 갈 수 있도록 수정할 예정
         >
             <ReviewTitle>
-                리뷰 제목 넣을 예정
+                {movie.title}
             </ReviewTitle>
             <ReviewTime>
                 작성 시간 넣을 예정

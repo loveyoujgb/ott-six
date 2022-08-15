@@ -10,51 +10,106 @@ const initialState = {
   comments: [],
 };
 
-export const __getMovies = createAsyncThunk("movies/getmovies", async (payload, thunkAPI) => {
+export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, thunkAPI) => {
   try {
-    const data = await axios.get("http://localhost:3000/data/response.json");
+    const data = await axios.get("http://localhost:3001/movies");
     console.log(data.data);
-    // return thunkAPI.fulfillWithValue(data.data);
+    return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
 });
 
-// export const __deletemovies = createAsyncThunk("movies/deletemovies", async (payload, thunkAPI) => {
-//   try {
-//     const data = await axios.delete(`${API_movies}/${payload}`);
-//     thunkAPI.dispatch(__getTodos());
-//     return thunkAPI.fulfillWithValue(data.data);
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
+export const __postMovies = createAsyncThunk("movies/postMovies", async (payload, thunkAPI) => {
+  try {
+    // const data = await axios.post(`${API_TODOS}`, payload);
+    console.log(payload)
+    const data = await axios.post("http://localhost:3001/movies", payload);
+    console.log(data.data);
+    return thunkAPI.fulfillWithValue(data.data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
-// export const __postmovies = createAsyncThunk("movies/postmovies", async (payload, thunkAPI) => {
-//   try {
-//     const data = await axios.post(`${API_TODOS}`, payload);
-//     return thunkAPI.fulfillWithValue(data.data);
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
+export const __putMovies = createAsyncThunk("todos/putMovies", async (payload, thunkAPI) => {
+  try {
+    await axios.patch(`http://localhost:3001/movies/${payload.id}`, payload);
+    // await axios.patch(`${API_TODOS}/${payload.id}`, payload);
+    return thunkAPI.fulfillWithValue(payload);
+  } catch (error) {
+    // return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (payload, thunkAPI) => {
+  try {
+    // const data = await axios.delete(`${API_movies}/${payload}`);
+    const data = await axios.delete(`http://localhost:3001/movies/${payload}`)
+    thunkAPI.dispatch(__getMovies());
+    console.log(data.data)
+    return thunkAPI.fulfillWithValue(data.data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {},
   extraReducers: {
-    // [__getmovies.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__getmovies.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.movies = action.payload;
-    // },
-    // [__getmovies.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
+    [__getMovies.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getMovies.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.movies = action.payload;
+    },
+    [__getMovies.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__postMovies.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [__postMovies.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.movies.push(action.payload); // Store에 있는 todos에 서버에서 가져온 movies를 넣습니다.
+    },
+    [__postMovies.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
+    [__putMovies.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [__putMovies.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      // state.todos = action.payload
+      state.movies = state.movies.map((movie) => {
+        if (movie.id === action.payload.id) {
+          return { ...movie, title: action.payload.title, content: action.payload.content };
+        } else {
+          return movie;
+        }
+      });
+    },
+    [__putMovies.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
+    [__deleteMovies.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteMovies.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos.filter((movie) => movie.id !== action.payload);
+    },
+    [__deleteMovies.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 

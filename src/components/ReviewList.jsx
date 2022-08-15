@@ -1,12 +1,24 @@
-import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { __getMovies } from "../redux/modules/moviesSlice";
 import Review from "./Review";
 
 const ReviewList = () => {
 
-    // const {movies, isLoading, error} = useSelector((state) => state.movies);
+    const dispatch = useDispatch();
+    const {movies, isLoading, error} = useSelector((state) => state.movies);
+
+    useEffect(() => {
+        dispatch(__getMovies())
+    }, [dispatch])
+
+    if(isLoading){
+        return <div>로딩중 ...</div>
+    }
+    if(error){
+        return <div>{error.message}</div>
+    }
 
     return(
         <FormContainer>
@@ -14,12 +26,11 @@ const ReviewList = () => {
                 게시판
             </FormFirstWrap>
             <FormSecondWrap>
-                <ListForm
-                // {movies?.map((movie) => (
-                //     <Review key = {movie.id} id = {movie.id} movie = {movie}/>
-                // ))}
-                >
-                    <ReviewTitle>
+                <ListForm>
+                {movies?.map((movie) => (
+                    <Review key = {movie.id} id = {movie.id} movie = {movie}/>
+                ))}
+                    {/* <ReviewTitle>
                         글 제목
                     </ReviewTitle>
                     <ReviewTime>
@@ -27,10 +38,9 @@ const ReviewList = () => {
                     </ReviewTime>
                     <ReviewUserName>
                         작성자명
-                    </ReviewUserName>
+                    </ReviewUserName> */}
                 </ListForm>
                 {/* API 받으면 Revie 맵 돌려서 넣을 예정 */}
-                <Review></Review>
             </FormSecondWrap>
         </FormContainer>
     )
@@ -59,7 +69,7 @@ const FormFirstWrap = styled.div`
     justify-content: center;
     align-items: center;
 `
-const FormSecondWrap = styled.form`
+const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
     height: 100%; 
     margin-top: 20px;
@@ -69,10 +79,11 @@ const FormSecondWrap = styled.form`
     flex-direction: column;
 `
 
-const ListForm = styled.form`
-    width: 90%;
+const ListForm = styled.div`
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
     margin-top: 20px;
 `
 
