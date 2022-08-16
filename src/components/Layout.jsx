@@ -15,7 +15,6 @@ export default Layout;
 const StLayoutContainer = styled.div`
   border: none;
   height: 100%;
-  /* pointer-events: none; */
   position: fixed;
   top: 0;
   width: 100%;

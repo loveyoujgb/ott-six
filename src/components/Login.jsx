@@ -1,28 +1,70 @@
 import React from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
-import {useNavigate} from "react-router-dom"
+import useInput from "../hooks/useInput";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { __getLogin, __loginCheck, __postLogin } from "../redux/modules/loginSlice";
+import { getAccessToken } from "../actions/Cookie";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [userName, onChangeUsername, userNameReset] = useInput("");
+  const [password, onChangePassword, userPassword] = useInput("");
+  const { error, isLoading, login, name } = useSelector((state) => state.login);
+  console.log(login);
+  console.log(name);
 
-  const navigate = useNavigate()
+  if (error) {
+    alert(error);
+  }
+
+  console.log(error);
+  const onCreate = (e) => {
+    e.preventDefault();
+    dispatch(
+      __postLogin({
+        username: userName,
+        password: password,
+      })
+    );
+    userNameReset();
+    userPassword();
+    navigate("/");
+    console.log(error);
+    // if (typeof error === null) {
+    //   console.log(error);
+    //   alert("사용자입니당");
+    //   navigate("/");
+    // } else {
+    //   alert("사용자가 아닙니다");
+    //   console.log(error);
+    // }
+
+    // dispatch(__loginCheck());
+  };
+
+  // useEffect(() => {
+  //   // dispatch(__getLogin());
+  // }, [dispatch, error]);
 
   const onClickLoginHandler = () => {
-    navigate("/")
-  }
+    // dispatch(__postLogin());
+  };
 
   return (
     <Whole>
-      <LoginContainer>
+      <LoginContainer onSubmit={onCreate}>
         <Title>로그인</Title>
         <Footer>
-          <Input placeholder="아이디" inputType="basic"></Input>
-          <Input placeholder="비밀번호" inputType="basic"></Input>
-          <Button 
-          btntype="blue"
-          onClick={onClickLoginHandler}
-          >로그인</Button>
+          <Input name="userName" value={userName} onChange={onChangeUsername} type="text" placeholder="아이디" inputType="basic"></Input>
+          <Input name="password" value={password} onChange={onChangePassword} type="password" placeholder="비밀번호" inputType="basic"></Input>
+          <Button type="submit" btntype="blue" onClick={onClickLoginHandler}>
+            로그인
+          </Button>
         </Footer>
       </LoginContainer>
     </Whole>
