@@ -4,14 +4,15 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
 import hansan from "../assets/hansan.jpg";
-import { getTokenCookie } from "../actions/Cookie";
+import { cookieCkeck } from "../actions/Cookie";
+import Button from "./elements/Button";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(__getMovies());
+    // dispatch(__getMovies());
   }, [dispatch]);
 
   return (
@@ -21,10 +22,10 @@ const Home = () => {
         <HomeTitle>쉽게 영화 후기를 남길 수 있는 홈페이지</HomeTitle>
         <HomeAbout>내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.</HomeAbout>
         <StButtons>
-          <ReviewButton
+          <Button
             type="button"
             onClick={() => {
-              if (getTokenCookie()) {
+              if (cookieCkeck()) {
                 navigate("/reviewform");
               } else {
                 alert("리뷰를 작성하시려면 로그인을 해주세요.");
@@ -34,14 +35,14 @@ const Home = () => {
             }}
           >
             영화 리뷰 작성하기
-          </ReviewButton>
-          <ReviewListButton
+          </Button>
+          <Button
             onClick={() => {
               navigate("reviewboard");
             }}
           >
             영화 리뷰 둘러보기
-          </ReviewListButton>
+          </Button>
         </StButtons>
       </HomeFirstWrap>
     </HomeContainer>

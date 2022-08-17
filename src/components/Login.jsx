@@ -5,14 +5,12 @@ import Input from "./elements/Input";
 import useInputs from "../hooks/useInputs";
 import { useNavigate } from "react-router-dom";
 import { __loginCheck } from "../redux/modules/loginSlice";
-import { setTokenToCookie, getTokenCookie } from "../actions/Cookie";
+import { setTokenToCookie, cookieCkeck } from "../actions/Cookie";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userInfo, onChangeUserInfo, reset] = useInputs({
     username: "",
@@ -20,7 +18,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (getTokenCookie()) {
+    if (cookieCkeck()) {
       alert("이미 로그인 하셨습니다.");
       navigate("/");
     } else {
@@ -33,7 +31,8 @@ const Login = () => {
   const __postLogin = async () => {
     try {
       const data = await axios.post(`${API_URL}/member/login`, userInfo);
-      setTokenToCookie(data.headers.authorization);
+      setTokenToCookie(data.headers.Authorization);
+      console.log(data);
       navigate("/");
     } catch (error) {
       if (username.trim() === "") {
@@ -54,14 +53,24 @@ const Login = () => {
   return (
     <Whole>
       <LoginContainer onSubmit={onCreate}>
+        <Button
+          type="button"
+          font="55"
+          btntype="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          OTTSIX
+        </Button>
         <Title>로그인</Title>
-        <Footer>
+        <ButtonWrap>
           <Input name="username" value={username} onChange={onChangeUserInfo} type="text" placeholder="아이디" inputType="basic"></Input>
           <Input name="password" value={password} onChange={onChangeUserInfo} type="password" placeholder="비밀번호" inputType="basic"></Input>
-          <Button type="submit" btntype="blue">
+          <Button height="45" width="360" type="submit" btntype="blue">
             로그인
           </Button>
-        </Footer>
+        </ButtonWrap>
       </LoginContainer>
     </Whole>
   );
@@ -79,18 +88,20 @@ const Whole = styled.div`
 `;
 
 const LoginContainer = styled.form`
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   text-align: center;
   position: relative;
-  padding: 70px;
+  padding: 50px;
   background-color: #181818;
 `;
 
 const Title = styled.div`
-  height: 50px;
-  margin-bottom: 20px;
-  font-size: xx-large;
+  font-family: "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, sans-serif;
+  height: 30px;
+  margin: 20px 0 5px 0;
+  font-size: 20px;
   font-weight: 700;
   color: white;
 `;
@@ -110,12 +121,12 @@ const Btn = styled.button`
   }
 `;
 
-const Footer = styled.div`
+const ButtonWrap = styled.div`
   display: flex;
   text-align: center;
   flex-direction: column;
   justify-content: space-between;
-  height: 200px;
+  height: 180px;
   color: #939393;
   font-weight: 500;
   font-size: large;

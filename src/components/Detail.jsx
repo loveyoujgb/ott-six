@@ -15,7 +15,7 @@ const Detail = () => {
   const movie = movies.find((movie) => movie.id === parseInt(param.id));
 
   useEffect(() => {
-    dispatch(__getMovies());
+    // dispatch(__getMovies());
   }, [dispatch]);
 
   const onClickDeleteHandler = (e) => {

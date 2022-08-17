@@ -14,11 +14,11 @@ export function logout() {
   cookies.remove("Authorization", { path: "/" });
 }
 
-export function getTokenCookie() {
+export function cookieCkeck() {
   const accessCookie = cookies.get("Authorization");
-  if (accessCookie) {
-    return true;
-  } else {
+  if (accessCookie === undefined) {
     return false;
+  } else {
+    return true;
   }
 }
