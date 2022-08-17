@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __deleteComment, __updateComment } from "../redux/modules/moviesSlice";
+import { useParams } from "react-router-dom";
 
 const CommentView = ({ comment }) => {
   const dispatch = useDispatch();
-
+  const param = useParams();
   const [editComment, setEditComment] = React.useState(false);
 
   let updateCommentInput = () => {
@@ -16,20 +17,21 @@ const CommentView = ({ comment }) => {
     }
   };
 
-  const deleteBtn = (id) => {
+  const deleteBtn = (commentId) => {
     if (window.confirm("댓글을 삭제하시겠습니까?")) {
-      dispatch(__deleteComment(id));
+      dispatch(__deleteComment(commentId));
     }
   };
 
   const [updateComment, setUpdateComment] = useState({
-    id: "",
+    commentId: "",
     userContent: comment.userContent,
   });
 
   const changeEvent = (e) => {
     setUpdateComment({
-      id: comment.id,
+      boardId: param.id,
+      commentId: comment.id,
       userContent: e.target.value,
     });
   };

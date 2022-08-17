@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { __loginCheck } from "../redux/modules/loginSlice";
 import { setTokenToCookie, cookieCkeck } from "../actions/Cookie";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userInfo, onChangeUserInfo, reset] = useInputs({
     username: "",
@@ -31,8 +33,7 @@ const Login = () => {
   const __postLogin = async () => {
     try {
       const data = await axios.post(`${API_URL}/member/login`, userInfo);
-      setTokenToCookie(data.headers.Authorization);
-      console.log(data);
+      setTokenToCookie(data.headers.authorization);
       navigate("/");
     } catch (error) {
       if (username.trim() === "") {

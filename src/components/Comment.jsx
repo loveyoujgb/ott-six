@@ -12,79 +12,72 @@ import CommentView from "./CommentView";
 
 const Comment = () => {
   const dispatch = useDispatch();
-
+  const param = useParams();
   const comments = useSelector((state) => state.movies.comments);
 
   useEffect(() => {
-    dispatch(__getComments());
+    dispatch(__getComments(param.id));
   }, [dispatch]);
 
   const [comment, setComment] = useState({
     userContent: "",
   });
-  const param = useParams();
 
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
     setComment({
       ...comment,
-      userId: param.id,
+      boardId: param.id,
       [name]: value,
     });
   };
 
   const postComment = (e) => {
     e.preventDefault();
-    if(userContent===''){
+    if (userContent === "") {
       window.alert("내용을 입력해주세요");
       return false;
     }
-    dispatch(__postComment(comment));
-    
+    dispatch(__postComment({ boardId: param.id, userContent }));
+
     setComment({
-      userContent:'',
+      userContent: "",
     });
   };
 
-  const {userContent} = comment;
+  const { userContent } = comment;
   const [commentShow, setCommentShow] = useState(true);
   return (
     <>
       <CommentWrap commentShow={commentShow}>
         <CommentSecontWrap>
-        <div
-          onClick={() => {
-            setCommentShow(!commentShow);
-          }}
-        >
-          <span style={{ fontSize: '20px', fontWeight: "bold", color: "white" }}>
-            {commentShow ? '댓글 올리기' : '댓글 내리기'}
-          </span>
-        </div>
-        <ShowHideBox>
-          <CommentForm onSubmit={postComment}>
-            <StInput
-              type='text'
-              name='userContent'
-              onChange={onChangeHandler}
-              maxLength='100'
-              placeholder='댓글을 추가하세요.(100자 이내)'
-              value={userContent}
-            />
-            <StButton type="submit">
-              추가하기
-            </StButton>
-          </CommentForm>
-          <CommentLists>
-            {comments.map((v) =>
-              Number(v.userId) === Number(param.id) ? (
+          <div
+            onClick={() => {
+              setCommentShow(!commentShow);
+            }}
+          >
+            <span style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}>{commentShow ? "댓글 올리기" : "댓글 내리기"}</span>
+          </div>
+          <ShowHideBox>
+            <CommentForm onSubmit={postComment}>
+              <StInput
+                type="text"
+                name="userContent"
+                onChange={onChangeHandler}
+                maxLength="100"
+                placeholder="댓글을 추가하세요.(100자 이내)"
+                value={userContent}
+              />
+              <StButton type="submit">추가하기</StButton>
+            </CommentForm>
+            <CommentLists>
+              {comments.map((v) => (
                 <div key={v.id}>
                   <CommentView comment={v} />
                 </div>
-              ) : null
-            )}
-          </CommentLists>
-        </ShowHideBox>
+              ))}
+            </CommentLists>
+          </ShowHideBox>
         </CommentSecontWrap>
       </CommentWrap>
     </>
@@ -112,7 +105,7 @@ const CommentWrap = styled.div`
 const CommentSecontWrap = styled.div`
   width: 95%;
   margin-top: 20px;
-`
+`;
 const ShowHideBox = styled.div`
   height: 100%;
   width: 100%;
@@ -133,20 +126,20 @@ const CommentLists = styled.div`
 `;
 
 const StInput = styled.input`
-    box-sizing: border-box;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    width: 85%;
-    height: 50px;
-    margin-right: 20px;
-    padding-left: 20px;
-    :hover{
-      border: 3px solid rgb(53,36,123);
-    }
-    /* text-align: center; */
-`
+  box-sizing: border-box;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  width: 85%;
+  height: 50px;
+  margin-right: 20px;
+  padding-left: 20px;
+  :hover {
+    border: 3px solid rgb(53, 36, 123);
+  }
+  /* text-align: center; */
+`;
 
 const StButton = styled.button`
   background-color: #35247b;
@@ -155,7 +148,7 @@ const StButton = styled.button`
   width: 15%;
   height: 50px;
   color: white;
-  :hover{
-      border: 1px solid rgb(251,188,4);
-        }
-`
+  :hover {
+    border: 1px solid rgb(251, 188, 4);
+  }
+`;

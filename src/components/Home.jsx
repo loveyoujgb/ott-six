@@ -5,14 +5,13 @@ import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
 import hansan from "../assets/hansan.jpg";
 import { cookieCkeck } from "../actions/Cookie";
-import Button from "./elements/Button";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(__getMovies());
+    dispatch(__getMovies());
   }, [dispatch]);
 
   return (
@@ -22,7 +21,7 @@ const Home = () => {
         <HomeTitle>쉽게 영화 후기를 남길 수 있는 홈페이지</HomeTitle>
         <HomeAbout>내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.</HomeAbout>
         <StButtons>
-          <Button
+          <ReviewButton
             type="button"
             onClick={() => {
               if (cookieCkeck()) {
@@ -35,14 +34,14 @@ const Home = () => {
             }}
           >
             영화 리뷰 작성하기
-          </Button>
-          <Button
+          </ReviewButton>
+          <ReviewListButton
             onClick={() => {
               navigate("reviewboard");
             }}
           >
             영화 리뷰 둘러보기
-          </Button>
+          </ReviewListButton>
         </StButtons>
       </HomeFirstWrap>
     </HomeContainer>

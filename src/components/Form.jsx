@@ -15,7 +15,7 @@ const Form = () => {
   });
 
   useEffect(() => {
-    // dispatch(__getMovies())
+    dispatch(__getMovies());
   }, [dispatch]);
 
   const { title, content } = movie;

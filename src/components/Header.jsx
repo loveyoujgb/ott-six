@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./elements/Button";
-import setAuthorizationToken from "../utils/setAuthorizationToken";
 import { __loginCheck } from "../redux/modules/loginSlice";
 import { logout, cookieCkeck } from "../actions/Cookie";
 
@@ -22,7 +21,7 @@ const Header = () => {
     } else {
       return;
     }
-  }, [cookieCkeck]);
+  }, []);
 
   if (isLoading) {
     return <HeaderWrap>로딩 중....</HeaderWrap>;

@@ -8,13 +8,13 @@ const Review = ({ movie }) => {
   return (
     <ListForm
       onClick={() => {
-        navigate(`/detail/${movie.id}`);
+        navigate(`/detail/${movie.boardId}`);
       }}
       // 상세페이지로 갈 수 있도록 수정할 예정
     >
       <ReviewTitle>{movie.title}</ReviewTitle>
-      <ReviewTime>2022.08.16 11:19</ReviewTime>
-      <ReviewUserName>jenny0520</ReviewUserName>
+      <ReviewTime>{movie.createTime}</ReviewTime>
+      <ReviewUserName>{movie.nickname}</ReviewUserName>
     </ListForm>
   );
 };

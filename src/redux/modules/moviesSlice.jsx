@@ -1,7 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
-// const API_MOVIES = process.env.REACT_APP_MOVIES_API_URL;
+const cookies = new Cookies();
+
+const accessToken = cookies.get("Authorization");
+
+const API_MOVIES = process.env.REACT_APP_API_URL;
 
 const initialState = {
   movies: [],
@@ -12,8 +17,9 @@ const initialState = {
 
 export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, thunkAPI) => {
   try {
-    const data = await axios.get("http://localhost:3001/movies");
-    console.log(data.data);
+    // const data = await axios.get("http://localhost:3001/movies");
+    const data = await axios.get(`${API_MOVIES}/board`);
+
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -22,10 +28,13 @@ export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, 
 
 export const __postMovies = createAsyncThunk("movies/postMovies", async (payload, thunkAPI) => {
   try {
-    // const data = await axios.post(`${API_TODOS}`, payload);
-    console.log(payload);
-    const data = await axios.post("http://localhost:3001/movies", payload);
-    console.log(data.data);
+    // const data = await axios.post("http://localhost:3001/movies", payload,
+    const data = await axios.post(`${API_MOVIES}/auth/board`, payload, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
+
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -34,7 +43,12 @@ export const __postMovies = createAsyncThunk("movies/postMovies", async (payload
 
 export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, thunkAPI) => {
   try {
-    await axios.patch(`http://localhost:3001/movies/${payload.id}`, payload);
+    // await axios.patch(`http://localhost:3001/movies/${payload.id}`, payload,
+    await axios.put(`${API_MOVIES}/auth/board/${payload.boardId}`, payload, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
     // await axios.patch(`${API_TODOS}/${payload.id}`, payload);
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
@@ -44,10 +58,14 @@ export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, 
 
 export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (payload, thunkAPI) => {
   try {
-    // const data = await axios.delete(`${API_movies}/${payload}`);
-    const data = await axios.delete(`http://localhost:3001/movies/${payload}`);
+    // const data = await axios.delete(`http://localhost:3001/movies/${payload}`,
+    const data = await axios.delete(`${API_MOVIES}/auth/board/${payload}`, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
     thunkAPI.dispatch(__getMovies());
-    console.log(data.data);
+
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -56,7 +74,9 @@ export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (pay
 
 export const __getComments = createAsyncThunk("comments/getComments", async (payload, thunkAPI) => {
   try {
-    const data = await axios.get("http://localhost:3001/comments");
+    // const data = await axios.get("http://localhost:3001/comments");
+    const data = await axios.get(`${API_MOVIES}/comment/${payload}`);
+
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -65,8 +85,13 @@ export const __getComments = createAsyncThunk("comments/getComments", async (pay
 
 export const __postComment = createAsyncThunk("comments/postComment", async (payload, thunkAPI) => {
   try {
-    const data = await axios.post("http://localhost:3001/comments", payload);
-    console.log(data);
+    // const data = await axios.post("http://localhost:3001/comments", payload,
+    const data = await axios.post(`${API_MOVIES}/auth/comment/${payload.boardId}`, payload, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
+
     // return thunkAPI.fulfillWithValue(payload);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
@@ -76,8 +101,13 @@ export const __postComment = createAsyncThunk("comments/postComment", async (pay
 
 export const __updateComment = createAsyncThunk("comments/updateComments", async (payload, thunkAPI) => {
   try {
-    await axios.patch(`http://localhost:3001/comments/${payload.id}`, payload);
-    thunkAPI.dispatch(__getComments());
+    // await axios.patch(`http://localhost:3001/comments/${payload.id}`, payload,
+    await axios.put(`${API_MOVIES}/auth/comment/${payload.commentId}`, payload, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
+    thunkAPI.dispatch(__getComments(payload.boardId));
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -86,7 +116,12 @@ export const __updateComment = createAsyncThunk("comments/updateComments", async
 
 export const __deleteComment = createAsyncThunk("comments/delteComments", async (payload, thunkAPI) => {
   try {
-    await axios.delete(`http://localhost:3001/comments/${payload}`);
+    // await axios.delete(`http://localhost:3001/comments/${payload}`,
+    await axios.delete(`${API_MOVIES}/auth/comment/${payload}`, {
+      headers: {
+        Authorization: accessToken,
+      },
+    });
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -127,7 +162,7 @@ export const moviesSlice = createSlice({
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       // state.todos = action.payload
       state.movies = state.movies.map((movie) => {
-        if (movie.id === action.payload.id) {
+        if (movie.boardId === action.payload.id) {
           return { ...movie, title: action.payload.title, content: action.payload.content };
         } else {
           return movie;
@@ -143,7 +178,7 @@ export const moviesSlice = createSlice({
     },
     [__deleteMovies.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.todos.filter((movie) => movie.id !== action.payload);
+      state.movies.filter((movie) => movie.id !== action.payload);
     },
     [__deleteMovies.rejected]: (state, action) => {
       state.isLoading = false;
