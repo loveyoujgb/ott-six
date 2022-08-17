@@ -33,7 +33,6 @@ const ReviewList = () => {
             <Review key={movie.boardId} id={movie.boardId} movie={movie} />
           ))}
         </ListForm>
-        {/* API 받으면 Revie 맵 돌려서 넣을 예정 */}
       </FormSecondWrap>
     </FormContainer>
   );
@@ -44,11 +43,12 @@ export default ReviewList;
 const FormContainer = styled.div`
   /* border: 1px solid white; */
   width: 1400px;
-  height: 1500px;
+  /* height: 100%; */
   display: flex;
   margin: auto;
   flex-direction: column;
   padding: 20px;
+  /* overflow: scroll; */
 `;
 
 const FormFirstWrap = styled.div`
@@ -65,7 +65,7 @@ const FormFirstWrap = styled.div`
 const FormSecondWrap = styled.div`
   background-color: rgb(45, 45, 45);
   border-radius: 5px;
-  height: 100%;
+  /* height: 100%; */
   margin-top: 20px;
   display: flex;
   /* justify-content: center; */
@@ -82,7 +82,7 @@ const TitleWrap = styled.div`
 `;
 const ListForm = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
