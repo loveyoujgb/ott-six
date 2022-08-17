@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
 import hansan from "../assets/hansan.jpg";
-import { getTokenCookie } from "../actions/Cookie";
+import { cookieCkeck } from "../actions/Cookie";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Home = () => {
           <ReviewButton
             type="button"
             onClick={() => {
-              if (getTokenCookie()) {
+              if (cookieCkeck()) {
                 navigate("/reviewform");
               } else {
                 alert("리뷰를 작성하시려면 로그인을 해주세요.");
