@@ -22,6 +22,7 @@ const Header = () => {
       return;
     }
   }, [getTokenCookie]);
+
   // useEffect(() => {
   //   dispatch(__loginCheck());
   // }, []);
