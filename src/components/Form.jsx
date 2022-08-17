@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { __getMovies, __postMovies } from "../redux/modules/moviesSlice";
-import Input from "./elements/Input";
 import Button from "./elements/Button";
 
 const Form = () => {
@@ -39,7 +38,6 @@ const Form = () => {
         }
         dispatch(__postMovies(movie));
         navigate("/reviewboard")
-        console.log(movie.title)
     }
 
     return (
@@ -64,10 +62,12 @@ const Form = () => {
                         height="100%"
                     /> */}
                     <StFirstInput 
+                    maxLength="30"
                     type="text"
                     name="title"
                     value={title}
                     onChange={onChangeHandler}
+                    placeholder="제목을 입력해주세요.(30자 이내)"
                     />
                 </FormTitleWrap>
                 <FormContentWrap>
@@ -86,17 +86,27 @@ const Form = () => {
                         height="500%"
                     /> */}
                     <StSecondInput 
+                    maxLength="200"
                     type="text"
                     name="content"
                     value={content}
                     onChange={onChangeHandler}
+                    placeholder="내용을 입력해주세요.(200자 이내)"
                     />
                 </FormContentWrap>
+                <StButtons>
                 <Button
                     btntype="gray"
                     type="submit"
                 // onClick={onClickLoginHandler}
                 >작성하기</Button>
+                <Button
+                    btntype="gray"
+                    onClick={()=>{
+                        navigate("/")
+                    }}
+                >취소하기</Button>
+                </StButtons>
             </FormSecondWrap>
         </FormContainer>
 
@@ -120,11 +130,14 @@ const FormFirstWrap = styled.div`
     background-color: rgb(251,188,4);
     color: white;
     border: none;
+    border-radius: 5px;
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    font-size: 18px;
 `
 const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
@@ -134,6 +147,7 @@ const FormSecondWrap = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 5px;
 `
 const FormTitleWrap = styled.div`
     display: flex;
@@ -149,6 +163,10 @@ const StFirstInput = styled.input`
     border-radius: 5px;
     width: 1300px;
     height: 50px;
+    padding-left: 20px;
+    :hover{
+        border: 1px solid rgb(251,188,4);
+    }
 `
 
 const FormContentWrap = styled.div`
@@ -161,6 +179,9 @@ const FormContentWrap = styled.div`
 const StLabel = styled.label`
     color: white;
     margin-bottom: 20px;
+    font-weight: bold;
+    /* font-size: 16px; */
+    padding-left: 5px;
 `
 const StSecondInput = styled.input`
     box-sizing: border-box;
@@ -170,15 +191,12 @@ const StSecondInput = styled.input`
     border-radius: 5px;
     width: 1300px;
     height: 450px;
+    padding-left: 20px;
+    :hover{
+        border: 1px solid rgb(251,188,4);
+    }
 `
-const StButton = styled.button`
-    background-color: rgb(53,36,123);
-    color: white;
-    border: none;
-    width: 10%;
-    height: 30px;
+const StButtons = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+
 `

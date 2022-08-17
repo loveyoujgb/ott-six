@@ -1,9 +1,8 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom"
-import { __deleteMovies, __getMovies, __putMovies } from "../redux/modules/moviesSlice";
-// import Button from "./elements/Button";
+import { __getMovies, __putMovies } from "../redux/modules/moviesSlice";
 
 const ReviewChange = () => {
 
@@ -12,18 +11,26 @@ const ReviewChange = () => {
     const navigate = useNavigate()
 
     const { isLoading, error, movies } = useSelector((state) => state.movies);
-    const movie = movies.find((movie) => movie.id === parseInt(movie.id))
+    const movie = movies.find((movie) => movie.id === parseInt(param.id))
 
-    const [updateTitle, setUpdateTitle] = useState("");
-    const [updateContent, setUpdateContent] = useState("")
+    // useInput custom hook 사용
+    // const [updateTitle, onChangeTitleHandler] = useInput(movie.title);
+    // const [updateContent, onChangeContentHandler] = useInput(movie.content);
+
+    const [updateTitle, setUpdateTitle] = useState(movie.title);
+    const [updateContent, setUpdateContent] = useState(movie.content);
 
     const onChangeTitleHandler = (e) => {
-        setUpdateTitle(e.target.value);
+        setUpdateTitle(e.target.value)
     }
 
     const onChangeContentHandler = (e) => {
-        setUpdateContent(e.target.value);
+        setUpdateContent(e.target.value)
     }
+
+    useEffect(() => {
+        dispatch(__getMovies())
+    },[dispatch])
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -46,38 +53,36 @@ const ReviewChange = () => {
         return <div>{error.message}</div>
     }
 
-    // const onClickDeleteHandler = (e) => {
-    //     e.stopPropagation();
-    //     if(window.confirm("정말 삭제하시겠습니까?"))
-    //     dispatch(__deleteMovies(movie.id))
-    //     // navigate(`/reviewboard`)
-    // }
-
     return (
         <FormContainer onSubmit={onSubmitHandler}>
             <FormSecondWrap>
                 <FormTitleWrap>
                     <StLabel>글 제목</StLabel>
-                    <StFirstInput 
+                    <StFirstInput
+                    name="updateTitle"
                     value={updateTitle}
                     onChange={onChangeTitleHandler}
                     />
                 </FormTitleWrap>
                 <FormContentWrap>
                     <StLabel>글 내용</StLabel>
-                    <StSecondInput />
+                    <StSecondInput 
+                    name="updateContent"
+                    value={updateContent}
+                    onChange={onChangeContentHandler}
+                    />
                 </FormContentWrap>
                 <Buttons>
                     <StButton
+                    // onClick={() => {
+                    //     navigate(`/reviewboard`)
+                    // }}
+                    >저장하기</StButton>
+                    <StButton
                     onClick={() => {
-                        navigate(`/reviewboard`)
+                        navigate(`/detail/${param.id}`)
                     }}
-                    >완료하기</StButton>
-                    {/* <StButton
-                    onClick={() => {
-                        onClickDeleteHandler()
-                    }}
-                    >삭제하기</StButton> */}
+                    >취소하기</StButton>
                 </Buttons>
             </FormSecondWrap>
         </FormContainer>
@@ -89,7 +94,7 @@ export default ReviewChange;
 const FormContainer = styled.form`
     /* border: 1px solid white; */
     width: 1400px;
-    height: 90vh;
+    height: 80%;
     display: flex;
     margin: auto;
     flex-direction: column;
@@ -98,7 +103,8 @@ const FormContainer = styled.form`
 
 const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
-    height: 100%; 
+    border-radius: 5px;
+    height: 70%; 
     margin-top: 20px;
     display:flex;
     /* justify-content: center; */
@@ -110,11 +116,15 @@ const FormTitleWrap = styled.div`
     flex-direction: column;
     margin-top: 30px;
     width: 95%;
+    
 `
 
 const StFirstInput = styled.input`
     margin-top: 10px;
     height: 50px;
+    border-radius: 5px;
+    padding-left: 20px;
+    background-color: #cec8c8;;
 `
 
 const FormContentWrap = styled.div`
@@ -130,7 +140,10 @@ const StLabel = styled.label`
 const StSecondInput = styled.input`
     margin-top: 10px;
     margin-bottom: 20px;
-    height: 400px;
+    height: 300px;
+    border-radius: 5px;
+    padding-left: 20px;
+    background-color: #cec8c8;
 `
 const Buttons = styled.div`
     display: flex;
@@ -150,4 +163,8 @@ const StButton = styled.button`
     justify-content: center;
     align-items: center;
     padding: 20px;
+    border-radius: 5px;
+    :hover{
+        border: 1px solid rgb(53,36,123);
+    }
 `

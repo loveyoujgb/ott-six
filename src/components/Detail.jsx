@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom"
 import { __deleteMovies, __getMovies } from "../redux/modules/moviesSlice";
 // import Button from "./elements/Button";
+import Comment from "./Comment";
 
 const Detail = () => {
 
@@ -11,38 +12,36 @@ const Detail = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
-    const {isLoading, error, movies} = useSelector((state) => state.movies);
-    const movie = movies.find((movie) => movie.id === parseInt(movie.id))
+    const { movies } = useSelector((state) => state.movies);
+    const movie = movies.find((movie) => movie.id === parseInt(param.id))
 
     useEffect(() => {
         dispatch(__getMovies());
     }, [dispatch])
 
-    // const onSubmitHandler = (e) => {
-    //     e.preventDefault();
-    //     dispatchEvent(
-    //         __putTodos({
-    //             ...review,
-    //             id:param.id,
-    //             content: updateContet,
-    //         })
-    //     )
-    //     dispatch(__getTodos());
-    //     navigate(`/reviewdetail/${param.id}`)
-    // }
-
-    // const onClickDeleteHandler = (e) => {
-    //     e.stopPropagation();
-    //     if(window.confirm("정말 삭제하시겠습니까?"))
-    //     dispatch(__deleteMovies(movie.id))
-    //     // navigate(`/reviewboard`)
-    // }
+    const onClickDeleteHandler = (e) => {
+        // e.stopPropagation();
+        if (window.confirm("정말 삭제하시겠습니까?"))
+            dispatch(__deleteMovies(movie.id))
+        navigate(`/reviewboard`)
+    }
 
     return (
-        <FormContainer>
+        <FormContainer
+            // onClick={() => {
+            //     navigate(`/reviewboard`)
+            // }}
+        >
             <FormSecondWrap>
                 <FormTitleWrap>
+                    <StLables>
                     <StLabel>글 제목</StLabel>
+                    <StSecondLable
+                    onClick={() => {
+                        navigate("/reviewboard")
+                    }}
+                    >[이전으로]</StSecondLable>
+                    </StLables>
                     <StTitle>{movie.title}</StTitle>
                     {/* <div>{movie.title}</div> */}
                     {/* <StFirstInput /> */}
@@ -55,36 +54,60 @@ const Detail = () => {
                 </FormContentWrap>
                 <Buttons>
                     <StButton
-                    onClick={() => {
-                        navigate(`/detail/${param.id}/change`)
-                    }}
+                        onClick={() => {
+                            navigate(`/detail/${param.id}/change`)
+                        }}
                     >수정하기</StButton>
                     <StButton
-                    // onClick={() => {
-                    //     onClickDeleteHandler()
-                    // }}
+                        onClick={() => {
+                            onClickDeleteHandler()
+                        }}
                     >삭제하기</StButton>
                 </Buttons>
             </FormSecondWrap>
+            {/* <CommentButton
+                onClick={() => {
+                    navigate("/comment")
+                }}
+            >
+                댓글 작성하기
+            </CommentButton> */}
+
+            <Comment />
         </FormContainer>
     )
 }
 
 export default Detail;
 
-const FormContainer = styled.form`
+const FormContainer = styled.div`
     /* border: 1px solid white; */
     width: 1400px;
-    height: 90vh;
+    height: 80%;
     display: flex;
     margin: auto;
     flex-direction: column;
     padding: 20px;
 `
 
+const StLables = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+`
+const StSecondLable = styled.div`
+    font-weight: bold;
+    color: rgb(251,188,4);
+    /* text-decoration: underline; */
+    :hover{
+        color: white;
+    }
+`
+
 const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
-    height: 100%; 
+    border-radius: 5px;
+    height: 70%; 
     margin-top: 20px;
     display:flex;
     /* justify-content: center; */
@@ -101,7 +124,11 @@ const FormTitleWrap = styled.div`
 const StTitle = styled.div`
     margin-top: 10px;
     height: 50px;
-    background-color: white;
+    background-color: #cec8c8;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
 `
 
 const FormContentWrap = styled.div`
@@ -113,12 +140,17 @@ const FormContentWrap = styled.div`
 const StLabel = styled.label`
     color: white;
     margin-bottom: 5px;
+    font-weight: bold;
 `
 const StContent = styled.div`
     margin-top: 10px;
     margin-bottom: 20px;
-    height: 400px;
-    background-color: white;
+    height: 300px;
+    background-color: #cec8c8;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
 `
 const Buttons = styled.div`
     display: flex;
@@ -138,4 +170,19 @@ const StButton = styled.button`
     justify-content: center;
     align-items: center;
     padding: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    :hover{
+          border: 1px solid rgb(251,188,4);
+        }
 `
+
+// const CommentButton = styled.button`
+//     background-color: rgb(251,188,4);
+//     border: none;
+//     border-radius: 5px;
+//     color: white;
+//     width: 100%;
+//     height: 50px;
+//     margin-top: 15px;
+// `

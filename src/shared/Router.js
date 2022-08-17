@@ -4,7 +4,6 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import ReviewForm from "../pages/ReviwForm";
 import ReviewBoard from "../pages/ReviewBoard.jsx"
-import TestPage from "../pages/TestPage";
 import ReviewDetail from "../pages/ReviewDetail";
 import ReviewDetailChange from "../pages/ReviewDetailChange";
 
@@ -18,7 +17,6 @@ const Router = () => {
         <Route path="/reviewboard" element={<ReviewBoard />} />
         <Route path="/detail/:id" element={<ReviewDetail />} />
         <Route path="/detail/:id/change" element={<ReviewDetailChange/>}/>
-        {/* <Route path="/test" element={<TestPage />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,11 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 
 const Review = ({movie}) => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     return (
@@ -19,10 +17,10 @@ const Review = ({movie}) => {
                 {movie.title}
             </ReviewTitle>
             <ReviewTime>
-                작성 시간 넣을 예정
+                2022.08.16 11:19
             </ReviewTime>
             <ReviewUserName>
-                작성자명 넣을 예정
+                jenny0520
             </ReviewUserName>
         </ListForm>
     )
@@ -34,12 +32,16 @@ const ListForm = styled.form`
     width: 90%;
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(138,138,138);;
+    font-size: 18px;
 `
 
 const ReviewTitle = styled.div`
     width : 60%;
-    background-color: rgb(138,138,138);
+    /* background-color: rgb(138,138,138); */
+    /* border: 1px solid rgb(138,138,138); */
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +52,8 @@ const ReviewTitle = styled.div`
 
 const ReviewTime = styled.div`
     width : 15%;
-    background-color: rgb(138,138,138);
+    /* background-color: rgb(138,138,138); */
+    border-radius: 5px;
     padding: 10px;
     margin: 10px;
     display: flex;
@@ -61,7 +64,8 @@ const ReviewTime = styled.div`
 
 const ReviewUserName = styled.div`
     width: 15%;
-    background-color: rgb(138,138,138);
+    /* background-color: rgb(138,138,138); */
+    border-radius: 5px;
     padding: 10px;
     margin: 10px;
     display: flex;

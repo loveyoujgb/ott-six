@@ -22,6 +22,11 @@ const StButton = styled.button`
         margin: 5px;
         width: 100px;
         height: 35px;
+        border-radius: 5px;
+        font-weight: bold;
+        :hover{
+          border: 3px solid #35247b;
+        }
       `
     );
   }}
@@ -36,6 +41,10 @@ const StButton = styled.button`
         margin: 5px;
         width: 200px;
         height: 40px;
+        /* font-weight: bold; */
+        :hover{
+          border: 1px solid rgb(251,188,4);
+        }
       `
     );
   }}
@@ -48,6 +57,21 @@ const StButton = styled.button`
         color: white;
         border-radius: 5px;
         width: 400px;
+        height: 50px;
+        margin-top: 10px;
+      `
+    );
+  }}
+
+${(props) => {
+    return (
+      props.btntype === "purple" &&
+      css`
+        background-color: #35247b;
+        border: transparent;
+        color: white;
+        border-radius: 5px;
+        width: 200px;
         height: 50px;
         margin-top: 10px;
       `
