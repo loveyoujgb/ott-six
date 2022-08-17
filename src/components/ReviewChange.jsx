@@ -11,7 +11,7 @@ const ReviewChange = () => {
     const navigate = useNavigate()
 
     const { isLoading, error, movies } = useSelector((state) => state.movies);
-    const movie = movies.find((movie) => movie.id === parseInt(param.id))
+    const movie = movies.find((movie) => movie.boardId === parseInt(param.id))
 
     // useInput custom hook 사용
     // const [updateTitle, onChangeTitleHandler] = useInput(movie.title);

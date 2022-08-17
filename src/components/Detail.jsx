@@ -12,7 +12,7 @@ const Detail = () => {
   const navigate = useNavigate();
 
   const { movies } = useSelector((state) => state.movies);
-  const movie = movies.find((movie) => movie.id === parseInt(param.id));
+  const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
   useEffect(() => {
     dispatch(__getMovies());
@@ -20,7 +20,7 @@ const Detail = () => {
 
   const onClickDeleteHandler = (e) => {
     // e.stopPropagation();
-    if (window.confirm("정말 삭제하시겠습니까?")) dispatch(__deleteMovies(movie.id));
+    if (window.confirm("정말 삭제하시겠습니까?")) dispatch(__deleteMovies(movie.boardId));
     navigate(`/reviewboard`);
   };
 
