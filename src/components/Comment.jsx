@@ -28,7 +28,7 @@ const Comment = () => {
     const { value, name } = e.target;
     setComment({
       ...comment,
-      userId: param.id,
+      boardId: param.id,
       [name]: value,
     });
   };
@@ -39,7 +39,7 @@ const Comment = () => {
       window.alert("내용을 입력해주세요");
       return false;
     }
-    dispatch(__postComment(comment));
+    dispatch(__postComment({boardId : param.id, userContent}));
     
     setComment({
       userContent:'',
@@ -77,7 +77,7 @@ const Comment = () => {
           </CommentForm>
           <CommentLists>
             {comments.map((v) =>
-              Number(v.userId) === Number(param.id) ? (
+              Number(v.boardId) === Number(param.id) ? (
                 <div key={v.id}>
                   <CommentView comment={v} />
                 </div>

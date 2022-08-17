@@ -37,7 +37,7 @@ const ReviewChange = () => {
         dispatch(
             __putMovies({
                 ...movie,
-                id:param.id,
+                boardId:param.id,
                 title: updateTitle,
                 content: updateContent,
             })
