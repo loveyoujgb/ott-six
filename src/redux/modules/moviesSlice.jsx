@@ -23,7 +23,7 @@ export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, 
 export const __postMovies = createAsyncThunk("movies/postMovies", async (payload, thunkAPI) => {
   try {
     // const data = await axios.post(`${API_TODOS}`, payload);
-    console.log(payload)
+    console.log(payload);
     const data = await axios.post("http://localhost:3001/movies", payload);
     console.log(data.data);
     return thunkAPI.fulfillWithValue(data.data);
@@ -45,9 +45,9 @@ export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, 
 export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (payload, thunkAPI) => {
   try {
     // const data = await axios.delete(`${API_movies}/${payload}`);
-    const data = await axios.delete(`http://localhost:3001/movies/${payload}`)
+    const data = await axios.delete(`http://localhost:3001/movies/${payload}`);
     thunkAPI.dispatch(__getMovies());
-    console.log(data.data)
+    console.log(data.data);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -56,7 +56,7 @@ export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (pay
 
 export const __getComments = createAsyncThunk("comments/getComments", async (payload, thunkAPI) => {
   try {
-    const data = await axios.get('http://localhost:3001/comments');
+    const data = await axios.get("http://localhost:3001/comments");
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -65,8 +65,8 @@ export const __getComments = createAsyncThunk("comments/getComments", async (pay
 
 export const __postComment = createAsyncThunk("comments/postComment", async (payload, thunkAPI) => {
   try {
-    const data = await axios.post('http://localhost:3001/comments', payload);
-    console.log(data)
+    const data = await axios.post("http://localhost:3001/comments", payload);
+    console.log(data);
     // return thunkAPI.fulfillWithValue(payload);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
@@ -114,7 +114,7 @@ export const moviesSlice = createSlice({
     },
     [__postMovies.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.movies.push(action.payload); // Store에 있는 todos에 서버에서 가져온 movies를 넣습니다.
+      state.movies = state.movies.push(action.payload); // Store에 있는 todos에 서버에서 가져온 movies를 넣습니다.
     },
     [__postMovies.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
