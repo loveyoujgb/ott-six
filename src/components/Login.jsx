@@ -4,10 +4,8 @@ import Button from "./elements/Button";
 import Input from "./elements/Input";
 import useInputs from "../hooks/useInputs";
 import { useNavigate } from "react-router-dom";
-// import { __getLogin, __loginCheck, __postLogin } from "../redux/modules/loginSlice";
-import { logout, getAccessToken } from "../actions/Cookie";
 import { __loginCheck } from "../redux/modules/loginSlice";
-import { setRefreshTokenToCookie } from "../actions/Cookie";
+import { setTokenToCookie, getTokenCookie } from "../actions/Cookie";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
@@ -22,7 +20,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (getAccessToken()) {
+    if (getTokenCookie()) {
       alert("이미 로그인 하셨습니다.");
       navigate("/");
     } else {
@@ -35,7 +33,7 @@ const Login = () => {
   const __postLogin = async () => {
     try {
       const data = await axios.post(`${API_URL}/member/login`, userInfo);
-      setRefreshTokenToCookie(data.headers.authorization);
+      setTokenToCookie(data.headers.authorization);
       navigate("/");
     } catch (error) {
       if (username.trim() === "") {

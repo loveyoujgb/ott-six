@@ -21,7 +21,7 @@ const Review = ({ movie }) => {
 
 export default Review;
 
-const ListForm = styled.form`
+const ListForm = styled.div`
   width: 90%;
   display: flex;
   flex-direction: row;

@@ -17,7 +17,7 @@ const CommentView = ({ comment }) => {
   };
 
   const deleteBtn = (id) => {
-    if(window.confirm("댓글을 삭제하시겠습니까?")){
+    if (window.confirm("댓글을 삭제하시겠습니까?")) {
       dispatch(__deleteComment(id));
     }
   };
@@ -50,12 +50,7 @@ const CommentView = ({ comment }) => {
               </div>
             ) : (
               // <Input onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent}/>
-              <StInput
-              onChange={changeEvent}
-              name="userContent"
-              type="text"
-              value={updateComment.userContent}
-              />
+              <StInput onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent} />
             )}
           </CommentContent>
           <CommentButton>
@@ -69,12 +64,12 @@ const CommentView = ({ comment }) => {
                   }}
                 /> */}
                 <StEditButton
-                onClick={() => {
-                  updateCommentInput();
-                }}
+                  onClick={() => {
+                    updateCommentInput();
+                  }}
                 >
                   수정하기
-                  </StEditButton>
+                </StEditButton>
                 {/* <Button
                   uibutton="delete"
                   btntype="ui-comment"
@@ -83,9 +78,9 @@ const CommentView = ({ comment }) => {
                   }}
                 /> */}
                 <StDeleteButton
-                onClick={() => {
-                  deleteBtn(comment.id);
-                }}
+                  onClick={() => {
+                    deleteBtn(comment.id);
+                  }}
                 >
                   삭제하기
                 </StDeleteButton>
@@ -148,7 +143,7 @@ const StInput = styled.input`
   width: 100%;
   height: 50px;
   margin-right: 20px;
-`
+`;
 
 const CommentButton = styled.div`
   display: flex;
@@ -166,26 +161,26 @@ const StEditButton = styled.button`
   margin-right: 20px;
   border: none;
   border: 3px solid #35247b;
-`
+`;
 const StDeleteButton = styled.button`
   width: 180px;
   height: 50px;
   border-radius: 5px;
   border: none;
   border: 3px solid #35247b;
-`
+`;
 
 const StCancelButton = styled.button`
   width: 180px;
   height: 50px;
   border-radius: 5px;
   margin-right: 20px;
-  border: 3px solid rgb(251,188,4);
-`
+  border: 3px solid rgb(251, 188, 4);
+`;
 
 const StButton = styled.button`
   width: 180px;
   height: 50px;
   border-radius: 5px;
-  border: 3px solid rgb(251,188,4);
-`
+  border: 3px solid rgb(251, 188, 4);
+`;

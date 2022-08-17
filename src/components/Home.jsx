@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
-import hansan from "../assets/hansan.jpg"
-import { getAccessToken } from "../actions/Cookie";
+import hansan from "../assets/hansan.jpg";
+import { getTokenCookie } from "../actions/Cookie";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,18 +16,15 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <HomeImg/>
+      <HomeImg />
       <HomeFirstWrap>
-        <HomeTitle>
-          쉽게 영화 후기를 남길 수 있는 홈페이지
-        </HomeTitle>
-        <HomeAbout>
-          내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.
-        </HomeAbout>
+        <HomeTitle>쉽게 영화 후기를 남길 수 있는 홈페이지</HomeTitle>
+        <HomeAbout>내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.</HomeAbout>
         <StButtons>
           <ReviewButton
+            type="button"
             onClick={() => {
-              if (getAccessToken()) {
+              if (getTokenCookie()) {
                 navigate("/reviewform");
               } else {
                 alert("리뷰를 작성하시려면 로그인을 해주세요.");
@@ -35,12 +32,16 @@ const Home = () => {
                 return;
               }
             }}
-          >영화 리뷰 작성하기</ReviewButton>
+          >
+            영화 리뷰 작성하기
+          </ReviewButton>
           <ReviewListButton
             onClick={() => {
-              navigate("reviewboard")
+              navigate("reviewboard");
             }}
-          >영화 리뷰 둘러보기</ReviewListButton>
+          >
+            영화 리뷰 둘러보기
+          </ReviewListButton>
         </StButtons>
       </HomeFirstWrap>
     </HomeContainer>
@@ -53,7 +54,7 @@ const HomeContainer = styled.div`
   width: 100%;
   height: 70%;
   position: relative;
-`
+`;
 const HomeImg = styled.div`
   /* position: relative; */
   background-image: url(${hansan});
@@ -64,7 +65,7 @@ const HomeImg = styled.div`
   justify-content: left;
   align-items: center;
   opacity: 0.3;
-`
+`;
 
 const HomeFirstWrap = styled.div`
   position: absolute;
@@ -77,23 +78,23 @@ const HomeFirstWrap = styled.div`
   border: 4px solid white;
   padding: 20px;
   border-radius: 10px;
-`
+`;
 
 const HomeTitle = styled.h1`
   /* width: 504px; */
   height: 150px;
   font-size: 50px;
   /* font-weight: bold; */
-  font-family: '나눔고딕',NanumGothic,'돋움',Dotum,Helvetica,sans-serif;
-  color: rgb(251,188,4);
-`
+  font-family: "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, sans-serif;
+  color: rgb(251, 188, 4);
+`;
 
 const HomeAbout = styled.div`
   font-size: 25px;
   /* font-weight: bold; */
-  font-family: '나눔고딕',NanumGothic,'돋움',Dotum,Helvetica,sans-serif;
+  font-family: "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, sans-serif;
   color: white;
-`
+`;
 
 const ReviewButton = styled.button`
   background-color: #35247b;
@@ -105,10 +106,10 @@ const ReviewButton = styled.button`
   margin-right: 10px;
   font-size: 15px;
   font-weight: bold;
-  :hover{
+  :hover {
     border: 5px solid #363636;
   }
-`
+`;
 const ReviewListButton = styled.button`
   background-color: #363636;
   border: transparent;
@@ -119,14 +120,14 @@ const ReviewListButton = styled.button`
   margin-right: 10px;
   font-size: 15px;
   font-weight: bold;
-  :hover{
+  :hover {
     border: 5px solid #35247b;
   }
-`
+`;
 
 const StButtons = styled.div`
   margin-top: 50px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
-`
+`;

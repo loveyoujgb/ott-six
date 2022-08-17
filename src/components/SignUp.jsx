@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { __postSignUp } from "../redux/modules/signUpSlice";
+import { useDispatch } from "react-redux";
 import { __loginCheck } from "../redux/modules/loginSlice";
-import useInput from "../hooks/useInput";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
 import axios from "axios";
-import { logout, getAccessToken } from "../actions/Cookie";
+import { getTokenCookie } from "../actions/Cookie";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -17,7 +15,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getAccessToken()) {
+    if (getTokenCookie()) {
       alert("로그아웃을 해주세요.");
       navigate("/");
     } else {
@@ -25,39 +23,58 @@ const SignUp = () => {
     }
   }, []);
 
-  const [userName, setUsername] = useState("");
-  const [nickName, setNickName] = useState("");
+  const [username, setusername] = useState("");
+  const [nickname, setnickname] = useState("");
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState("");
 
   //오류메시지 상태저장
-  const [userNameMessage, setUsernameMessage] = useState("");
-  const [nickNameMessage, setNickNameMessage] = useState("");
+  const [usernameMessage, setusernameMessage] = useState("");
+  const [nicknameMessage, setnicknameMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [validPasswordMessage, setValidPasswordMessage] = useState("");
 
   // 유효성 검사
-  const [isUsername, setIsUsername] = useState(false);
-  const [isNickName, setIsNickName] = useState(false);
+  const [isusername, setIsusername] = useState(false);
+  const [isnickname, setIsnickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
 
-  console.log(userName, nickName, password, validPassword);
+  console.log(username, nickname, password, validPassword);
+
+  const postSignUp = async () => {
+    try {
+      await axios.post(`${API_URL}/member/signup`, {
+        username: username,
+        nickname: nickname,
+        password: password,
+        validPassword: validPassword,
+      });
+      alert("회원가입이 완료되었습니다.");
+    } catch (error) {
+      alert("회원가입이 실패하였습니다");
+
+      return;
+    }
+  };
 
   const onCreate = (e) => {
     e.preventDefault();
-    dispatch(
-      __postSignUp({
-        username: userName,
-        nickname: nickName,
-        password: password,
-        validPassword: validPassword,
-      })
-    );
-    // reset();
+    postSignUp({
+      username: username,
+      nickname: nickname,
+      password: password,
+      validPassword: validPassword,
+    });
+    setusername("");
+    setnickname("");
+    setPassword("");
+    setValidPassword("");
   };
-  const __userCheck = async () => {
-    const data = await axios.post(`${API_URL}/member/validate`, { username: userName });
+
+  //아이디(username) 중복확인
+  const usernameCheck = async () => {
+    const data = await axios.post(`${API_URL}/member/validateId`, { username: username });
     if (!data.data) {
       alert("이미 가입한 아이디입니다.");
     } else {
@@ -65,38 +82,50 @@ const SignUp = () => {
     }
   };
 
-  const onClickUsernameCheck = () => {
-    __userCheck({ username: userName });
+  const onClickusernameCheck = () => {
+    usernameCheck({ username: username });
   };
-  const onClickuNicknameCheck = () => {
-    // __nicknameCheck({ nickname: nickName });
+
+  //닉네임 중복확인
+
+  const nicknameCheck = async () => {
+    const data = await axios.post(`${API_URL}/member/validateNickname`, { nickname: nickname });
+    if (!data.data) {
+      alert("이미 가입한 아이디입니다.");
+    } else {
+      alert("가입 가능합니다");
+    }
+  };
+
+  const onClickunicknameCheck = () => {
+    nicknameCheck({ nickname: nickname });
   };
   //아이디
-  const onChangeUsername = useCallback((e) => {
+  const onChangeusername = useCallback((e) => {
     const emailCurrent = e.target.value;
-    setUsername(emailCurrent);
-    const emailRegex = /^[a-zA-Z](?=.{0,28}[0-9])[0-9a-zA-Z]{6,15}$/;
+    setusername(emailCurrent);
+    const emailRegex = /^[a-zA-Z](?=.{0,28}[0-9])[0-9a-zA-Z]{4,15}$/;
     //6자리 이상, 영문 대소문자 가능
     if (!emailRegex.test(emailCurrent)) {
-      setUsernameMessage("6~15자의 영문 대 소문자, 숫자를 입력해주세요.");
-      setIsUsername(false);
+      setusernameMessage("6~15자의 영문 대 소문자, 숫자를 입력해주세요.");
+      setIsusername(false);
     } else {
-      setUsernameMessage("올바른 아이디 형식입니다 :)");
-      setIsUsername(true);
+      setusernameMessage("올바른 아이디 형식입니다 :)");
+      setIsusername(true);
     }
   }, []);
 
   // 닉네임
-  const onChangeNickName = useCallback((e) => {
+  const onChangenickname = useCallback((e) => {
     const emailCurrent = e.target.value;
-    setNickName(emailCurrent);
+    setnickname(emailCurrent);
     const emailRegex = /^([a-zA-Z0-9가-힣]){3,10}$/;
     if (!emailRegex.test(emailCurrent)) {
-      setNickNameMessage("3~10자의 영문 대 소문자, 숫자, 한글을 입력해주세요.");
-      setIsNickName(false);
+      setnicknameMessage("3~10자의 영문 대 소문자, 숫자, 한글을 입력해주세요.");
+      setIsnickname(false);
     } else {
-      setNickNameMessage("올바른 닉네임 형식입니다 : )");
-      setIsNickName(true);
+      setnicknameMessage("올바른 닉네임 형식입니다 : )");
+      setIsnickname(true);
     }
   }, []);
 
@@ -136,21 +165,21 @@ const SignUp = () => {
         <Footer>
           <Title>회원가입</Title>
           {/* 아이디 */}
-          <Input name="userName" onChange={onChangeUsername} value={userName} placeholder="아이디" type="text" inputType="basic"></Input>
-          <firstValidButton>
-            <Button onClick={onClickUsernameCheck} widthSize="70" type="button" btntype="blue">
+          <Input name="username" onChange={onChangeusername} value={username} placeholder="아이디" type="text" inputType="basic"></Input>
+          <FirstValidButton>
+            <Button onClick={onClickusernameCheck} widthSize="70" type="button" btntype="blue">
               중복확인
             </Button>
-          </firstValidButton>
-          {userName.length > 0 && <span className={`message ${isUsername ? "success" : "error"}`}>{userNameMessage}</span>}
+          </FirstValidButton>
+          {username.length > 0 && <span className={`message ${isusername ? "success" : "error"}`}>{usernameMessage}</span>}
           {/* 닉네임 */}
-          <Input name="nickName" onChange={onChangeNickName} value={nickName} placeholder="닉네임" type="text" inputType="basic"></Input>
-          {nickName.length > 0 && <span className={`message ${isNickName ? "success" : "error"}`}>{nickNameMessage}</span>}
-          <secondValidButton>
-            <Button onClick={onClickuNicknameCheck} widthSize="70" type="button" btntype="blue">
+          <Input name="nickname" onChange={onChangenickname} value={nickname} placeholder="닉네임" type="text" inputType="basic"></Input>
+          {nickname.length > 0 && <span className={`message ${isnickname ? "success" : "error"}`}>{nicknameMessage}</span>}
+          <SecondValidButton>
+            <Button onClick={onClickunicknameCheck} widthSize="70" type="button" btntype="blue">
               중복확인
             </Button>
-          </secondValidButton>
+          </SecondValidButton>
           {/* 비밀번호 */}
           <Input name="password" onChange={onChangePassword} value={password} placeholder="비밀번호" type="password" inputType="basic"></Input>
           {password.length > 0 && <span className={`message ${isPassword ? "success" : "error"}`}>{passwordMessage}</span>}
@@ -164,7 +193,7 @@ const SignUp = () => {
             inputType="basic"
           ></Input>
           {validPassword.length > 0 && <span className={`message ${isValidPassword ? "success" : "error"}`}>{validPasswordMessage}</span>}
-          <Button widthSize="360" type="submit" disabled={!(isUsername && isNickName && isPassword && isValidPassword)} btntype="blue">
+          <Button widthSize="360" type="submit" disabled={!(isusername && isnickname && isPassword && isValidPassword)} btntype="blue">
             회원가입
           </Button>
         </Footer>
@@ -200,7 +229,7 @@ const FirstValidButton = styled.div`
 
 const SecondValidButton = styled.div`
   left: 410px;
-  top: 120px;
+  top: 160px;
   position: absolute;
 `;
 
