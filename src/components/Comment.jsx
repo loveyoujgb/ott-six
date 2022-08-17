@@ -34,14 +34,22 @@ const Comment = () => {
 
   const postComment = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     if (userContent === "") {
+=======
+    if (userContent === '') {
+>>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
       window.alert("내용을 입력해주세요");
       return false;
     }
     dispatch(__postComment({ boardId: param.id, userContent }));
 
     setComment({
+<<<<<<< HEAD
       userContent: "",
+=======
+      userContent: '',
+>>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
     });
   };
 
@@ -56,11 +64,18 @@ const Comment = () => {
               setCommentShow(!commentShow);
             }}
           >
+<<<<<<< HEAD
             <span style={{ fontSize: "20px", fontWeight: "bold", color: "white" }}>{commentShow ? "댓글 올리기" : "댓글 내리기"}</span>
+=======
+            <span style={{ fontSize: '20px', fontWeight: "bold", color: "white" }}>
+              {commentShow ? '댓글 올리기' : '댓글 내리기'}
+            </span>
+>>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
           </div>
           <ShowHideBox>
             <CommentForm onSubmit={postComment}>
               <StInput
+<<<<<<< HEAD
                 type="text"
                 name="userContent"
                 onChange={onChangeHandler}
@@ -69,6 +84,18 @@ const Comment = () => {
                 value={userContent}
               />
               <StButton type="submit">추가하기</StButton>
+=======
+                type='text'
+                name='userContent'
+                onChange={onChangeHandler}
+                maxLength='100'
+                placeholder='댓글을 추가하세요.(100자 이내)'
+                value={userContent}
+              />
+              <StButton type="submit">
+                추가하기
+              </StButton>
+>>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
             </CommentForm>
             <CommentLists>
               {comments.map((v) => (

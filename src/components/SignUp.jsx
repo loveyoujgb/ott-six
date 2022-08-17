@@ -37,8 +37,11 @@ const SignUp = () => {
   const [isNickname, setIsNickname] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
+<<<<<<< HEAD
   const [nicknameValid, setNicknameVaild] = useState(false);
   const [usernameVaild, setUsernameVaild] = useState(false);
+=======
+>>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
 
   const postSignUp = async () => {
     try {
