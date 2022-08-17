@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./elements/Button";
-import setAuthorizationToken from "../utils/setAuthorizationToken";
 import { __loginCheck } from "../redux/modules/loginSlice";
-import { logout, getTokenCookie } from "../actions/Cookie";
+import { logout, cookieCkeck } from "../actions/Cookie";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,17 +14,14 @@ const Header = () => {
   const { isLoading, error, name } = useSelector((state) => state.login);
 
   useEffect(() => {
-    if (getTokenCookie()) {
+    console.log(cookieCkeck());
+    if (cookieCkeck()) {
       dispatch(__loginCheck());
       setToken(true);
     } else {
       return;
     }
-  }, [getTokenCookie]);
-
-  // useEffect(() => {
-  //   dispatch(__loginCheck());
-  // }, []);
+  }, []);
 
   if (isLoading) {
     return <HeaderWrap>로딩 중....</HeaderWrap>;
@@ -52,13 +48,15 @@ const Header = () => {
 
   return (
     <HeaderWrap>
-      <LogoButton
+      <Button
+        font="30"
+        btntype="logo"
         onClick={() => {
           navigate("/");
         }}
       >
         OTTSIX
-      </LogoButton>
+      </Button>
       {token ? (
         <ButtonWrap>
           <Stspan>{name}님 환영합니다</Stspan>
@@ -103,14 +101,6 @@ const HeaderWrap = styled.header`
   padding: 0px 12px 0px 12px;
 `;
 
-const LogoButton = styled.button`
-  background-color: #212121;
-  border: none;
-  width: 120px;
-  font-size: 40px;
-  color: red;
-  font-weight: bold;
-`;
 const ButtonWrap = styled.div`
   font-size: 24px;
 `;

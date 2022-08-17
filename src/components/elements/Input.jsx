@@ -56,6 +56,9 @@ const FormInput = styled.input`
         border-radius: 5px;
         width: 360px;
         height: 45px;
+        :focus {
+          border: 3px solid #35247b;
+        }
       `
     );
   }}

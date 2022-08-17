@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
-const Button = ({ widthSize, btntype, type, onClick, children, disabled }) => {
+const Button = ({ font, height, width, btntype, type, onClick, children, disabled }) => {
   return (
-    <StButton widthSize={widthSize} type={type} onClick={onClick} btntype={btntype} disabled={disabled}>
+    <StButton font={font} height={height} width={width} type={type} onClick={onClick} btntype={btntype} disabled={disabled}>
       {children}
     </StButton>
   );
@@ -24,7 +24,7 @@ const StButton = styled.button`
         height: 35px;
         border-radius: 5px;
         font-weight: bold;
-        :hover{
+        :hover {
           border: 3px solid #35247b;
         }
       `
@@ -42,8 +42,8 @@ const StButton = styled.button`
         width: 200px;
         height: 40px;
         /* font-weight: bold; */
-        :hover{
-          border: 1px solid rgb(251,188,4);
+        :hover {
+          border: 1px solid rgb(251, 188, 4);
         }
       `
     );
@@ -52,19 +52,18 @@ const StButton = styled.button`
     return (
       props.btntype === "blue" &&
       css`
-        /* display: flex;
-        align-items: center;
-        justify-content: center; */
         background-color: #35247b;
         border: transparent;
         color: white;
         border-radius: 5px;
-        width: ${({ widthSize }) => `${widthSize}px`};
-        height: 50px;
-        /* margin-top: 10px; */
+        width: ${({ width }) => `${width}px`};
+        height: ${({ height }) => `${height}px`};
         &:disabled {
           cursor: default;
           opacity: 0.5;
+        }
+        :hover {
+          border: 1px solid rgb(251, 188, 4);
         }
       `
     );
@@ -81,6 +80,18 @@ ${(props) => {
         width: 200px;
         height: 50px;
         margin-top: 10px;
+      `
+    );
+  }}
+  ${(props) => {
+    return (
+      props.btntype === "logo" &&
+      css`
+        background-color: transparent;
+        border: none;
+        font-size: ${({ font }) => `${font}px`};
+        color: red;
+        font-weight: bold;
       `
     );
   }}

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __deleteComment, __updateComment } from "../redux/modules/moviesSlice";
+import { useParams } from "react-router-dom";
 
 const CommentView = ({ comment }) => {
   const dispatch = useDispatch();
-
+  const param = useParams();
   const [editComment, setEditComment] = React.useState(false);
 
   let updateCommentInput = () => {
@@ -29,6 +30,7 @@ const CommentView = ({ comment }) => {
 
   const changeEvent = (e) => {
     setUpdateComment({
+      boardId: param.id,
       commentId: comment.id,
       userContent: e.target.value,
     });
