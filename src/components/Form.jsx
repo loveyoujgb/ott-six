@@ -3,16 +3,14 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { __getMovies } from "../redux/modules/moviesSlice";
-import Input from "./elements/Input";
+import { __getMovies, __postMovies } from "../redux/modules/moviesSlice";
 import Button from "./elements/Button";
 
 const Form = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const [review, setReview] = useState({
-        usename: "",
+    const [movie, setMovie] = useState({
         title: "",
         content: "",
     })
@@ -21,12 +19,12 @@ const Form = () => {
         dispatch(__getMovies())
     }, [dispatch])
 
-    const { username, title, content } = review;
+    const { title, content } = movie;
 
     const onChangeHandler = (e) => {
         const { value, name } = e.target;
-        setReview({
-            ...review,
+        setMovie({
+            ...movie,
             [name]: value,
         })
     }
@@ -38,20 +36,19 @@ const Form = () => {
         } else if (content === "") {
             return alert("내용을 입력해주세요");
         }
-        // dispatch(__postTtodos(review));
+        dispatch(__postMovies(movie));
         navigate("/reviewboard")
     }
 
     return (
         <FormContainer onSubmit={onSubmitHandler}>
             <FormFirstWrap>
-                {/* <StFormTitle>리뷰 작성하기</StFormTitle> */}
                 <div>리뷰 작성하기</div>
             </FormFirstWrap>
             <FormSecondWrap>
                 <FormTitleWrap>
                     <StLabel>글 제목</StLabel>
-                    <Input
+                    {/* <Input
                         maxLength="50"
                         fontsize="24px"
                         pattern=".{1.5}"
@@ -59,16 +56,23 @@ const Form = () => {
                         type="title"
                         name="title"
                         value={title}
-                        onChane={onChangeHandler}
+                        onChange={onChangeHandler}
                         placeholder="제목을 입력해주세요.(50자 이내)"
                         width="100%"
                         height="100%"
+                    /> */}
+                    <StFirstInput 
+                    maxLength="30"
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={onChangeHandler}
+                    placeholder="제목을 입력해주세요.(30자 이내)"
                     />
-                    {/* <StFirstInput /> */}
                 </FormTitleWrap>
                 <FormContentWrap>
                     <StLabel>글 내용</StLabel>
-                    <Input
+                    {/* <Input
                         maxLength="200"
                         fontsize="24px"
                         pattern=".{1.5}"
@@ -76,24 +80,33 @@ const Form = () => {
                         type="content"
                         name="content"
                         value={content}
-                        onChane={onChangeHandler}
+                        onChange={onChangeHandler}
                         placeholder="내용을 입력해주세요.(200자 이내)"
                         width="100%"
                         height="500%"
+                    /> */}
+                    <StSecondInput 
+                    maxLength="200"
+                    type="text"
+                    name="content"
+                    value={content}
+                    onChange={onChangeHandler}
+                    placeholder="내용을 입력해주세요.(200자 이내)"
                     />
-                    {/* <StSecondInput /> */}
                 </FormContentWrap>
-                {/* <StButton
-                    type="submit"
-                    // onChange={onChangeHandler}
-                    onClick={() => {
-                        navigate("/reviewboard")
-                    }}
-                >작성하기</StButton> */}
+                <StButtons>
                 <Button
                     btntype="gray"
-                    // onClick={onClickLoginHandler}
+                    type="submit"
+                // onClick={onClickLoginHandler}
                 >작성하기</Button>
+                <Button
+                    btntype="gray"
+                    onClick={()=>{
+                        navigate("/")
+                    }}
+                >취소하기</Button>
+                </StButtons>
             </FormSecondWrap>
         </FormContainer>
 
@@ -117,13 +130,16 @@ const FormFirstWrap = styled.div`
     background-color: rgb(251,188,4);
     color: white;
     border: none;
+    border-radius: 5px;
     width: 100%;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    font-size: 18px;
 `
-const FormSecondWrap = styled.form`
+const FormSecondWrap = styled.div`
     background-color: rgb(45,45,45);
     height: 80vh; 
     margin-top: 20px;
@@ -131,6 +147,7 @@ const FormSecondWrap = styled.form`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 5px;
 `
 const FormTitleWrap = styled.div`
     display: flex;
@@ -138,10 +155,19 @@ const FormTitleWrap = styled.div`
     width: 95%;
 `
 
-// const StFirstInput = styled.input`
-//     margin-top: 10px;
-//     height: 50px;
-// `
+const StFirstInput = styled.input`
+    box-sizing: border-box;
+    background-color: #363636;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 1300px;
+    height: 50px;
+    padding-left: 20px;
+    :hover{
+        border: 1px solid rgb(251,188,4);
+    }
+`
 
 const FormContentWrap = styled.div`
     margin-top: 30px;
@@ -153,20 +179,24 @@ const FormContentWrap = styled.div`
 const StLabel = styled.label`
     color: white;
     margin-bottom: 20px;
+    font-weight: bold;
+    /* font-size: 16px; */
+    padding-left: 5px;
 `
-// const StSecondInput = styled.input`
-//     margin-top: 10px;
-//     margin-bottom: 50px;
-//     height: 400px
-// `
-const StButton = styled.button`
-    background-color: rgb(53,36,123);
+const StSecondInput = styled.input`
+    box-sizing: border-box;
+    background-color: #363636;
     color: white;
     border: none;
-    width: 10%;
-    height: 30px;
+    border-radius: 5px;
+    width: 1300px;
+    height: 450px;
+    padding-left: 20px;
+    :hover{
+        border: 1px solid rgb(251,188,4);
+    }
+`
+const StButtons = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+
 `

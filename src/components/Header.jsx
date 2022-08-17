@@ -63,4 +63,5 @@ const LogoButton = styled.button`
 `
 const ButtonWrap = styled.div`
   font-size: 24px;
+  
 `;

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
-import logo from "../assets/logo.jpg"
+// import logo from "../assets/logo.jpg"
+import hansan from "../assets/hansan.jpg"
+import emergency from "../assets/emergency.jpg"
+import Button from "./elements/Button";
 
 const Home = () => {
 
@@ -14,115 +17,112 @@ const Home = () => {
     dispatch(__getMovies());
   }, [dispatch]);
   return (
-
-      <HomeWrap>
-        <HomeUpWrap>
-          <HomeImg
-          onClick={() => {
-            navigate("/reviewform")
-          }}
-          >영화 리뷰 작성</HomeImg>
-          <HomeImg
-          onClick={() => {
-            navigate("/reviewboard")
-          }}
-          >리뷰 둘러보기</HomeImg>
-        </HomeUpWrap>
-        <HomeBottomWrap>
-          <BottomLeftImg>로고이미지</BottomLeftImg>
-          <BottomRightImg>OTTSIX에서 TOP RANK에 있는 영화와 드라마에 리뷰를 남기면서 소통하세요</BottomRightImg>
-        </HomeBottomWrap>
-      </HomeWrap>
+    <HomeContainer>
+      <HomeImg/>
+      <HomeFirstWrap>
+        <HomeTitle>
+          쉽게 영화 후기를 남길 수 있는 홈페이지
+        </HomeTitle>
+        <HomeAbout>
+          내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.
+        </HomeAbout>
+        <StButtons>
+          <ReviewButton
+            onClick={() => {
+              navigate("/reviewform")
+            }}
+          >영화 리뷰 작성하기</ReviewButton>
+          <ReviewListButton
+            onClick={() => {
+              navigate("reviewboard")
+            }}
+          >영화 리뷰 둘러보기</ReviewListButton>
+        </StButtons>
+      </HomeFirstWrap>
+    </HomeContainer>
   );
 };
 
 export default Home;
 
-const HomeWrap = styled.div`
-  /* margin: 0 auto;
-  max-width: 100%;
-  height: 92%;
-  padding: 10px 0;
+const HomeContainer = styled.div`
+  width: 100%;
+  height: 70%;
   position: relative;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column; */
-  /* border: 1px solid white; */
-  width: 1400px;
-    height: 90vh;
-  display: flex;
-  margin: auto;
-  flex-direction: column;
-  padding: 20px;
-  align-items: center;
-`;
-
-
-const HomeUpWrap = styled.div`
-  /* border: 1px solid white; */
-  box-sizing: border-box;
-  padding: 30px;
-  /* width: 100%; */
-  width: 80%;
-  display: flex;
-  align-items: center;
-  /* justify-content: stretch; */
-  justify-content: center;
-  flex-direction: row;
-  gap: 50px;
-`;
-
+`
 const HomeImg = styled.div`
-  background-image: url("https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/6GlL/image/RABTPwU4lfTwFZPRD4aeox7Jpz0.jpg");
+  /* position: relative; */
+  background-image: url(${hansan});
   background-position: center;
-  background-size: cover;
-  width: 450px;
-  height: 320px;
-  margin: 10px;
-  border: 1px solid black;
-`;
-
-const HomeBottomWrap = styled.div`
-  /* border: 1px solid white; */
-  margin-top: 40px;
-  box-sizing: border-box;
-  padding: 10px 50px;
-  width: 100%;
-  height: 300px;
+  background-size: 100% 100%;
+  height: 100%;
   display: flex;
+  justify-content: left;
   align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-  gap: 40px;
-`;
+  opacity: 0.3;
+`
 
-const BottomLeftImg = styled.div`
-  /* background-image: url("https://cdn.catholicnews.co.kr/news/photo/202001/22135_43951_5525.jpg"); */
-  background-image: url(${logo});
-  background-position: center;
-  background-size: cover;
-  width: 40%;
-  height: 100%;
-  margin: 10px;
-  border: 1px solid black;
-`;
-
-const BottomRightImg = styled.div`
-  font-size: 40px;
-  /* padding: 10px; */
-  color: #c0c0c0;
-  background-color: black;
-  /* background-image: url("https://cdn.catholicnews.co.kr/news/photo/202001/22135_43951_5525.jpg"); */
-  /* background-position: center;
-  background-size: cover; */
-  width: 100%;
-  height: 100%;
-  margin: 10px;
-  padding: 0px 40px;
-  border: 1px solid black;
+const HomeFirstWrap = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 600px;
   display: flex;
   justify-content: center;
-  align-items: center;
-`;
+  flex-direction: column;
+  border: 4px solid white;
+  padding: 20px;
+  border-radius: 10px;
+`
+
+const HomeTitle = styled.h1`
+  /* width: 504px; */
+  height: 150px;
+  font-size: 50px;
+  /* font-weight: bold; */
+  font-family: '나눔고딕',NanumGothic,'돋움',Dotum,Helvetica,sans-serif;
+  color: rgb(251,188,4);
+`
+
+const HomeAbout = styled.div`
+  font-size: 25px;
+  /* font-weight: bold; */
+  font-family: '나눔고딕',NanumGothic,'돋움',Dotum,Helvetica,sans-serif;
+  color: white;
+`
+
+const ReviewButton = styled.button`
+  background-color: #35247b;
+  border: transparent;
+  color: white;
+  border-radius: 10px;
+  width: 250px;
+  height: 50px;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  :hover{
+    border: 5px solid #363636;
+  }
+`
+const ReviewListButton = styled.button`
+  background-color: #363636;
+  border: transparent;
+  color: white;
+  border-radius: 10px;
+  width: 250px;
+  height: 50px;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  :hover{
+    border: 5px solid #35247b;
+  }
+`
+
+const StButtons = styled.div`
+  margin-top: 50px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+`

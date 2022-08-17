@@ -1,11 +1,13 @@
 import React from "react";
 import Layout from "../components/Layout";
-import FormChange from "../components/FormChange";
+// import ReviewChange from "../components/ReviewChange";
+import Detail from "../components/Detail";
 
 const ReviewDetail = () => {
   return (
     <Layout>
-      <FormChange/>
+      {/* <ReviewChange/> */}
+      <Detail/>
     </Layout>
   );
 };
