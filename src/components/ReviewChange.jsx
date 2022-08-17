@@ -12,14 +12,9 @@ const ReviewChange = () => {
   const { isLoading, error, movies } = useSelector((state) => state.movies);
   const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
-<<<<<<< HEAD
   // useInput custom hook 사용
   // const [updateTitle, onChangeTitleHandler] = useInput(movie.title);
   // const [updateContent, onChangeContentHandler] = useInput(movie.content);
-=======
-    const { isLoading, error, movies } = useSelector((state) => state.movies);
-    const movie = movies.find((movie) => movie.boardId === parseInt(param.id))
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
 
   const [updateTitle, setUpdateTitle] = useState(movie.title);
   const [updateContent, setUpdateContent] = useState(movie.content);

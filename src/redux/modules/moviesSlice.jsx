@@ -33,12 +33,7 @@ export const __postMovies = createAsyncThunk("movies/postMovies", async (payload
       headers: {
         Authorization: accessToken,
       },
-<<<<<<< HEAD
     });
-=======
-    }
-    );
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
 
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
@@ -49,12 +44,7 @@ export const __postMovies = createAsyncThunk("movies/postMovies", async (payload
 export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, thunkAPI) => {
   try {
     // await axios.patch(`http://localhost:3001/movies/${payload.id}`, payload,
-<<<<<<< HEAD
     await axios.put(`${API_MOVIES}/auth/board/${payload.boardId}`, payload, {
-=======
-    await axios.put(`${API_MOVIES}/auth/board/${payload.boardId}`, payload,
-    {
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
       headers: {
         Authorization: accessToken,
       },
@@ -69,12 +59,7 @@ export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, 
 export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (payload, thunkAPI) => {
   try {
     // const data = await axios.delete(`http://localhost:3001/movies/${payload}`,
-<<<<<<< HEAD
     const data = await axios.delete(`${API_MOVIES}/auth/board/${payload}`, {
-=======
-    const data = await axios.delete(`${API_MOVIES}/auth/board/${payload}`,
-    {
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
       headers: {
         Authorization: accessToken,
       },
@@ -101,21 +86,11 @@ export const __getComments = createAsyncThunk("comments/getComments", async (pay
 export const __postComment = createAsyncThunk("comments/postComment", async (payload, thunkAPI) => {
   try {
     // const data = await axios.post("http://localhost:3001/comments", payload,
-<<<<<<< HEAD
     const data = await axios.post(`${API_MOVIES}/auth/comment/${payload.boardId}`, payload, {
-=======
-    const data = await axios.post(`${API_MOVIES}/auth/comment/${payload.boardId}`, payload,
-    {
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
       headers: {
         Authorization: accessToken,
       },
-<<<<<<< HEAD
     });
-=======
-    }
-    );
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
 
     // return thunkAPI.fulfillWithValue(payload);
     return thunkAPI.fulfillWithValue(data.data);
@@ -127,21 +102,11 @@ export const __postComment = createAsyncThunk("comments/postComment", async (pay
 export const __updateComment = createAsyncThunk("comments/updateComments", async (payload, thunkAPI) => {
   try {
     // await axios.patch(`http://localhost:3001/comments/${payload.id}`, payload,
-<<<<<<< HEAD
     await axios.put(`${API_MOVIES}/auth/comment/${payload.commentId}`, payload, {
-=======
-    await axios.put(`${API_MOVIES}/auth/comment/${payload.commentId}`, payload,
-    {
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
       headers: {
         Authorization: accessToken,
       },
-<<<<<<< HEAD
     });
-=======
-    }
-    );
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
     thunkAPI.dispatch(__getComments(payload.boardId));
     return thunkAPI.fulfillWithValue(payload);
   } catch (error) {
@@ -152,12 +117,7 @@ export const __updateComment = createAsyncThunk("comments/updateComments", async
 export const __deleteComment = createAsyncThunk("comments/delteComments", async (payload, thunkAPI) => {
   try {
     // await axios.delete(`http://localhost:3001/comments/${payload}`,
-<<<<<<< HEAD
     await axios.delete(`${API_MOVIES}/auth/comment/${payload}`, {
-=======
-    await axios.delete(`${API_MOVIES}/auth/comment/${payload}`,
-    {
->>>>>>> cdca7eb5e57a57cd1548d98b9d99f4ffbcda08fa
       headers: {
         Authorization: accessToken,
       },
