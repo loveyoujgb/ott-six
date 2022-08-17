@@ -40,8 +40,6 @@ const SignUp = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isValidPassword, setIsValidPassword] = useState(false);
 
-  console.log(username, nickname, password, validPassword);
-
   const postSignUp = async () => {
     try {
       await axios.post(`${API_URL}/member/signup`, {

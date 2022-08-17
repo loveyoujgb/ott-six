@@ -12,17 +12,16 @@ import CommentView from "./CommentView";
 
 const Comment = () => {
   const dispatch = useDispatch();
-
+  const param = useParams();
   const comments = useSelector((state) => state.movies.comments);
 
   useEffect(() => {
-    dispatch(__getComments());
+    dispatch(__getComments(param.id));
   }, [dispatch]);
 
   const [comment, setComment] = useState({
     userContent: "",
   });
-  const param = useParams();
 
   const onChangeHandler = (e) => {
     const { value, name } = e.target;
@@ -35,56 +34,54 @@ const Comment = () => {
 
   const postComment = (e) => {
     e.preventDefault();
-    if(userContent===''){
+    if (userContent === '') {
       window.alert("내용을 입력해주세요");
       return false;
     }
-    dispatch(__postComment({boardId : param.id, userContent}));
-    
+    dispatch(__postComment({ boardId: param.id, userContent }));
+
     setComment({
-      userContent:'',
+      userContent: '',
     });
   };
 
-  const {userContent} = comment;
+  const { userContent } = comment;
   const [commentShow, setCommentShow] = useState(true);
   return (
     <>
       <CommentWrap commentShow={commentShow}>
         <CommentSecontWrap>
-        <div
-          onClick={() => {
-            setCommentShow(!commentShow);
-          }}
-        >
-          <span style={{ fontSize: '20px', fontWeight: "bold", color: "white" }}>
-            {commentShow ? '댓글 올리기' : '댓글 내리기'}
-          </span>
-        </div>
-        <ShowHideBox>
-          <CommentForm onSubmit={postComment}>
-            <StInput
-              type='text'
-              name='userContent'
-              onChange={onChangeHandler}
-              maxLength='100'
-              placeholder='댓글을 추가하세요.(100자 이내)'
-              value={userContent}
-            />
-            <StButton type="submit">
-              추가하기
-            </StButton>
-          </CommentForm>
-          <CommentLists>
-            {comments.map((v) =>
-              Number(v.boardId) === Number(param.id) ? (
+          <div
+            onClick={() => {
+              setCommentShow(!commentShow);
+            }}
+          >
+            <span style={{ fontSize: '20px', fontWeight: "bold", color: "white" }}>
+              {commentShow ? '댓글 올리기' : '댓글 내리기'}
+            </span>
+          </div>
+          <ShowHideBox>
+            <CommentForm onSubmit={postComment}>
+              <StInput
+                type='text'
+                name='userContent'
+                onChange={onChangeHandler}
+                maxLength='100'
+                placeholder='댓글을 추가하세요.(100자 이내)'
+                value={userContent}
+              />
+              <StButton type="submit">
+                추가하기
+              </StButton>
+            </CommentForm>
+            <CommentLists>
+              {comments.map((v) => (
                 <div key={v.id}>
                   <CommentView comment={v} />
                 </div>
-              ) : null
-            )}
-          </CommentLists>
-        </ShowHideBox>
+              ))}
+            </CommentLists>
+          </ShowHideBox>
         </CommentSecontWrap>
       </CommentWrap>
     </>
