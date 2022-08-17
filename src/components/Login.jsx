@@ -1,35 +1,75 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
-import {useNavigate} from "react-router-dom"
+import useInputs from "../hooks/useInputs";
+import { useNavigate } from "react-router-dom";
+// import { __getLogin, __loginCheck, __postLogin } from "../redux/modules/loginSlice";
+import { logout, getAccessToken } from "../actions/Cookie";
+import { __loginCheck } from "../redux/modules/loginSlice";
+import { setRefreshTokenToCookie } from "../actions/Cookie";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [userInfo, onChangeUserInfo, reset] = useInputs({
+    username: "",
+    password: "",
+  });
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    if (getAccessToken()) {
+      alert("이미 로그인 하셨습니다.");
+      navigate("/");
+    } else {
+      return;
+    }
+  }, []);
 
-  const onClickLoginHandler = () => {
-    navigate("/")
-  }
+  const { username, password } = userInfo;
+
+  const __postLogin = async () => {
+    try {
+      const data = await axios.post(`${API_URL}/member/login`, userInfo);
+      setRefreshTokenToCookie(data.headers.authorization);
+      navigate("/");
+    } catch (error) {
+      if (username.trim() === "") {
+        return alert("로그인 정보를 입력해 주세요.");
+      } else if (password.trim() === "") {
+        return alert("비밀번호를 입력해 주세요.");
+      }
+      return alert("로그인에 실패하였습니다.");
+    }
+  };
+
+  const onCreate = (e) => {
+    e.preventDefault();
+    __postLogin(userInfo);
+    reset();
+  };
 
   return (
     <Whole>
-      <LoginContainer>
+      <LoginContainer onSubmit={onCreate}>
         <Title>로그인</Title>
         <Footer>
-          <Input placeholder="아이디" inputType="basic"></Input>
-          <Input placeholder="비밀번호" inputType="basic"></Input>
-          <Button 
-          btntype="blue"
-          onClick={onClickLoginHandler}
-          >로그인</Button>
+          <Input name="username" value={username} onChange={onChangeUserInfo} type="text" placeholder="아이디" inputType="basic"></Input>
+          <Input name="password" value={password} onChange={onChangeUserInfo} type="password" placeholder="비밀번호" inputType="basic"></Input>
+          <Button type="submit" btntype="blue">
+            로그인
+          </Button>
         </Footer>
       </LoginContainer>
     </Whole>
   );
 };
 
-export default Login;
+export default React.memo(Login);
 
 const Whole = styled.div`
   display: flex;
@@ -81,14 +121,4 @@ const Footer = styled.div`
   color: #939393;
   font-weight: 500;
   font-size: large;
-`;
-
-const White = styled.span`
-  color: white;
-  text-decoration: none;
-  font-weight: 800;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;

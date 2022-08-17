@@ -3,19 +3,17 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
-// import logo from "../assets/logo.jpg"
 import hansan from "../assets/hansan.jpg"
-import emergency from "../assets/emergency.jpg"
-import Button from "./elements/Button";
+import { getAccessToken } from "../actions/Cookie";
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(__getMovies());
   }, [dispatch]);
+
   return (
     <HomeContainer>
       <HomeImg/>
@@ -29,7 +27,13 @@ const Home = () => {
         <StButtons>
           <ReviewButton
             onClick={() => {
-              navigate("/reviewform")
+              if (getAccessToken()) {
+                navigate("/reviewform");
+              } else {
+                alert("리뷰를 작성하시려면 로그인을 해주세요.");
+                navigate("/login");
+                return;
+              }
             }}
           >영화 리뷰 작성하기</ReviewButton>
           <ReviewListButton

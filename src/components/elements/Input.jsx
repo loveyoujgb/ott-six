@@ -54,7 +54,7 @@ const FormInput = styled.input`
         color: white;
         border: none;
         border-radius: 5px;
-        width: 400px;
+        width: 360px;
         height: 45px;
       `
     );

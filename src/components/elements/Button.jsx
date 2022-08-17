@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
-const Button = ({ btntype, type, onClick, children }) => {
+const Button = ({ widthSize, btntype, type, onClick, children, disabled }) => {
   return (
-    <StButton type={type} onClick={onClick} btntype={btntype}>
+    <StButton widthSize={widthSize} type={type} onClick={onClick} btntype={btntype} disabled={disabled}>
       {children}
     </StButton>
   );
@@ -52,13 +52,20 @@ const StButton = styled.button`
     return (
       props.btntype === "blue" &&
       css`
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
         background-color: #35247b;
         border: transparent;
         color: white;
         border-radius: 5px;
-        width: 400px;
+        width: ${({ widthSize }) => `${widthSize}px`};
         height: 50px;
-        margin-top: 10px;
+        /* margin-top: 10px; */
+        &:disabled {
+          cursor: default;
+          opacity: 0.5;
+        }
       `
     );
   }}
