@@ -24,9 +24,9 @@ export function setRefreshTokenToCookie(data) {
 }
 
 export function logout() {
-  console.log("localStorage set logout!");
-  window.localStorage.setItem("logout", Date.now());
-  cookies.remove("refresh_token");
+  // console.log("localStorage set logout!");
+  // window.localStorage.setItem("logout", Date.now());
+  cookies.remove("Authorization", { path: "/" });
 }
 
 export function getAccessToken() {

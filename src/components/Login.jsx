@@ -1,58 +1,56 @@
-import React from "react";
-import { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "./elements/Button";
 import Input from "./elements/Input";
-import useInput from "../hooks/useInput";
+import useInputs from "../hooks/useInputs";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { __getLogin, __loginCheck, __postLogin } from "../redux/modules/loginSlice";
-import { getAccessToken } from "../actions/Cookie";
+// import { __getLogin, __loginCheck, __postLogin } from "../redux/modules/loginSlice";
+import { logout, getAccessToken } from "../actions/Cookie";
+import { __loginCheck } from "../redux/modules/loginSlice";
+import { setRefreshTokenToCookie } from "../actions/Cookie";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userName, onChangeUsername, userNameReset] = useInput("");
-  const [password, onChangePassword, userPassword] = useInput("");
-  const { error, isLoading, login, name } = useSelector((state) => state.login);
-  console.log(login);
-  console.log(name);
+  const navigate = useNavigate();
+  const [userInfo, onChangeUserInfo, reset] = useInputs({
+    username: "",
+    password: "",
+  });
 
-  if (error) {
-    alert(error);
-  }
+  useEffect(() => {
+    if (getAccessToken()) {
+      alert("이미 로그인 하셨습니다.");
+      navigate("/");
+    } else {
+      return;
+    }
+  }, []);
 
-  console.log(error);
-  const onCreate = (e) => {
-    e.preventDefault();
-    dispatch(
-      __postLogin({
-        username: userName,
-        password: password,
-      })
-    );
-    userNameReset();
-    userPassword();
-    navigate("/");
-    console.log(error);
-    // if (typeof error === null) {
-    //   console.log(error);
-    //   alert("사용자입니당");
-    //   navigate("/");
-    // } else {
-    //   alert("사용자가 아닙니다");
-    //   console.log(error);
-    // }
+  const { username, password } = userInfo;
 
-    // dispatch(__loginCheck());
+  const __postLogin = async () => {
+    try {
+      const data = await axios.post(`${API_URL}/member/login`, userInfo);
+      setRefreshTokenToCookie(data.headers.authorization);
+      navigate("/");
+    } catch (error) {
+      if (username.trim() === "") {
+        return alert("로그인 정보를 입력해 주세요.");
+      } else if (password.trim() === "") {
+        return alert("비밀번호를 입력해 주세요.");
+      }
+      return alert("로그인에 실패하였습니다.");
+    }
   };
 
-  // useEffect(() => {
-  //   // dispatch(__getLogin());
-  // }, [dispatch, error]);
-
-  const onClickLoginHandler = () => {
-    // dispatch(__postLogin());
+  const onCreate = (e) => {
+    e.preventDefault();
+    __postLogin(userInfo);
+    reset();
   };
 
   return (
@@ -60,9 +58,9 @@ const Login = () => {
       <LoginContainer onSubmit={onCreate}>
         <Title>로그인</Title>
         <Footer>
-          <Input name="userName" value={userName} onChange={onChangeUsername} type="text" placeholder="아이디" inputType="basic"></Input>
-          <Input name="password" value={password} onChange={onChangePassword} type="password" placeholder="비밀번호" inputType="basic"></Input>
-          <Button type="submit" btntype="blue" onClick={onClickLoginHandler}>
+          <Input name="username" value={username} onChange={onChangeUserInfo} type="text" placeholder="아이디" inputType="basic"></Input>
+          <Input name="password" value={password} onChange={onChangeUserInfo} type="password" placeholder="비밀번호" inputType="basic"></Input>
+          <Button type="submit" btntype="blue">
             로그인
           </Button>
         </Footer>
@@ -71,7 +69,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default React.memo(Login);
 
 const Whole = styled.div`
   display: flex;
@@ -123,14 +121,4 @@ const Footer = styled.div`
   color: #939393;
   font-weight: 500;
   font-size: large;
-`;
-
-const White = styled.span`
-  color: white;
-  text-decoration: none;
-  font-weight: 800;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;

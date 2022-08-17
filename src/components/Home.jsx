@@ -1,38 +1,48 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __getMovies } from "../redux/modules/moviesSlice";
-import logo from "../assets/logo.jpg"
+import logo from "../assets/logo.jpg";
+import { getAccessToken } from "../actions/Cookie";
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(__getMovies());
   }, [dispatch]);
-  return (
 
-      <HomeWrap>
-        <HomeUpWrap>
-          <HomeImg
+  return (
+    <HomeWrap>
+      <HomeUpWrap>
+        <HomeImg
           onClick={() => {
-            navigate("/reviewform")
+            if (getAccessToken()) {
+              navigate("/reviewform");
+            } else {
+              alert("리뷰를 작성하시려면 로그인을 해주세요.");
+              navigate("/login");
+              return;
+            }
           }}
-          >영화 리뷰 작성</HomeImg>
-          <HomeImg
+        >
+          영화 리뷰 작성
+        </HomeImg>
+        <HomeImg
           onClick={() => {
-            navigate("/reviewboard")
+            navigate("/reviewboard");
           }}
-          >리뷰 둘러보기</HomeImg>
-        </HomeUpWrap>
-        <HomeBottomWrap>
-          <BottomLeftImg>로고이미지</BottomLeftImg>
-          <BottomRightImg>OTTSIX에서 TOP RANK에 있는 영화와 드라마에 리뷰를 남기면서 소통하세요</BottomRightImg>
-        </HomeBottomWrap>
-      </HomeWrap>
+        >
+          리뷰 둘러보기
+        </HomeImg>
+      </HomeUpWrap>
+      <HomeBottomWrap>
+        <BottomLeftImg>로고이미지</BottomLeftImg>
+        <BottomRightImg>OTTSIX에서 TOP RANK에 있는 영화와 드라마에 리뷰를 남기면서 소통하세요</BottomRightImg>
+      </HomeBottomWrap>
+    </HomeWrap>
   );
 };
 
@@ -51,14 +61,13 @@ const HomeWrap = styled.div`
   flex-direction: column; */
   /* border: 1px solid white; */
   width: 1400px;
-    height: 90vh;
+  height: 90vh;
   display: flex;
   margin: auto;
   flex-direction: column;
   padding: 20px;
   align-items: center;
 `;
-
 
 const HomeUpWrap = styled.div`
   /* border: 1px solid white; */

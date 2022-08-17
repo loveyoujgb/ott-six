@@ -1,47 +1,50 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./elements/Button";
 import setAuthorizationToken from "../utils/setAuthorizationToken";
 import { __loginCheck } from "../redux/modules/loginSlice";
-import { setRefreshTokenToCookie, getAccessToken } from "../actions/Cookie";
+import { logout, getAccessToken } from "../actions/Cookie";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
-  // const userInfo = useSelector((state) => state.login.login);
-  const { error, isLoading, login, name } = useSelector((state) => state.login);
-  console.log(login);
-  console.log(name);
+  const [token, setToken] = useState(false);
+  const { isLoading, error, name } = useSelector((state) => state.login);
 
   useEffect(() => {
     if (getAccessToken()) {
       dispatch(__loginCheck());
+      setToken(true);
     } else {
+      alert("토큰업서여!");
       return;
     }
-  }, [dispatch]);
+  }, [getAccessToken]);
 
   if (isLoading) {
-    return <div>로딩 중....</div>;
+    return <HeaderWrap>로딩 중....</HeaderWrap>;
   }
-
   if (error) {
-    return <div>{error}</div>;
+    return <HeaderWrap>{error}</HeaderWrap>;
   }
 
-  const onClickBoardHandler = () => {
+  const onClickBoard = () => {
     navigate("/reviewboard");
   };
 
-  const onClickLoginHandler = () => {
+  const onClickLogin = () => {
     navigate("/login");
   };
-  const onClickSignUpHandler = () => {
+  const onClickSignUp = () => {
     navigate("/signup");
+  };
+  const onClickLogout = () => {
+    logout();
+    navigate("/login");
+    alert("로그아웃 되었습니다.");
   };
 
   return (
@@ -53,21 +56,39 @@ const Header = () => {
       >
         OTTSIX
       </LogoButton>
-      <ButtonWrap>
-        <Button btntype="basic" onClick={onClickBoardHandler}>
-          게시판
-        </Button>
-        <Button btntype="basic" onClick={onClickLoginHandler}>
-          로그인{name}
-        </Button>
-        <Button btntype="basic" onClick={onClickSignUpHandler}>
-          회원가입
-        </Button>
-      </ButtonWrap>
+      {token ? (
+        <ButtonWrap>
+          <Stspan>{name}님 환영합니다</Stspan>
+          <Button btntype="basic" onClick={onClickBoard}>
+            게시판
+          </Button>
+          <Button btntype="basic" onClick={onClickLogout}>
+            로그아웃
+          </Button>
+        </ButtonWrap>
+      ) : (
+        <ButtonWrap>
+          <Button btntype="basic" onClick={onClickBoard}>
+            게시판
+          </Button>
+          <Button btntype="basic" onClick={onClickLogin}>
+            로그인
+          </Button>
+          <Button btntype="basic" onClick={onClickSignUp}>
+            회원가입
+          </Button>
+        </ButtonWrap>
+      )}
     </HeaderWrap>
   );
 };
 export default Header;
+
+const Stspan = styled.span`
+  margin-right: 5px;
+  font-size: 18px;
+  color: white;
+`;
 
 const HeaderWrap = styled.header`
   background-color: #212121;
@@ -84,7 +105,6 @@ const LogoButton = styled.button`
   border: none;
   width: 120px;
   font-size: 40px;
-  /* color: #4729be; */
   color: red;
   font-weight: bold;
 `;
