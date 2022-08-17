@@ -14,7 +14,6 @@ const Header = () => {
   const { isLoading, error, name } = useSelector((state) => state.login);
 
   useEffect(() => {
-    console.log(cookieCkeck());
     if (cookieCkeck()) {
       dispatch(__loginCheck());
       setToken(true);
