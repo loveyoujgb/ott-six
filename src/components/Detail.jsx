@@ -25,22 +25,18 @@ const Detail = () => {
   }, [dispatch]);
 
   const onClickDeleteHandler = (e) => {
-    // e.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) dispatch(__deleteMovies(movie.boardId));
     navigate(`/reviewboard`);
   };
 
   return (
-    <FormContainer
-    // onClick={() => {
-    //     navigate(`/reviewboard`)
-    // }}
-    >
+    <FormContainer>
       <FormSecondWrap>
         <FormTitleWrap>
           <StLables>
             <StLabel>글 제목</StLabel>
             <StSecondLable
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 navigate("/reviewboard");
               }}
@@ -49,29 +45,25 @@ const Detail = () => {
             </StSecondLable>
           </StLables>
           <StTitle>{movie.title}</StTitle>
-          {/* <div>{movie.title}</div> */}
-          {/* <StFirstInput /> */}
         </FormTitleWrap>
         <FormContentWrap>
           <StLabel>글 내용</StLabel>
           <StContent>{movie.content}</StContent>
-          {/* <div>{movie.content}</div> */}
-          {/* <StSecondInput /> */}
         </FormContentWrap>
         <Buttons>
           {nickname === movie.nickname ? (
             <>
               <Button
-              btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
-              onClick={() => {
-                navigate(`/detail/${param.id}/change`)
-              }}
+                btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
+                onClick={() => {
+                  navigate(`/detail/${param.id}/change`)
+                }}
               >수정하기</Button>
               <Button
-              btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
-              onClick={() => {
-                onClickDeleteHandler();
-              }}
+                btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
+                onClick={() => {
+                  onClickDeleteHandler();
+                }}
               >삭제하기</Button>
             </>
           ) : null}
@@ -85,7 +77,6 @@ const Detail = () => {
 export default Detail;
 
 const FormContainer = styled.div`
-  /* border: 1px solid white; */
   width: 1400px;
   height: 80%;
   display: flex;
@@ -102,7 +93,6 @@ const StLables = styled.div`
 const StSecondLable = styled.div`
   font-weight: bold;
   color: rgb(251, 188, 4);
-  /* text-decoration: underline; */
   :hover {
     color: white;
   }
@@ -111,10 +101,8 @@ const StSecondLable = styled.div`
 const FormSecondWrap = styled.div`
   background-color: rgb(45, 45, 45);
   border-radius: 5px;
-  /* height: 70%; */
   margin-top: 20px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 `;

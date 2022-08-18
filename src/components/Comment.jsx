@@ -102,7 +102,7 @@ const CommentWrap = styled.div`
   border-top: 1px solid #eee;
   transform: translate(-50%, 90%);
   transform: ${({ commentShow }) => (commentShow ? "" : `translate(-50%, 0%)`)};
-  /* height: 400px; */
+  height: 400px;
   position: fixed;
   max-width: 1400px;
   width: 1400px;
@@ -133,7 +133,6 @@ const CommentLists = styled.div`
   overflow: auto;
   height: 80%;
   width: 100%;
-  /* background-color: #363636; */
 `;
 
 const StInput = styled.input`

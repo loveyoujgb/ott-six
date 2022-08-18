@@ -19,7 +19,7 @@ const Home = () => {
     <HomeContainer>
       <HomeImg />
       <HomeFirstWrap>
-        <HomeTitle>쉽게 영화 후기를 남길 수 있는 홈페이지</HomeTitle>
+        <HomeTitle>쉽게 영화 후기를 남길 수 있는 OTTSIX</HomeTitle>
         <HomeAbout>내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.</HomeAbout>
         <StButtons>
           <Button
@@ -56,7 +56,6 @@ const HomeContainer = styled.div`
   position: relative;
 `;
 const HomeImg = styled.div`
-  /* position: relative; */
   background-image: url(${hansan});
   background-position: center;
   background-size: 100% 100%;
@@ -69,9 +68,9 @@ const HomeImg = styled.div`
 
 const HomeFirstWrap = styled.div`
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 20%;
-  width: 600px;
+  width: 550px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -81,17 +80,14 @@ const HomeFirstWrap = styled.div`
 `;
 
 const HomeTitle = styled.h1`
-  /* width: 504px; */
-  height: 150px;
-  font-size: 50px;
-  /* font-weight: bold; */
+  height: 120px;
+  font-size: 40px;
   font-family: "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, sans-serif;
   color: rgb(251, 188, 4);
 `;
 
 const HomeAbout = styled.div`
   font-size: 25px;
-  /* font-weight: bold; */
   font-family: "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, sans-serif;
   color: white;
 `;

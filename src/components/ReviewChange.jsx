@@ -13,10 +13,6 @@ const ReviewChange = () => {
   const { isLoading, error, movies } = useSelector((state) => state.movies);
   const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
-  // useInput custom hook 사용
-  // const [updateTitle, onChangeTitleHandler] = useInput(movie.title);
-  // const [updateContent, onChangeContentHandler] = useInput(movie.content);
-
   const [updateTitle, setUpdateTitle] = useState(movie.title);
   const [updateContent, setUpdateContent] = useState(movie.content);
 
@@ -95,7 +91,7 @@ const FormContainer = styled.form`
 const FormSecondWrap = styled.div`
   background-color: rgb(45, 45, 45);
   border-radius: 5px;
-  height: 70%;
+  /* height: 70%; */
   margin-top: 20px;
   display: flex;
   /* justify-content: center; */
@@ -141,4 +137,5 @@ const Buttons = styled.div`
   justify-content: right;
   gap: 20px;
   width: 95%;
+  margin: 10px 0 25px 0;
 `;

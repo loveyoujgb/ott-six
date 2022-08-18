@@ -113,9 +113,8 @@ export default CommentView;
 const CommentBox = styled.div`
   width: 1300px;
   display: flex;
-  /* border-bottom: 1px solid #eee; */
   justify-content: center;
-  /* border: 1px solid red; */
+  margin-bottom: 10px;
 `;
 const CommentContent = styled.div`
   width: 990px;
@@ -123,9 +122,7 @@ const CommentContent = styled.div`
   border-radius: 5px;
   background-color: #eee;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 3px solid rgb(251,188,4); */
   margin-right: 10px;
 `;
 const CommentContentDiv = styled.div`
@@ -135,9 +132,7 @@ const CommentContentDiv = styled.div`
   border-radius: 5px;
   background-color: #eee;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 3px solid rgb(251,188,4); */
 `;
 
 const CommentBottom = styled.div`
@@ -151,14 +146,11 @@ const StInput = styled.input`
   color: black;
   border: none;
   border-radius: 5px;
-  /* width: 70%; */
   height: 50px;
-  /* margin-right: 10px; */
 `;
 
 const CommentButton = styled.div`
   display: flex;
-  /* margin: 3px; */
   margin-bottom: 15px;
   justify-content: center;
   align-items: center;

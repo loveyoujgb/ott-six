@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __getMovies } from "../redux/modules/moviesSlice";
 import Review from "./Review";
 
 const ReviewList = () => {
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { movies, isLoading, error } = useSelector((state) => state.movies);
 
@@ -23,6 +26,12 @@ const ReviewList = () => {
     <StList>
     <FormContainer>
       <FormFirstWrap>게시판</FormFirstWrap>
+      <FormConnent
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          navigate("/reviewform")
+        }}
+      >[게시글 쓰기]</FormConnent>
       <FormSecondWrap>
         <TitleWrap>
           <ReviewTitle>글 제목</ReviewTitle>
@@ -60,6 +69,16 @@ const FormContainer = styled.div`
   /* overflow: scroll; */
 `;
 
+const FormConnent = styled.div`
+  margin: 10px 0;
+  text-align: right;
+  padding-right: 10px;
+  color: white;
+  :hover{
+    color: rgb(251,188,4);
+  }
+`
+
 const FormFirstWrap = styled.div`
   background-color: rgb(53, 36, 123);
   color: white;
@@ -75,7 +94,7 @@ const FormSecondWrap = styled.div`
   background-color: rgb(45, 45, 45);
   border-radius: 5px;
   height: 90%;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   display: flex;
   /* justify-content: center; */
   align-items: center;

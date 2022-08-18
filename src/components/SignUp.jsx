@@ -219,7 +219,7 @@ const SignUp = () => {
             height="45px"
             width="360px"
             type="submit"
-            // disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
+            disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
             btntype="blue"
             border="1px solid rgb(251, 188, 4)"
           >
