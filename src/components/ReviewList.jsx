@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __getMovies } from "../redux/modules/moviesSlice";
 import Review from "./Review";
+import { __loginCheck } from "../redux/modules/loginSlice";
+import { cookieCkeck } from "../actions/Cookie";
 
 const ReviewList = () => {
   const navigate = useNavigate();
