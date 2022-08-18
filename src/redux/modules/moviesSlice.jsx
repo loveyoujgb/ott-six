@@ -16,7 +16,6 @@ const initialState = {
 export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, thunkAPI) => {
   try {
     const data = await axios.get(`${API_MOVIES}/board`);
-    // thunkAPI.dispatch(__getMovies());
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -31,7 +30,6 @@ export const __postMovies = createAsyncThunk("movies/postMovies", async (payload
         Authorization: accessToken,
       },
     });
-
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -62,7 +60,6 @@ export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (pay
       },
     });
     thunkAPI.dispatch(__getMovies());
-
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -72,7 +69,6 @@ export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (pay
 export const __getComments = createAsyncThunk("comments/getComments", async (payload, thunkAPI) => {
   try {
     const data = await axios.get(`${API_MOVIES}/comment/${payload}`);
-
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -139,22 +135,21 @@ export const moviesSlice = createSlice({
       state.error = action.payload;
     },
     [__postMovies.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isLoading = true;
     },
     [__postMovies.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.movies.push(action.payload); // Store에 있는 todos에 서버에서 가져온 movies를 넣습니다.
+      state.isLoading = false;
+      state.movies.push(action.payload);
     },
     [__postMovies.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isLoading = false;
+      state.error = action.payload;
     },
     [__putMovies.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isLoading = true;
     },
     [__putMovies.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      // state.todos = action.payload
+      state.isLoading = false;
       state.movies = state.movies.map((movie) => {
         if (movie.boardId === action.payload.id) {
           return { ...movie, title: action.payload.title, content: action.payload.content };
@@ -164,8 +159,8 @@ export const moviesSlice = createSlice({
       });
     },
     [__putMovies.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isLoading = false;
+      state.error = action.payload;
     },
     [__deleteMovies.pending]: (state) => {
       state.isLoading = true;
@@ -190,15 +185,15 @@ export const moviesSlice = createSlice({
       state.error = action.payload;
     },
     [__postComment.pending]: (state) => {
-      state.isLoading = true; 
+      state.isLoading = true;
     },
     [__postComment.fulfilled]: (state, action) => {
-      state.isLoading = false; 
+      state.isLoading = false;
       state.comments.push(action.payload);
     },
     [__postComment.rejected]: (state, action) => {
-      state.isLoading = false; 
-      state.error = action.payload; 
+      state.isLoading = false;
+      state.error = action.payload;
     },
     [__updateComment.pending]: (state) => {
       state.isLoading = true;

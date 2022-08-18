@@ -10,7 +10,6 @@ const Review = ({ movie }) => {
       onClick={() => {
         navigate(`/detail/${movie.boardId}`);
       }}
-      // 상세페이지로 갈 수 있도록 수정할 예정
     >
       <ReviewTitle>{movie.title}</ReviewTitle>
       <ReviewTime>{movie.createTime}</ReviewTime>
@@ -32,8 +31,6 @@ const ListForm = styled.div`
 
 const ReviewTitle = styled.div`
   width: 60%;
-  /* background-color: rgb(138,138,138); */
-  /* border: 1px solid rgb(138,138,138); */
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -45,7 +42,6 @@ const ReviewTitle = styled.div`
 
 const ReviewTime = styled.div`
   width: 15%;
-  /* background-color: rgb(138,138,138); */
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
@@ -57,7 +53,6 @@ const ReviewTime = styled.div`
 
 const ReviewUserName = styled.div`
   width: 15%;
-  /* background-color: rgb(138,138,138); */
   border-radius: 5px;
   padding: 10px;
   margin: 10px;

@@ -91,7 +91,6 @@ const SignUp = () => {
   };
 
   //닉네임 중복확인
-
   const nicknameCheck = async () => {
     const data = await axios.post(`${API_URL}/member/validateNickname`, { nickname: nickname });
     if (nickname.trim() === "") {
@@ -109,9 +108,9 @@ const SignUp = () => {
   const onClickunicknameCheck = () => {
     nicknameCheck({ nickname: nickname });
   };
+
   //아이디
   const onChangeusername = useCallback((e) => {
-    // setUsernameVaild(true);
     const emailCurrent = e.target.value;
     setusername(emailCurrent);
     const emailRegex = /^[a-zA-Z](?=.{0,15}[0-9])[0-9a-zA-Z]{4,15}$/;
@@ -183,7 +182,9 @@ const SignUp = () => {
       <LoginContainer onSubmit={onCreate}>
         <ButtonWrap>
           <Button
-            type="button" font="55" btntype="logo" 
+            type="button"
+            font="55"
+            btntype="logo"
             onClick={() => {
               navigate("/");
             }}
@@ -202,7 +203,15 @@ const SignUp = () => {
               type="text"
               inputType="basic"
             ></Input>
-            <Button type="button" onClick={onClickusernameCheck} height="45px" width="70px" btntype="blue" disabled={usernameVaild} border="1px solid rgb(251, 188, 4)">
+            <Button
+              type="button"
+              onClick={onClickusernameCheck}
+              height="45px"
+              width="70px"
+              btntype="blue"
+              disabled={usernameVaild}
+              border="1px solid rgb(251, 188, 4)"
+            >
               {usernameVaild ? "확인완료" : "중복확인"}
               {/* 중복확인 */}
             </Button>
@@ -219,7 +228,15 @@ const SignUp = () => {
               type="text"
               inputType="basic"
             ></Input>
-            <Button type="button" onClick={onClickunicknameCheck} height="45px" width="70px" btntype="blue" disabled={nicknameValid} border="1px solid rgb(251, 188, 4)">
+            <Button
+              type="button"
+              onClick={onClickunicknameCheck}
+              height="45px"
+              width="70px"
+              btntype="blue"
+              disabled={nicknameValid}
+              border="1px solid rgb(251, 188, 4)"
+            >
               {nicknameValid ? "확인완료" : "중복확인"}
               {/* 중복확인 */}
             </Button>
@@ -243,9 +260,9 @@ const SignUp = () => {
             height="45px"
             width="360px"
             type="submit"
-            // disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
             btntype="blue"
             border="1px solid rgb(251, 188, 4)"
+            disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
           >
             회원가입
           </Button>
@@ -286,16 +303,11 @@ const FirstValidButton = styled.div`
   gap: 10px;
   padding-left: 80px;
   display: flex;
-  /* position: ; */
-  /* left: 410px;
-  top: 80px; */
-  /* position: absolute; */
 `;
 
 const SecondValidButton = styled.div`
   left: 410px;
   top: 160px;
-  /* position: absolute; */
 `;
 
 const Title = styled.div`

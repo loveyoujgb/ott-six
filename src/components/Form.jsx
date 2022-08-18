@@ -48,48 +48,14 @@ const Form = () => {
       <FormSecondWrap>
         <FormTitleWrap>
           <StLabel>글 제목</StLabel>
-          {/* <Input
-                        maxLength="50"
-                        fontsize="24px"
-                        pattern=".{1.5}"
-                        title="3자 이상 50자 이내를 입력하세요"
-                        type="title"
-                        name="title"
-                        value={title}
-                        onChange={onChangeHandler}
-                        placeholder="제목을 입력해주세요.(50자 이내)"
-                        width="100%"
-                        height="100%"
-                    /> */}
           <StFirstInput maxLength="30" type="text" name="title" value={title} onChange={onChangeHandler} placeholder="제목을 입력해주세요.(30자 이내)" />
         </FormTitleWrap>
         <FormContentWrap>
           <StLabel>글 내용</StLabel>
-          {/* <Input
-                        maxLength="200"
-                        fontsize="24px"
-                        pattern=".{1.5}"
-                        title="1자 이상 200자 이내를 입력하세요"
-                        type="content"
-                        name="content"
-                        value={content}
-                        onChange={onChangeHandler}
-                        placeholder="내용을 입력해주세요.(200자 이내)"
-                        width="100%"
-                        height="500%"
-                    /> */}
           <StSecondInput maxLength="200" type="text" name="content" value={content} onChange={onChangeHandler} placeholder="내용을 입력해주세요.(200자 이내)" />
         </FormContentWrap>
         <StButtons>
-          <Button
-            btntype="basic"
-            type="submit"
-            margin="0 10px 0 0"
-            width="200px"
-            height="40px"
-            border="1px solid rgb(251,188,4)"
-            // onClick={onClickLoginHandler}
-          >
+          <Button btntype="basic" type="submit" margin="0 10px 0 0" width="200px" height="40px" border="1px solid rgb(251,188,4)">
             작성하기
           </Button>
           <Button
@@ -112,17 +78,14 @@ const Form = () => {
 export default Form;
 
 const FormContainer = styled.form`
-  /* border: 1px solid white; */
   width: 1400px;
   height: 90vh;
   display: flex;
   margin: auto;
   flex-direction: column;
-  /* padding: 20px; */
 `;
 
 const FormFirstWrap = styled.div`
-  /* background-color: rgb(53,36,123); */
   background-color: rgb(251, 188, 4);
   color: white;
   border: none;
@@ -176,7 +139,6 @@ const StLabel = styled.label`
   color: white;
   margin-bottom: 20px;
   font-weight: bold;
-  /* font-size: 16px; */
   padding-left: 5px;
 `;
 const StSecondInput = styled.input`

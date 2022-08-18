@@ -76,8 +76,9 @@ const Comment = () => {
                     placeholder="댓글을 추가하세요.(100자 이내)"
                     value={userContent}
                   />
-                  <Button 
-                  btntype="blue" width="15%" height="50px" border="1px solid rgb(251, 188, 4)">추가하기</Button>
+                  <Button btntype="blue" width="15%" height="50px" border="1px solid rgb(251, 188, 4)">
+                    추가하기
+                  </Button>
                 </>
               ) : (
                 <span style={{ fontSize: "20px", color: "white" }}>댓글을 추가하시려면 로그인하세요</span>
@@ -104,7 +105,7 @@ const CommentWrap = styled.div`
   border-top: 1px solid #eee;
   transform: translate(-50%, 90%);
   transform: ${({ commentShow }) => (commentShow ? "" : `translate(-50%, 0%)`)};
-  /* height: 400px; */
+  height: 400px;
   position: fixed;
   max-width: 1400px;
   width: 1400px;
@@ -135,7 +136,6 @@ const CommentLists = styled.div`
   overflow: auto;
   height: 80%;
   width: 100%;
-  /* background-color: #363636; */
 `;
 
 const StInput = styled.input`
