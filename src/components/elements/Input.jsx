@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 
-const Input = ({ defaultValue, type, inputType, value, id, title, name, placeholder, width, labelText, onChange, minLength, maxLength }) => {
+const Input = ({ disabled, defaultValue, type, inputType, value, id, title, name, placeholder, width, labelText, onChange, minLength, maxLength }) => {
   return (
     <FormInputContainer>
       <label htmlFor={id}>{labelText}</label>
       <FormInput
+        disabled={disabled}
         type={type}
         inputType={inputType}
         id={id}
@@ -26,7 +27,6 @@ Input.defaultValue = {
   value: "",
   inputType: "",
   type: "",
-  // defaultValue: "",
   id: "",
   name: "",
   placeholder: "",
@@ -59,34 +59,6 @@ const FormInput = styled.input`
         :focus {
           border: 3px solid #35247b;
         }
-      `
-    );
-  }}
-  ${(props) => {
-    return (
-      props.type === "title" &&
-      css`
-        box-sizing: border-box;
-        background-color: #363636;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        width: 1300px;
-        height: 50px;
-      `
-    );
-  }}
-    ${(props) => {
-    return (
-      props.type === "content" &&
-      css`
-        box-sizing: border-box;
-        background-color: #363636;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        width: 1300px;
-        height: 450px;
       `
     );
   }}

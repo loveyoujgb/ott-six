@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -23,19 +23,31 @@ const Home = () => {
         <HomeAbout>내가 본 영화의 후기를 남기는 것을 물론, 다른 사람들의 후기도 쉽게 살펴볼 수 있는 OTTSIX! 지금 후기를 작성해보세요.</HomeAbout>
         <StButtons>
           <Button
-          btntype="blue" width="250px" height="50px" font="15" margin="0 10px" border="3px solid #363636;"
-          onClick={() => {
-            if (cookieCkeck()) {
-              navigate("/reviewform");
-            } else {
-              alert("리뷰를 작성하시려면 로그인을 해주세요.");
-              navigate("/login");
-              return;
-            }
-          }}
-          >영화 리뷰 작성하기</Button>
+            btntype="blue"
+            width="250px"
+            height="50px"
+            font="15"
+            margin="0 10px"
+            border="3px solid #363636;"
+            onClick={() => {
+              if (cookieCkeck()) {
+                navigate("/reviewform");
+              } else {
+                alert("리뷰를 작성하시려면 로그인을 해주세요.");
+                navigate("/login");
+                return;
+              }
+            }}
+          >
+            영화 리뷰 작성하기
+          </Button>
           <Button
-            btntype="basic" width="250px" height="50px" font="15" margin="0 10px" border="3px solid #35247b"
+            btntype="basic"
+            width="250px"
+            height="50px"
+            font="15"
+            margin="0 10px"
+            border="3px solid #35247b"
             onClick={() => {
               navigate("reviewboard");
             }}

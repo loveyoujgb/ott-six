@@ -4,12 +4,10 @@ import signUp from "../modules/signUpSlice";
 import login from "../modules/loginSlice";
 
 export const store = configureStore({
-  // devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== "production",
   reducer: {
     movies,
     signUp,
     login,
   },
 });
-
-// export default store;

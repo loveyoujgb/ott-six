@@ -57,7 +57,7 @@ const Comment = () => {
       <CommentWrap commentShow={commentShow}>
         <CommentSecontWrap>
           <div
-            style={{ cursor : "pointer" }}
+            style={{ cursor: "pointer" }}
             onClick={() => {
               setCommentShow(!commentShow);
             }}
@@ -76,10 +76,13 @@ const Comment = () => {
                     placeholder="댓글을 추가하세요.(100자 이내)"
                     value={userContent}
                   />
-                  <Button 
-                  btntype="blue" width="15%" height="50px" border="1px solid rgb(251, 188, 4)">추가하기</Button>
+                  <Button btntype="blue" width="15%" height="50px" border="1px solid rgb(251, 188, 4)">
+                    추가하기
+                  </Button>
                 </>
-              ) : null}
+              ) : (
+                <span style={{ fontSize: "20px", color: "white" }}>댓글을 추가하시려면 로그인하세요</span>
+              )}
             </CommentForm>
             <CommentLists>
               {comments.map((v) => (

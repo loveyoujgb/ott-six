@@ -76,6 +76,8 @@ const SignUp = () => {
     const data = await axios.post(`${API_URL}/member/validateId`, { username: username });
     if (username.trim() === "") {
       alert("아이디를 입력해주세요.");
+    } else if (!isUsername) {
+      alert("아이디를 조건에 맞게 입력해주세요.");
     } else if (!data.data) {
       alert("이미 가입한 아이디입니다.");
     } else {
@@ -89,11 +91,12 @@ const SignUp = () => {
   };
 
   //닉네임 중복확인
-
   const nicknameCheck = async () => {
     const data = await axios.post(`${API_URL}/member/validateNickname`, { nickname: nickname });
-    if (username.trim() === "") {
+    if (nickname.trim() === "") {
       alert("닉네임을 입력해주세요.");
+    } else if (!isNickname) {
+      alert("닉네임을 조건에 맞게 입력해주세요.");
     } else if (!data.data) {
       alert("이미 가입한 닉네임입니다.");
     } else {
@@ -105,15 +108,15 @@ const SignUp = () => {
   const onClickunicknameCheck = () => {
     nicknameCheck({ nickname: nickname });
   };
+
   //아이디
   const onChangeusername = useCallback((e) => {
-    // setUsernameVaild(true);
     const emailCurrent = e.target.value;
     setusername(emailCurrent);
-    const emailRegex = /^[a-zA-Z](?=.{0,28}[0-9])[0-9a-zA-Z]{4,15}$/;
+    const emailRegex = /^[a-zA-Z](?=.{0,15}[0-9])[0-9a-zA-Z]{4,15}$/;
     //6자리 이상, 영문 대소문자 가능
     if (!emailRegex.test(emailCurrent)) {
-      setusernameMessage("6~15자의 영문 대 소문자, 숫자를 입력해주세요.");
+      setusernameMessage("5~15자의 영문 대 소문자+숫자 조합으로 입력해주세요.");
       setIsUsername(false);
     } else {
       setusernameMessage("올바른 아이디 형식입니다 :)");
@@ -136,23 +139,27 @@ const SignUp = () => {
   }, []);
 
   // 비밀번호
-  const onChangePassword = useCallback((e) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const passwordCurrent = e.target.value;
-    setPassword(e.target.value);
-    if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!");
-      setIsPassword(false);
-    } else if (validPassword === passwordCurrent) {
-      setValidPasswordMessage("비밀번호를 똑같이 입력했어요.");
-    } else {
-      setPasswordMessage("안전한 비밀번호입니다.");
-      setIsValidPassword(false);
-      setIsPassword(true);
-    }
-
-    //위에서도 아래거 e.target
-  }, []);
+  const onChangePassword = useCallback(
+    (e) => {
+      const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+      const passwordCurrent = e.target.value;
+      setPassword(e.target.value);
+      if (validPassword === passwordCurrent) {
+        setValidPasswordMessage("비밀번호를 똑같이 입력했어요.");
+      } else {
+        setValidPasswordMessage("비밀번호가 불일치합니다. 다시 입력해주세요.");
+      }
+      if (!passwordRegex.test(passwordCurrent)) {
+        setPasswordMessage("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!");
+        setIsPassword(false);
+      } else {
+        setPasswordMessage("안전한 비밀번호입니다.");
+        setIsValidPassword(false);
+        setIsPassword(true);
+      }
+    },
+    [validPassword, password]
+  );
 
   // 비밀번호 확인
   const onChangeValidPassword = useCallback(
@@ -167,7 +174,7 @@ const SignUp = () => {
         setIsValidPassword(false);
       }
     },
-    [password]
+    [validPassword, password]
   );
 
   return (
@@ -175,7 +182,9 @@ const SignUp = () => {
       <LoginContainer onSubmit={onCreate}>
         <ButtonWrap>
           <Button
-            type="button" font="55" btntype="logo" 
+            type="button"
+            font="55"
+            btntype="logo"
             onClick={() => {
               navigate("/");
             }}
@@ -185,8 +194,24 @@ const SignUp = () => {
           <Title>회원가입</Title>
           {/* 아이디 */}
           <FirstValidButton>
-            <Input name="username" onChange={onChangeusername} value={username} placeholder="아이디" type="text" inputType="basic"></Input>
-            <Button type="button" onClick={onClickusernameCheck} height="45px" width="70px" btntype="blue" disabled={usernameVaild} border="1px solid rgb(251, 188, 4)">
+            <Input
+              disabled={usernameVaild}
+              name="username"
+              onChange={onChangeusername}
+              value={username}
+              placeholder="아이디"
+              type="text"
+              inputType="basic"
+            ></Input>
+            <Button
+              type="button"
+              onClick={onClickusernameCheck}
+              height="45px"
+              width="70px"
+              btntype="blue"
+              disabled={usernameVaild}
+              border="1px solid rgb(251, 188, 4)"
+            >
               {usernameVaild ? "확인완료" : "중복확인"}
               {/* 중복확인 */}
             </Button>
@@ -194,8 +219,24 @@ const SignUp = () => {
           {username.length > 0 && <span className={`message ${isUsername ? "success" : "error"}`}>{usernameMessage}</span>}
           {/* 닉네임 */}
           <FirstValidButton>
-            <Input name="nickname" onChange={onChangenickname} value={nickname} placeholder="닉네임" type="text" inputType="basic"></Input>
-            <Button type="button" onClick={onClickunicknameCheck} height="45px" width="70px" btntype="blue" disabled={nicknameValid} border="1px solid rgb(251, 188, 4)">
+            <Input
+              disabled={nicknameValid}
+              name="nickname"
+              onChange={onChangenickname}
+              value={nickname}
+              placeholder="닉네임"
+              type="text"
+              inputType="basic"
+            ></Input>
+            <Button
+              type="button"
+              onClick={onClickunicknameCheck}
+              height="45px"
+              width="70px"
+              btntype="blue"
+              disabled={nicknameValid}
+              border="1px solid rgb(251, 188, 4)"
+            >
               {nicknameValid ? "확인완료" : "중복확인"}
               {/* 중복확인 */}
             </Button>
@@ -219,9 +260,9 @@ const SignUp = () => {
             height="45px"
             width="360px"
             type="submit"
-            disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
             btntype="blue"
             border="1px solid rgb(251, 188, 4)"
+            disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
           >
             회원가입
           </Button>
@@ -262,18 +303,11 @@ const FirstValidButton = styled.div`
   gap: 10px;
   padding-left: 80px;
   display: flex;
-
-  /* position: ; */
-
-  /* left: 410px;
-  top: 80px; */
-  /* position: absolute; */
 `;
 
 const SecondValidButton = styled.div`
   left: 410px;
   top: 160px;
-  /* position: absolute; */
 `;
 
 const Title = styled.div`

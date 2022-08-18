@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
@@ -90,6 +90,7 @@ const StLables = styled.div`
   justify-content: space-between;
   padding-right: 10px;
 `;
+
 const StSecondLable = styled.div`
   font-weight: bold;
   color: rgb(251, 188, 4);
@@ -106,6 +107,7 @@ const FormSecondWrap = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
 const FormTitleWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -129,11 +131,13 @@ const FormContentWrap = styled.div`
   flex-direction: column;
   width: 95%;
 `;
+
 const StLabel = styled.label`
   color: white;
   margin-bottom: 5px;
   font-weight: bold;
 `;
+
 const StContent = styled.div`
   margin-top: 10px;
   margin-bottom: 20px;
@@ -144,6 +148,7 @@ const StContent = styled.div`
   align-items: center;
   padding-left: 20px;
 `;
+
 const Buttons = styled.div`
   display: flex;
   flex-direction: row;

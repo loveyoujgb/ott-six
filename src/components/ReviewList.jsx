@@ -54,19 +54,16 @@ const ReviewList = () => {
 
 export default ReviewList;
 
-const StList= styled.div`
+const StList = styled.div`
   background-color: #181818;
-`
+`;
 
 const FormContainer = styled.div`
-  /* border: 1px solid white; */
   width: 1400px;
-  /* height: 100%; */
   display: flex;
   margin: auto;
   flex-direction: column;
   padding: 20px;
-  /* overflow: scroll; */
 `;
 
 const FormConnent = styled.div`
@@ -96,7 +93,6 @@ const FormSecondWrap = styled.div`
   height: 90%;
   /* margin-top: 20px; */
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 `;
@@ -110,7 +106,6 @@ const TitleWrap = styled.div`
 `;
 const ListForm = styled.div`
   width: 100%;
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,7 +114,6 @@ const ListForm = styled.div`
 
 const ReviewTitle = styled.div`
   width: 60%;
-  /* background-color: rgb(138,138,138); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +124,6 @@ const ReviewTitle = styled.div`
 
 const ReviewTime = styled.div`
   width: 15%;
-  /* background-color: rgb(138,138,138); */
   padding: 10px;
   margin: 10px;
   display: flex;
@@ -141,7 +134,6 @@ const ReviewTime = styled.div`
 
 const ReviewUserName = styled.div`
   width: 15%;
-  /* background-color: rgb(138,138,138); */
   padding: 10px;
   margin: 10px;
   display: flex;

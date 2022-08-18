@@ -146,7 +146,6 @@ const StLabel = styled.label`
   color: white;
   margin-bottom: 20px;
   font-weight: bold;
-  /* font-size: 16px; */
   padding-left: 5px;
 `;
 const StSecondInput = styled.input`
