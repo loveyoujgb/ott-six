@@ -42,12 +42,17 @@
     },
     {
 <<<<<<< HEAD
+      "title": "sddf",
+      "content": "asdf",
+=======
+<<<<<<< HEAD
       "title": "안녕하세요^^",
       "content": "하이하이",
 =======
       "title": "sddf",
       "content": "asdf",
 >>>>>>> origin/miri
+>>>>>>> 678fa13e7f1266b01b404e5e8b84ba2ea5d17184
       "id": 19
     }
   ],
