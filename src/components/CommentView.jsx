@@ -10,10 +10,6 @@ const CommentView = ({ comment }) => {
   const param = useParams();
   const [editComment, setEditComment] = React.useState(false);
   const { nickname, token } = useSelector((state) => state.login);
-  console.log(useSelector((state) => state.login));
-  console.log(comment);
-  console.log(nickname);
-  console.log(comment.nickname);
 
   let updateCommentInput = () => {
     if (editComment) {

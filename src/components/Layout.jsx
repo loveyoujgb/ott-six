@@ -22,6 +22,6 @@ const StLayoutContainer = styled.div`
 `;
 
 const StLayoutContents = styled.div`
-  height: 100vh;
+  height: 100%;
   background-color: #181818;
 `;

@@ -32,7 +32,6 @@ const ReviewList = () => {
         <ListForm>
           {movies?.map((movie, index) => (
             <Review 
-            // key={movie.boardId}
             key={index}  
             movie={movie} />
           ))}
