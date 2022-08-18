@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { __deleteComment, __updateComment } from "../redux/modules/moviesSlice";
 import { useParams } from "react-router-dom";
+import Button from "./elements/Button";
 
 const CommentView = ({ comment }) => {
   const dispatch = useDispatch();
@@ -65,51 +66,33 @@ const CommentView = ({ comment }) => {
               <CommentButton>
                 {!editComment ? (
                   <div>
-                    {/* <Button
-                  uibutton="edit"
-                  btntype="ui-comment"
-                  onClick={() => {
-                    updateCommentInput();
-                  }}
-                /> */}
-                    <StEditButton
-                      onClick={() => {
-                        updateCommentInput();
-                      }}
-                    >
-                      수정하기
-                    </StEditButton>
-                    {/* <Button
-                  uibutton="delete"
-                  btntype="ui-comment"
-                  onClick={() => {
-                    deleteBtn(comment.id);
-                  }}
-                /> */}
-                    <StDeleteButton
-                      onClick={() => {
-                        deleteBtn(comment.id);
-                      }}
-                    >
-                      삭제하기
-                    </StDeleteButton>
+                    <Button
+                    btntype="white" width="140px" height="50px" outline="1px solid #35247b;"
+                    onClick={() => {
+                      updateCommentInput();
+                    }}
+                    >수정하기</Button>
+                    <Button
+                    btntype="white" width="140px" height="50px" margin="0 10px" outline="1px solid #35247b;"
+                    onClick={() => {
+                      deleteBtn(comment.id);
+                    }}
+                    >삭제하기</Button>
                   </div>
                 ) : (
                   <div>
-                    <StCancelButton
-                      onClick={() => {
-                        updateCommentInput();
-                      }}
-                    >
-                      취소
-                    </StCancelButton>
-                    <StButton
-                      onClick={() => {
-                        updateCommentAction();
-                      }}
-                    >
-                      저장
-                    </StButton>
+                    <Button
+                    btntype="white" width="140px" height="50px" outline="1px solid rgb(251,188,4);"
+                    onClick={() => {
+                      updateCommentInput();
+                    }}
+                    >취소하기</Button>
+                    <Button
+                    btntype="white" width="140px" height="50px" margin="0 10px" outline="1px solid rgb(251,188,4);"
+                    onClick={() => {
+                      updateCommentAction();
+                    }}
+                    >저장하기</Button>
                   </div>
                 )}
               </CommentButton>
@@ -128,13 +111,14 @@ const CommentView = ({ comment }) => {
 export default CommentView;
 
 const CommentBox = styled.div`
-  width: 100%;
+  width: 1300px;
   display: flex;
   /* border-bottom: 1px solid #eee; */
-  justify-content: space-between;
+  justify-content: center;
+  /* border: 1px solid red; */
 `;
 const CommentContent = styled.div`
-  width: 70%;
+  width: 990px;
   height: 50px;
   border-radius: 5px;
   background-color: #eee;
@@ -142,10 +126,11 @@ const CommentContent = styled.div`
   /* justify-content: center; */
   align-items: center;
   /* border: 3px solid rgb(251,188,4); */
+  margin-right: 10px;
 `;
 const CommentContentDiv = styled.div`
   width: 100%;
-  margin: 7px;
+  margin: 5px 10px 5px 0;
   height: 50px;
   border-radius: 5px;
   background-color: #eee;
@@ -166,9 +151,9 @@ const StInput = styled.input`
   color: black;
   border: none;
   border-radius: 5px;
-  width: 100%;
+  /* width: 70%; */
   height: 50px;
-  margin-right: 20px;
+  /* margin-right: 10px; */
 `;
 
 const CommentButton = styled.div`
@@ -178,35 +163,5 @@ const CommentButton = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-`;
 
-const StEditButton = styled.button`
-  width: 180px;
-  height: 50px;
-  border-radius: 5px;
-  margin-right: 20px;
-  border: none;
-  border: 3px solid #35247b;
-`;
-const StDeleteButton = styled.button`
-  width: 180px;
-  height: 50px;
-  border-radius: 5px;
-  border: none;
-  border: 3px solid #35247b;
-`;
-
-const StCancelButton = styled.button`
-  width: 180px;
-  height: 50px;
-  border-radius: 5px;
-  margin-right: 20px;
-  border: 3px solid rgb(251, 188, 4);
-`;
-
-const StButton = styled.button`
-  width: 180px;
-  height: 50px;
-  border-radius: 5px;
-  border: 3px solid rgb(251, 188, 4);
 `;

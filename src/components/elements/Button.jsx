@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
-const Button = ({ font, height, width, btntype, type, onClick, children, disabled }) => {
+const Button = ({ font, outline, border, margin, height, width, btntype, type, onClick, children, disabled }) => {
   return (
-    <StButton font={font} height={height} width={width} type={type} onClick={onClick} btntype={btntype} disabled={disabled}>
+    <StButton font={font} outline={outline} border={border} margin={margin} height={height} width={width} type={type} onClick={onClick} btntype={btntype} disabled={disabled}>
       {children}
     </StButton>
   );
@@ -19,32 +19,14 @@ const StButton = styled.button`
         background-color: #363636;
         border: transparent;
         color: white;
-        margin: 5px;
-        /* width: 100px; */
+        margin: ${(props) => props.margin};
         width: ${(props) => props.width};
-        height: 35px;
+        height: ${(props) => props.height};
         border-radius: 5px;
+        font-size: ${({ font }) => `${font}px`};
         font-weight: bold;
         :hover {
-          border: 3px solid #35247b;
-        }
-      `
-    );
-  }}
-  ${(props) => {
-    return (
-      props.btntype === "gray" &&
-      css`
-        background-color: #363636;
-        border: transparent;
-        color: white;
-        border-radius: 5px;
-        margin: 5px;
-        width: 200px;
-        height: 40px;
-        /* font-weight: bold; */
-        :hover {
-          border: 1px solid rgb(251, 188, 4);
+          border: ${({border}) => `${border}`}
         }
       `
     );
@@ -57,14 +39,17 @@ const StButton = styled.button`
         border: transparent;
         color: white;
         border-radius: 5px;
-        width: ${({ width }) => `${width}px`};
-        height: ${({ height }) => `${height}px`};
+        margin: ${(props) => props.margin};
+        width: ${(props) => props.width};
+        height: ${(props) => props.height};
+        font-size: ${({ font }) => `${font}px`};
+        font-weight: bold;
         &:disabled {
           cursor: default;
           opacity: 0.5;
         }
         :hover {
-          border: 1px solid rgb(251, 188, 4);
+          border: ${({border}) => `${border}`}
         }
       `
     );
@@ -72,18 +57,49 @@ const StButton = styled.button`
 
 ${(props) => {
     return (
-      props.btntype === "purple" &&
+      props.btntype === "yellow" &&
       css`
-        background-color: #35247b;
+        background-color: rgb(251,188,4);
         border: transparent;
         color: white;
         border-radius: 5px;
-        width: 200px;
-        height: 50px;
-        margin-top: 10px;
+        margin: ${(props) => props.margin};
+        width: ${(props) => props.width};
+        height: ${(props) => props.height};
+        font-size: ${({ font }) => `${font}px`};
+        font-weight: bold;
+        &:disabled {
+          cursor: default;
+          opacity: 0.5;
+        }
+        :hover {
+          border: ${({border}) => `${border}`}
+        }
       `
     );
   }}
+${(props) => {
+    return (
+      props.btntype === "white" &&
+      css`
+        background-color: white;
+        border: ${({outline}) => `${outline}`}
+        border-radius: 5px;
+        margin: ${(props) => props.margin};
+        width: ${(props) => props.width};
+        height: ${(props) => props.height};
+        &:disabled {
+          cursor: default;
+          opacity: 0.5;
+        }
+        :hover {
+          border: ${({border}) => `${border}`}
+        }
+      `
+    );
+  }}
+  
+
   ${(props) => {
     return (
       props.btntype === "logo" &&

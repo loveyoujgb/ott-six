@@ -4,8 +4,6 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-const accessToken = cookies.get("Authorization");
-
 const API_MOVIES = process.env.REACT_APP_API_URL;
 
 const initialState = {
@@ -27,6 +25,7 @@ export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, 
 
 export const __postMovies = createAsyncThunk("movies/postMovies", async (payload, thunkAPI) => {
   try {
+    const accessToken = cookies.get("Authorization");
     // const data = await axios.post("http://localhost:3001/movies", payload,
     const data = await axios.post(`${API_MOVIES}/auth/board`, payload, {
       headers: {
@@ -42,6 +41,7 @@ export const __postMovies = createAsyncThunk("movies/postMovies", async (payload
 
 export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, thunkAPI) => {
   try {
+    const accessToken = cookies.get("Authorization");
     // await axios.patch(`http://localhost:3001/movies/${payload.id}`, payload,
     await axios.put(`${API_MOVIES}/auth/board/${payload.boardId}`, payload, {
       headers: {
@@ -57,6 +57,7 @@ export const __putMovies = createAsyncThunk("movies/putMovies", async (payload, 
 
 export const __deleteMovies = createAsyncThunk("movies/deleteMovies", async (payload, thunkAPI) => {
   try {
+    const accessToken = cookies.get("Authorization");
     // const data = await axios.delete(`http://localhost:3001/movies/${payload}`,
     const data = await axios.delete(`${API_MOVIES}/auth/board/${payload}`, {
       headers: {
@@ -84,6 +85,7 @@ export const __getComments = createAsyncThunk("comments/getComments", async (pay
 
 export const __postComment = createAsyncThunk("comments/postComment", async (payload, thunkAPI) => {
   try {
+    const accessToken = cookies.get("Authorization");
     // const data = await axios.post("http://localhost:3001/comments", payload,
     const data = await axios.post(`${API_MOVIES}/auth/comment/${payload.boardId}`, payload, {
       headers: {
@@ -100,6 +102,7 @@ export const __postComment = createAsyncThunk("comments/postComment", async (pay
 
 export const __updateComment = createAsyncThunk("comments/updateComments", async (payload, thunkAPI) => {
   try {
+    const accessToken = cookies.get("Authorization");
     // await axios.patch(`http://localhost:3001/comments/${payload.id}`, payload,
     await axios.put(`${API_MOVIES}/auth/comment/${payload.commentId}`, payload, {
       headers: {
@@ -115,6 +118,7 @@ export const __updateComment = createAsyncThunk("comments/updateComments", async
 
 export const __deleteComment = createAsyncThunk("comments/delteComments", async (payload, thunkAPI) => {
   try {
+    const accessToken = cookies.get("Authorization");
     // await axios.delete(`http://localhost:3001/comments/${payload}`,
     await axios.delete(`${API_MOVIES}/auth/comment/${payload}`, {
       headers: {

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import CommentView from "./CommentView";
 import { __loginCheck } from "../redux/modules/loginSlice";
 import { cookieCkeck } from "../actions/Cookie";
+import Button from "./elements/Button";
 
 const Comment = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const Comment = () => {
       <CommentWrap commentShow={commentShow}>
         <CommentSecontWrap>
           <div
+            style={{ cursor : "pointer" }}
             onClick={() => {
               setCommentShow(!commentShow);
             }}
@@ -74,7 +76,8 @@ const Comment = () => {
                     placeholder="댓글을 추가하세요.(100자 이내)"
                     value={userContent}
                   />
-                  <StButton type="submit">추가하기</StButton>
+                  <Button 
+                  btntype="blue" width="15%" height="50px" border="1px solid rgb(251, 188, 4)">추가하기</Button>
                 </>
               ) : null}
             </CommentForm>
@@ -98,13 +101,13 @@ const CommentWrap = styled.div`
   background-color: #363636;
   border-top: 1px solid #eee;
   transform: translate(-50%, 90%);
-  transform: ${({ commentShow }) => (commentShow ? "" : `translate(-50%, -10%)`)};
-  height: 400px;
+  transform: ${({ commentShow }) => (commentShow ? "" : `translate(-50%, 0%)`)};
+  /* height: 400px; */
   position: fixed;
   max-width: 1400px;
   width: 1400px;
-  bottom: 0%;
-  left: 50%;
+  bottom: 2%;
+  left: 49.6%;
   display: flex;
   justify-content: center;
   border-radius: 5px;
@@ -130,7 +133,7 @@ const CommentLists = styled.div`
   overflow: auto;
   height: 80%;
   width: 100%;
-  background-color: #363636;
+  /* background-color: #363636; */
 `;
 
 const StInput = styled.input`
@@ -145,18 +148,5 @@ const StInput = styled.input`
   padding-left: 20px;
   :hover {
     border: 3px solid rgb(53, 36, 123);
-  }
-  /* text-align: center; */
-`;
-
-const StButton = styled.button`
-  background-color: #35247b;
-  border: none;
-  border-radius: 5px;
-  width: 15%;
-  height: 50px;
-  color: white;
-  :hover {
-    border: 1px solid rgb(251, 188, 4);
   }
 `;

@@ -14,11 +14,11 @@ export default Layout;
 
 const StLayoutContainer = styled.div`
   border: none;
-  /* height: 100%; */
+  height: 100%;
   position: fixed;
   top: 0;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 const StLayoutContents = styled.div`

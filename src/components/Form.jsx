@@ -36,6 +36,7 @@ const Form = () => {
       return alert("내용을 입력해주세요");
     }
     dispatch(__postMovies(movie));
+    dispatch(__getMovies());
     navigate("/reviewboard");
   };
 
@@ -81,14 +82,21 @@ const Form = () => {
         </FormContentWrap>
         <StButtons>
           <Button
-            btntype="gray"
+            btntype="basic"
             type="submit"
+            margin="0 10px 0 0"
+            width="200px"
+            height="40px"
+            border="1px solid rgb(251,188,4)"
             // onClick={onClickLoginHandler}
           >
             작성하기
           </Button>
           <Button
-            btntype="gray"
+            btntype="basic"
+            width="200px"
+            height="40px"
+            border="1px solid rgb(251,188,4)"
             onClick={() => {
               navigate("/");
             }}

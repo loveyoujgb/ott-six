@@ -175,9 +175,7 @@ const SignUp = () => {
       <LoginContainer onSubmit={onCreate}>
         <ButtonWrap>
           <Button
-            type="button"
-            font="55"
-            btntype="logo"
+            type="button" font="55" btntype="logo" 
             onClick={() => {
               navigate("/");
             }}
@@ -188,7 +186,7 @@ const SignUp = () => {
           {/* 아이디 */}
           <FirstValidButton>
             <Input name="username" onChange={onChangeusername} value={username} placeholder="아이디" type="text" inputType="basic"></Input>
-            <Button type="button" onClick={onClickusernameCheck} height="45" width="70" btntype="blue" disabled={usernameVaild}>
+            <Button type="button" onClick={onClickusernameCheck} height="45px" width="70px" btntype="blue" disabled={usernameVaild} border="1px solid rgb(251, 188, 4)">
               {usernameVaild ? "확인완료" : "중복확인"}
               {/* 중복확인 */}
             </Button>
@@ -197,7 +195,7 @@ const SignUp = () => {
           {/* 닉네임 */}
           <FirstValidButton>
             <Input name="nickname" onChange={onChangenickname} value={nickname} placeholder="닉네임" type="text" inputType="basic"></Input>
-            <Button type="button" onClick={onClickunicknameCheck} height="45" width="70" btntype="blue" disabled={nicknameValid}>
+            <Button type="button" onClick={onClickunicknameCheck} height="45px" width="70px" btntype="blue" disabled={nicknameValid} border="1px solid rgb(251, 188, 4)">
               {nicknameValid ? "확인완료" : "중복확인"}
               {/* 중복확인 */}
             </Button>
@@ -218,11 +216,12 @@ const SignUp = () => {
           {validPassword.length > 0 && <span className={`message ${isValidPassword ? "success" : "error"}`}>{validPasswordMessage}</span>}
           {nicknameValid && usernameVaild ? <span>중복확인을 완료했습니다</span> : <span>중복확인을 해주세요</span>}
           <Button
-            height="45"
-            width="360"
+            height="45px"
+            width="360px"
             type="submit"
             // disabled={!(usernameVaild && nicknameValid && isUsername && isNickname && isPassword && isValidPassword)}
             btntype="blue"
+            border="1px solid rgb(251, 188, 4)"
           >
             회원가입
           </Button>

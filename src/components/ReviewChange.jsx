@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { __getMovies, __putMovies } from "../redux/modules/moviesSlice";
+import Button from "./elements/Button";
 
 const ReviewChange = () => {
   const param = useParams();
@@ -64,20 +65,15 @@ const ReviewChange = () => {
           <StSecondInput name="updateContent" value={updateContent} onChange={onChangeContentHandler} />
         </FormContentWrap>
         <Buttons>
-          <StButton
-          // onClick={() => {
-          //     navigate(`/reviewboard`)
-          // }}
-          >
-            저장하기
-          </StButton>
-          <StButton
-            onClick={() => {
-              navigate(`/detail/${param.id}`);
-            }}
-          >
-            취소하기
-          </StButton>
+          <Button
+          btntype="yellow" width="150px" height="40px" border="1px solid #35247b;"
+          >저장하기</Button>
+          <Button
+          btntype="yellow" width="150px" height="40px" border="1px solid #35247b;"
+          onClick={() => {
+            navigate(`/detail/${param.id}`);
+          }}
+          >취소하기</Button>
         </Buttons>
       </FormSecondWrap>
     </FormContainer>
@@ -145,20 +141,4 @@ const Buttons = styled.div`
   justify-content: right;
   gap: 20px;
   width: 95%;
-`;
-
-const StButton = styled.button`
-  background-color: rgb(251, 188, 4);
-  color: white;
-  border: none;
-  width: 10%;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border-radius: 5px;
-  :hover {
-    border: 1px solid rgb(53, 36, 123);
-  }
 `;
