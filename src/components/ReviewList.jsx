@@ -6,7 +6,6 @@ import { __getMovies } from "../redux/modules/moviesSlice";
 import Review from "./Review";
 
 const ReviewList = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { movies, isLoading, error } = useSelector((state) => state.movies);
@@ -24,30 +23,39 @@ const ReviewList = () => {
 
   return (
     <StList>
-    <FormContainer>
-      <FormFirstWrap>게시판</FormFirstWrap>
-      <FormConnent
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          navigate("/reviewform")
-        }}
-      >[게시글 쓰기]</FormConnent>
-      <FormSecondWrap>
-        <TitleWrap>
-          <ReviewTitle>글 제목</ReviewTitle>
-          <ReviewTime>작성 시간</ReviewTime>
-          <ReviewUserName>작성자명</ReviewUserName>
-        </TitleWrap>
-        <ListForm>
-          {movies?.map((movie, index) => (
-            <Review 
-            // key={movie.boardId}
-            key={index}  
-            movie={movie} />
-          ))}
-        </ListForm>
-      </FormSecondWrap>
-    </FormContainer>
+      <FormContainer>
+        <FormFirstWrap>게시판</FormFirstWrap>
+        <FormConnent
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            if (cookieCkeck()) {
+              dispatch(__loginCheck());
+              navigate("/reviewform");
+            } else {
+              alert("게시글을 작성하시려면 로그인을 해주세요.");
+              return;
+            }
+          }}
+        >
+          [게시글 쓰기]
+        </FormConnent>
+        <FormSecondWrap>
+          <TitleWrap>
+            <ReviewTitle>글 제목</ReviewTitle>
+            <ReviewTime>작성 시간</ReviewTime>
+            <ReviewUserName>작성자명</ReviewUserName>
+          </TitleWrap>
+          <ListForm>
+            {movies?.map((movie, index) => (
+              <Review
+                // key={movie.boardId}
+                key={index}
+                movie={movie}
+              />
+            ))}
+          </ListForm>
+        </FormSecondWrap>
+      </FormContainer>
     </StList>
   );
 };
@@ -71,10 +79,10 @@ const FormConnent = styled.div`
   text-align: right;
   padding-right: 10px;
   color: white;
-  :hover{
-    color: rgb(251,188,4);
+  :hover {
+    color: rgb(251, 188, 4);
   }
-`
+`;
 
 const FormFirstWrap = styled.div`
   background-color: rgb(53, 36, 123);
