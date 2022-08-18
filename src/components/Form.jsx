@@ -36,6 +36,7 @@ const Form = () => {
       return alert("내용을 입력해주세요");
     }
     dispatch(__postMovies(movie));
+    dispatch(__getMovies());
     navigate("/reviewboard");
   };
 

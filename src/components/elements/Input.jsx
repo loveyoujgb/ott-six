@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 
-const Input = ({ defaultValue, type, inputType, value, id, title, name, placeholder, width, labelText, onChange, minLength, maxLength }) => {
+const Input = ({ disabled, defaultValue, type, inputType, value, id, title, name, placeholder, width, labelText, onChange, minLength, maxLength }) => {
   return (
     <FormInputContainer>
       <label htmlFor={id}>{labelText}</label>
       <FormInput
+        disabled={disabled}
         type={type}
         inputType={inputType}
         id={id}

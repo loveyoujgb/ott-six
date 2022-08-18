@@ -5,26 +5,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import { __deleteMovies, __getMovies } from "../redux/modules/moviesSlice";
 // import Button from "./elements/Button";
 import Comment from "./Comment";
-import { logout, cookieCkeck } from "../actions/Cookie";
+import { cookieCkeck } from "../actions/Cookie";
 import { __loginCheck } from "../redux/modules/loginSlice";
 
 const Detail = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [token, setToken] = useState(false);
 
   const { movies } = useSelector((state) => state.movies);
-  const { nickname } = useSelector((state) => state.login);
+  const nickname = useSelector((state) => state.login.nickname);
   const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
   useEffect(() => {
     dispatch(__getMovies());
     if (cookieCkeck()) {
       dispatch(__loginCheck());
-    } else if (nickname === movie.nickname) {
-      setToken(true);
-    }
+    } else return;
   }, [dispatch]);
 
   const onClickDeleteHandler = (e) => {
@@ -62,7 +59,7 @@ const Detail = () => {
           {/* <StSecondInput /> */}
         </FormContentWrap>
         <Buttons>
-          {token ? (
+          {nickname === movie.nickname ? (
             <>
               <StButton
                 onClick={() => {
@@ -124,7 +121,7 @@ const StSecondLable = styled.div`
 const FormSecondWrap = styled.div`
   background-color: rgb(45, 45, 45);
   border-radius: 5px;
-  height: 70%;
+  /* height: 70%; */
   margin-top: 20px;
   display: flex;
   /* justify-content: center; */
@@ -175,6 +172,7 @@ const Buttons = styled.div`
   justify-content: right;
   gap: 20px;
   width: 95%;
+  margin-bottom: 20px;
 `;
 
 const StButton = styled.button`
