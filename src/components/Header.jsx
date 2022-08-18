@@ -59,22 +59,22 @@ const Header = () => {
       {token ? (
         <ButtonWrap>
           <Stspan>{nickname}님 환영합니다</Stspan>
-          <Button btntype="basic" onClick={onClickBoard} width="100px">
+          <Button btntype="basic" onClick={onClickBoard} margin="5px" width="100px" height="35px" border="1px solid #35247b">
             게시판
           </Button>
-          <Button btntype="basic" onClick={onClickLogout} width="100px">
+          <Button btntype="basic" onClick={onClickLogout} margin="5px" width="100px" height="35px">
             로그아웃
           </Button>
         </ButtonWrap>
       ) : (
         <ButtonWrap>
-          <Button btntype="basic" onClick={onClickBoard} width="100px">
+          <Button btntype="basic" onClick={onClickBoard} margin="5px" width="100px" height="35px" border="1px solid #35247b">
             게시판
           </Button>
-          <Button btntype="basic" onClick={onClickLogin} width="100px">
+          <Button btntype="basic" onClick={onClickLogin} margin="5px" width="100px" height="35px" border="1px solid #35247b">
             로그인
           </Button>
-          <Button btntype="basic" onClick={onClickSignUp} width="100px">
+          <Button btntype="basic" onClick={onClickSignUp} margin="5px" width="100px" height="35px" border="1px solid #35247b">
             회원가입
           </Button>
         </ButtonWrap>

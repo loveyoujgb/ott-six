@@ -55,9 +55,7 @@ const Login = () => {
     <Whole>
       <LoginContainer onSubmit={onCreate}>
         <Button
-          type="button"
-          font="55"
-          btntype="logo"
+          type="button" font="55" btntype="logo"
           onClick={() => {
             navigate("/");
           }}
@@ -68,7 +66,7 @@ const Login = () => {
         <ButtonWrap>
           <Input name="username" value={username} onChange={onChangeUserInfo} type="text" placeholder="아이디" inputType="basic"></Input>
           <Input name="password" value={password} onChange={onChangeUserInfo} type="password" placeholder="비밀번호" inputType="basic"></Input>
-          <Button height="45" width="360" type="submit" btntype="blue">
+          <Button height="45px" width="360px" type="submit" btntype="blue" border="1px solid rgb(251, 188, 4)">
             로그인
           </Button>
         </ButtonWrap>
@@ -105,21 +103,6 @@ const Title = styled.div`
   font-size: 20px;
   font-weight: 700;
   color: white;
-`;
-
-const Btn = styled.button`
-  width: 300px;
-  height: 50px;
-  margin-top: 10px;
-  margin-bottom: ${(props) => props.marginBottom};
-  border-radius: 5px;
-  color: ${(props) => props.textColor};
-  background-color: ${(props) => props.backColor};
-  font-size: large;
-  padding: ${(props) => props.padding};
-  :focus {
-    cursor: pointer;
-  }
 `;
 
 const ButtonWrap = styled.div`

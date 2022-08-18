@@ -20,6 +20,7 @@ const ReviewList = () => {
   }
 
   return (
+    <StList>
     <FormContainer>
       <FormFirstWrap>게시판</FormFirstWrap>
       <FormSecondWrap>
@@ -29,21 +30,29 @@ const ReviewList = () => {
           <ReviewUserName>작성자명</ReviewUserName>
         </TitleWrap>
         <ListForm>
-          {movies?.map((movie) => (
-            <Review key={movie.boardId} movie={movie} />
+          {movies?.map((movie, index) => (
+            <Review 
+            // key={movie.boardId}
+            key={index}  
+            movie={movie} />
           ))}
         </ListForm>
       </FormSecondWrap>
     </FormContainer>
+    </StList>
   );
 };
 
 export default ReviewList;
 
+const StList= styled.div`
+  background-color: #181818;
+`
+
 const FormContainer = styled.div`
   /* border: 1px solid white; */
   width: 1400px;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   margin: auto;
   flex-direction: column;
