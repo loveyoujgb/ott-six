@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import { useDispatch, useSelector } from "react-redux";
 import { __postComment, __getComments } from "../redux/modules/moviesSlice";
-
 import { useParams } from "react-router-dom";
 import CommentView from "./CommentView";
-
-// import Button from "./elements/Button";
-// import Input from "./elements/Input";
+import { __loginCheck } from "../redux/modules/loginSlice";
+import { cookieCkeck } from "../actions/Cookie";
 
 const Comment = () => {
   const dispatch = useDispatch();
   const param = useParams();
   const comments = useSelector((state) => state.movies.comments);
+  const [token, setToken] = useState(false);
 
   useEffect(() => {
     dispatch(__getComments(param.id));
+    if (cookieCkeck()) {
+      dispatch(__loginCheck());
+      setToken(true);
+    } else {
+      return;
+    }
   }, [dispatch]);
 
   const [comment, setComment] = useState({
@@ -60,15 +64,19 @@ const Comment = () => {
           </div>
           <ShowHideBox>
             <CommentForm onSubmit={postComment}>
-              <StInput
-                type="text"
-                name="userContent"
-                onChange={onChangeHandler}
-                maxLength="100"
-                placeholder="댓글을 추가하세요.(100자 이내)"
-                value={userContent}
-              />
-              <StButton type="submit">추가하기</StButton>
+              {token ? (
+                <>
+                  <StInput
+                    type="text"
+                    name="userContent"
+                    onChange={onChangeHandler}
+                    maxLength="100"
+                    placeholder="댓글을 추가하세요.(100자 이내)"
+                    value={userContent}
+                  />
+                  <StButton type="submit">추가하기</StButton>
+                </>
+              ) : null}
             </CommentForm>
             <CommentLists>
               {comments.map((v) => (

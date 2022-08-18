@@ -1,21 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { __deleteMovies, __getMovies } from "../redux/modules/moviesSlice";
 // import Button from "./elements/Button";
 import Comment from "./Comment";
+import { logout, cookieCkeck } from "../actions/Cookie";
+import { __loginCheck } from "../redux/modules/loginSlice";
 
 const Detail = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [token, setToken] = useState(false);
 
   const { movies } = useSelector((state) => state.movies);
+  const { nickname } = useSelector((state) => state.login);
   const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
   useEffect(() => {
     dispatch(__getMovies());
+    if (cookieCkeck()) {
+      dispatch(__loginCheck());
+    } else if (nickname === movie.nickname) {
+      setToken(true);
+    }
   }, [dispatch]);
 
   const onClickDeleteHandler = (e) => {
@@ -53,20 +62,24 @@ const Detail = () => {
           {/* <StSecondInput /> */}
         </FormContentWrap>
         <Buttons>
-          <StButton
-            onClick={() => {
-              navigate(`/detail/${param.id}/change`);
-            }}
-          >
-            수정하기
-          </StButton>
-          <StButton
-            onClick={() => {
-              onClickDeleteHandler();
-            }}
-          >
-            삭제하기
-          </StButton>
+          {token ? (
+            <>
+              <StButton
+                onClick={() => {
+                  navigate(`/detail/${param.id}/change`);
+                }}
+              >
+                수정하기
+              </StButton>
+              <StButton
+                onClick={() => {
+                  onClickDeleteHandler();
+                }}
+              >
+                삭제하기
+              </StButton>
+            </>
+          ) : null}
         </Buttons>
       </FormSecondWrap>
       {/* <CommentButton

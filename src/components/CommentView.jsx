@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { __deleteComment, __updateComment } from "../redux/modules/moviesSlice";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +8,11 @@ const CommentView = ({ comment }) => {
   const dispatch = useDispatch();
   const param = useParams();
   const [editComment, setEditComment] = React.useState(false);
+  const { nickname, token } = useSelector((state) => state.login);
+  console.log(useSelector((state) => state.login));
+  console.log(comment);
+  console.log(nickname);
+  console.log(comment.nickname);
 
   let updateCommentInput = () => {
     if (editComment) {
@@ -44,68 +49,76 @@ const CommentView = ({ comment }) => {
     <>
       <div>
         <CommentBox>
-          <CommentContent>
-            {!editComment ? (
-              <div>
-                {/* <CommentTop className="comment_view">{comment.userName}</CommentTop> */}
-                <CommentBottom className="comment_view">{comment.userContent}</CommentBottom>
-              </div>
-            ) : (
-              // <Input onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent}/>
-              <StInput onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent} />
-            )}
-          </CommentContent>
-          <CommentButton>
-            {!editComment ? (
-              <div>
-                {/* <Button
+          {comment.nickname === nickname ? (
+            <>
+              <CommentContent>
+                {!editComment ? (
+                  <div>
+                    {/* <CommentTop className="comment_view">{comment.userName}</CommentTop> */}
+                    <CommentBottom className="comment_view">{comment.userContent}</CommentBottom>
+                  </div>
+                ) : (
+                  // <Input onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent}/>
+                  <StInput onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent} />
+                )}
+              </CommentContent>
+              <CommentButton>
+                {!editComment ? (
+                  <div>
+                    {/* <Button
                   uibutton="edit"
                   btntype="ui-comment"
                   onClick={() => {
                     updateCommentInput();
                   }}
                 /> */}
-                <StEditButton
-                  onClick={() => {
-                    updateCommentInput();
-                  }}
-                >
-                  수정하기
-                </StEditButton>
-                {/* <Button
+                    <StEditButton
+                      onClick={() => {
+                        updateCommentInput();
+                      }}
+                    >
+                      수정하기
+                    </StEditButton>
+                    {/* <Button
                   uibutton="delete"
                   btntype="ui-comment"
                   onClick={() => {
                     deleteBtn(comment.id);
                   }}
                 /> */}
-                <StDeleteButton
-                  onClick={() => {
-                    deleteBtn(comment.id);
-                  }}
-                >
-                  삭제하기
-                </StDeleteButton>
-              </div>
-            ) : (
-              <div>
-                <StCancelButton
-                  onClick={() => {
-                    updateCommentInput();
-                  }}
-                >
-                  취소
-                </StCancelButton>
-                <StButton
-                  onClick={() => {
-                    updateCommentAction();
-                  }}
-                >
-                  저장
-                </StButton>
-              </div>
-            )}
-          </CommentButton>
+                    <StDeleteButton
+                      onClick={() => {
+                        deleteBtn(comment.id);
+                      }}
+                    >
+                      삭제하기
+                    </StDeleteButton>
+                  </div>
+                ) : (
+                  <div>
+                    <StCancelButton
+                      onClick={() => {
+                        updateCommentInput();
+                      }}
+                    >
+                      취소
+                    </StCancelButton>
+                    <StButton
+                      onClick={() => {
+                        updateCommentAction();
+                      }}
+                    >
+                      저장
+                    </StButton>
+                  </div>
+                )}
+              </CommentButton>
+            </>
+          ) : (
+            <CommentContentDiv>
+              <CommentBottom className="comment_view">{comment.userContent}</CommentBottom>
+            </CommentContentDiv>
+          )}
         </CommentBox>
       </div>
     </>
@@ -122,6 +135,17 @@ const CommentBox = styled.div`
 `;
 const CommentContent = styled.div`
   width: 70%;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #eee;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  /* border: 3px solid rgb(251,188,4); */
+`;
+const CommentContentDiv = styled.div`
+  width: 100%;
+  margin: 7px;
   height: 50px;
   border-radius: 5px;
   background-color: #eee;

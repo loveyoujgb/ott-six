@@ -30,7 +30,7 @@ const ReviewList = () => {
         </TitleWrap>
         <ListForm>
           {movies?.map((movie) => (
-            <Review key={movie.boardId} id={movie.boardId} movie={movie} />
+            <Review key={movie.boardId} movie={movie} />
           ))}
         </ListForm>
         {/* API 받으면 Revie 맵 돌려서 넣을 예정 */}

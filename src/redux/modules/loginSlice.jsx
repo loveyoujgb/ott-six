@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setRefreshTokenToCookie, getAccessToken } from "../../actions/Cookie";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 const API_URL = process.env.REACT_APP_API_URL;
 
 const initialState = {
-  username: "",
+  nickname: "",
+  token: false,
   isLoading: false,
   error: null,
-  comments: [],
 };
 
 export const __loginCheck = createAsyncThunk("Login/loginCheck", async (payload, thunkAPI) => {
@@ -38,7 +37,7 @@ export const loginSlice = createSlice({
     },
     [__loginCheck.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.name = action.payload;
+      state.nickname = action.payload;
       state.token = true;
     },
     [__loginCheck.rejected]: (state, action) => {
