@@ -9,15 +9,12 @@ const ReviewChange = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [updateTitle, setUpdateTitle] = useState(movie.title);
-  const [updateContent, setUpdateContent] = useState(movie.content);
 
   const { isLoading, error, movies } = useSelector((state) => state.movies);
   const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
-  useEffect(() => {
-    dispatch(__getMovies());
-  }, [dispatch]);
+  const [updateTitle, setUpdateTitle] = useState(movie.title);
+  const [updateContent, setUpdateContent] = useState(movie.content);
 
   const onChangeTitleHandler = (e) => {
     setUpdateTitle(e.target.value);
@@ -26,6 +23,10 @@ const ReviewChange = () => {
   const onChangeContentHandler = (e) => {
     setUpdateContent(e.target.value);
   };
+
+  useEffect(() => {
+    dispatch(__getMovies());
+  }, [dispatch]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
