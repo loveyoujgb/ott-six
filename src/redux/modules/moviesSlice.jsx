@@ -190,15 +190,15 @@ export const moviesSlice = createSlice({
       state.error = action.payload;
     },
     [__postComment.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isLoading = true; 
     },
     [__postComment.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.comments.push(action.payload); // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.isLoading = false; 
+      state.comments.push(action.payload);
     },
     [__postComment.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isLoading = false; 
+      state.error = action.payload; 
     },
     [__updateComment.pending]: (state) => {
       state.isLoading = true;

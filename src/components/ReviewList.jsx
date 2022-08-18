@@ -20,36 +20,37 @@ const ReviewList = () => {
   }
 
   return (
-    <Test>
-      <FormContainer>
-        <FormFirstWrap>게시판</FormFirstWrap>
-        <FormSecondWrap>
-          <TitleWrap>
-            <ReviewTitle>글 제목</ReviewTitle>
-            <ReviewTime>작성 시간</ReviewTime>
-            <ReviewUserName>작성자명</ReviewUserName>
-          </TitleWrap>
-          <ListForm>
-            {movies?.map((movie, index) => (
-              <Review key={index} movie={movie} />
-            ))}
-          </ListForm>
-        </FormSecondWrap>
-      </FormContainer>
-    </Test>
+    <StList>
+    <FormContainer>
+      <FormFirstWrap>게시판</FormFirstWrap>
+      <FormSecondWrap>
+        <TitleWrap>
+          <ReviewTitle>글 제목</ReviewTitle>
+          <ReviewTime>작성 시간</ReviewTime>
+          <ReviewUserName>작성자명</ReviewUserName>
+        </TitleWrap>
+        <ListForm>
+          {movies?.map((movie, index) => (
+            <Review 
+            key={index}  
+            movie={movie} />
+          ))}
+        </ListForm>
+      </FormSecondWrap>
+    </FormContainer>
+    </StList>
   );
 };
 
 export default ReviewList;
 
-const Test = styled.div`
-  background-color: black;
-`;
+const StList= styled.div`
+  background-color: #181818;
+`
 
 const FormContainer = styled.div`
   /* border: 1px solid white; */
   width: 1400px;
-
   /* height: 100%; */
   display: flex;
   margin: auto;

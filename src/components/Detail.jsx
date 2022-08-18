@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { __deleteMovies, __getMovies } from "../redux/modules/moviesSlice";
-// import Button from "./elements/Button";
+import Button from "./elements/Button";
 import Comment from "./Comment";
 import { cookieCkeck } from "../actions/Cookie";
 import { __loginCheck } from "../redux/modules/loginSlice";
@@ -61,32 +61,22 @@ const Detail = () => {
         <Buttons>
           {nickname === movie.nickname ? (
             <>
-              <StButton
-                onClick={() => {
-                  navigate(`/detail/${param.id}/change`);
-                }}
-              >
-                수정하기
-              </StButton>
-              <StButton
-                onClick={() => {
-                  onClickDeleteHandler();
-                }}
-              >
-                삭제하기
-              </StButton>
+              <Button
+              btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
+              onClick={() => {
+                navigate(`/detail/${param.id}/change`)
+              }}
+              >수정하기</Button>
+              <Button
+              btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
+              onClick={() => {
+                onClickDeleteHandler();
+              }}
+              >삭제하기</Button>
             </>
           ) : null}
         </Buttons>
       </FormSecondWrap>
-      {/* <CommentButton
-                onClick={() => {
-                    navigate("/comment")
-                }}
-            >
-                댓글 작성하기
-            </CommentButton> */}
-
       <Comment />
     </FormContainer>
   );
@@ -172,32 +162,5 @@ const Buttons = styled.div`
   justify-content: right;
   gap: 20px;
   width: 95%;
-  margin-bottom: 20px;
+  margin: 10px 0 25px 0;
 `;
-
-const StButton = styled.button`
-  background-color: rgb(53, 36, 123);
-  color: white;
-  border: none;
-  width: 10%;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  :hover {
-    border: 1px solid rgb(251, 188, 4);
-  }
-`;
-
-// const CommentButton = styled.button`
-//     background-color: rgb(251,188,4);
-//     border: none;
-//     border-radius: 5px;
-//     color: white;
-//     width: 100%;
-//     height: 50px;
-//     margin-top: 15px;
-// `

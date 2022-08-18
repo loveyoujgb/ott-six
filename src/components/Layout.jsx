@@ -15,9 +15,9 @@ export default Layout;
 const StLayoutContainer = styled.div`
   border: none;
   height: 100%;
-  width: 100%;
   position: fixed;
   top: 0;
+  width: 100%;
   overflow-y: scroll;
 `;
 

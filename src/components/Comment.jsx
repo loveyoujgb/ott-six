@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import CommentView from "./CommentView";
 import { __loginCheck } from "../redux/modules/loginSlice";
 import { cookieCkeck } from "../actions/Cookie";
+import Button from "./elements/Button";
 
 const Comment = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,8 @@ const Comment = () => {
                     placeholder="댓글을 추가하세요.(100자 이내)"
                     value={userContent}
                   />
-                  <StButton type="submit">추가하기</StButton>
+                  <Button 
+                  btntype="blue" width="15%" height="50px" border="1px solid rgb(251, 188, 4)">추가하기</Button>
                 </>
               ) : (
                 <span style={{ fontSize: "20px", color: "white" }}>댓글을 추가하시려면 로그인하세요</span>
@@ -102,7 +104,7 @@ const CommentWrap = styled.div`
   border-top: 1px solid #eee;
   transform: translate(-50%, 90%);
   transform: ${({ commentShow }) => (commentShow ? "" : `translate(-50%, 0%)`)};
-  height: 400px;
+  /* height: 400px; */
   position: fixed;
   max-width: 1400px;
   width: 1400px;
@@ -148,18 +150,5 @@ const StInput = styled.input`
   padding-left: 20px;
   :hover {
     border: 3px solid rgb(53, 36, 123);
-  }
-  /* text-align: center; */
-`;
-
-const StButton = styled.button`
-  background-color: #35247b;
-  border: none;
-  border-radius: 5px;
-  width: 15%;
-  height: 50px;
-  color: white;
-  :hover {
-    border: 1px solid rgb(251, 188, 4);
   }
 `;
