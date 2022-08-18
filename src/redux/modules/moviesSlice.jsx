@@ -19,7 +19,6 @@ export const __getMovies = createAsyncThunk("movies/getMovies", async (payload, 
   try {
     // const data = await axios.get("http://localhost:3001/movies");
     const data = await axios.get(`${API_MOVIES}/board`);
-
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);

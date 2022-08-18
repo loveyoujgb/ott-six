@@ -11,7 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [token, setToken] = useState(false);
-  const { isLoading, error, name } = useSelector((state) => state.login);
+  const { isLoading, error, nickname } = useSelector((state) => state.login);
 
   useEffect(() => {
     if (cookieCkeck()) {
@@ -58,7 +58,7 @@ const Header = () => {
       </Button>
       {token ? (
         <ButtonWrap>
-          <Stspan>{name}님 환영합니다</Stspan>
+          <Stspan>{nickname}님 환영합니다</Stspan>
           <Button btntype="basic" onClick={onClickBoard} width="100px">
             게시판
           </Button>
