@@ -9,7 +9,7 @@ const CommentView = ({ comment }) => {
   const dispatch = useDispatch();
   const param = useParams();
   const [editComment, setEditComment] = React.useState(false);
-  const { nickname, token } = useSelector((state) => state.login);
+  const { nickname } = useSelector((state) => state.login);
 
   let updateCommentInput = () => {
     if (editComment) {
@@ -51,11 +51,9 @@ const CommentView = ({ comment }) => {
               <CommentContent>
                 {!editComment ? (
                   <div>
-                    {/* <CommentTop className="comment_view">{comment.userName}</CommentTop> */}
                     <CommentBottom className="comment_view">{comment.userContent}</CommentBottom>
                   </div>
                 ) : (
-                  // <Input onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent}/>
                   <StInput onChange={changeEvent} name="userContent" type="text" value={updateComment.userContent} />
                 )}
               </CommentContent>
@@ -63,32 +61,54 @@ const CommentView = ({ comment }) => {
                 {!editComment ? (
                   <div>
                     <Button
-                    btntype="white" width="140px" height="50px" outline="1px solid #35247b;"
-                    onClick={() => {
-                      updateCommentInput();
-                    }}
-                    >수정하기</Button>
+                      btntype="white"
+                      width="140px"
+                      height="50px"
+                      outline="1px solid #35247b;"
+                      onClick={() => {
+                        updateCommentInput();
+                      }}
+                    >
+                      수정하기
+                    </Button>
                     <Button
-                    btntype="white" width="140px" height="50px" margin="0 10px" outline="1px solid #35247b;"
-                    onClick={() => {
-                      deleteBtn(comment.id);
-                    }}
-                    >삭제하기</Button>
+                      btntype="white"
+                      width="140px"
+                      height="50px"
+                      margin="0 10px"
+                      outline="1px solid #35247b;"
+                      onClick={() => {
+                        deleteBtn(comment.id);
+                      }}
+                    >
+                      삭제하기
+                    </Button>
                   </div>
                 ) : (
                   <div>
                     <Button
-                    btntype="white" width="140px" height="50px" outline="1px solid rgb(251,188,4);"
-                    onClick={() => {
-                      updateCommentInput();
-                    }}
-                    >취소하기</Button>
+                      btntype="white"
+                      width="140px"
+                      height="50px"
+                      outline="1px solid rgb(251,188,4);"
+                      onClick={() => {
+                        updateCommentInput();
+                      }}
+                    >
+                      취소하기
+                    </Button>
                     <Button
-                    btntype="white" width="140px" height="50px" margin="0 10px" outline="1px solid rgb(251,188,4);"
-                    onClick={() => {
-                      updateCommentAction();
-                    }}
-                    >저장하기</Button>
+                      btntype="white"
+                      width="140px"
+                      height="50px"
+                      margin="0 10px"
+                      outline="1px solid rgb(251,188,4);"
+                      onClick={() => {
+                        updateCommentAction();
+                      }}
+                    >
+                      저장하기
+                    </Button>
                   </div>
                 )}
               </CommentButton>
@@ -109,9 +129,7 @@ export default CommentView;
 const CommentBox = styled.div`
   width: 1300px;
   display: flex;
-  /* border-bottom: 1px solid #eee; */
   justify-content: center;
-  /* border: 1px solid red; */
 `;
 const CommentContent = styled.div`
   width: 990px;
@@ -119,9 +137,7 @@ const CommentContent = styled.div`
   border-radius: 5px;
   background-color: #eee;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 3px solid rgb(251,188,4); */
   margin-right: 10px;
 `;
 const CommentContentDiv = styled.div`
@@ -131,9 +147,7 @@ const CommentContentDiv = styled.div`
   border-radius: 5px;
   background-color: #eee;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 3px solid rgb(251,188,4); */
 `;
 
 const CommentBottom = styled.div`
@@ -147,17 +161,13 @@ const StInput = styled.input`
   color: black;
   border: none;
   border-radius: 5px;
-  /* width: 70%; */
   height: 50px;
-  /* margin-right: 10px; */
 `;
 
 const CommentButton = styled.div`
   display: flex;
-  /* margin: 3px; */
   margin-bottom: 15px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-
 `;

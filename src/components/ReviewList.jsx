@@ -21,42 +21,37 @@ const ReviewList = () => {
 
   return (
     <StList>
-    <FormContainer>
-      <FormFirstWrap>게시판</FormFirstWrap>
-      <FormSecondWrap>
-        <TitleWrap>
-          <ReviewTitle>글 제목</ReviewTitle>
-          <ReviewTime>작성 시간</ReviewTime>
-          <ReviewUserName>작성자명</ReviewUserName>
-        </TitleWrap>
-        <ListForm>
-          {movies?.map((movie, index) => (
-            <Review 
-            key={index}  
-            movie={movie} />
-          ))}
-        </ListForm>
-      </FormSecondWrap>
-    </FormContainer>
+      <FormContainer>
+        <FormFirstWrap>게시판</FormFirstWrap>
+        <FormSecondWrap>
+          <TitleWrap>
+            <ReviewTitle>글 제목</ReviewTitle>
+            <ReviewTime>작성 시간</ReviewTime>
+            <ReviewUserName>작성자명</ReviewUserName>
+          </TitleWrap>
+          <ListForm>
+            {movies?.map((movie, index) => (
+              <Review key={index} movie={movie} />
+            ))}
+          </ListForm>
+        </FormSecondWrap>
+      </FormContainer>
     </StList>
   );
 };
 
 export default ReviewList;
 
-const StList= styled.div`
+const StList = styled.div`
   background-color: #181818;
-`
+`;
 
 const FormContainer = styled.div`
-  /* border: 1px solid white; */
   width: 1400px;
-  /* height: 100%; */
   display: flex;
   margin: auto;
   flex-direction: column;
   padding: 20px;
-  /* overflow: scroll; */
 `;
 
 const FormFirstWrap = styled.div`
@@ -76,7 +71,6 @@ const FormSecondWrap = styled.div`
   height: 90%;
   margin-top: 20px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 `;
@@ -90,7 +84,6 @@ const TitleWrap = styled.div`
 `;
 const ListForm = styled.div`
   width: 100%;
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,7 +92,6 @@ const ListForm = styled.div`
 
 const ReviewTitle = styled.div`
   width: 60%;
-  /* background-color: rgb(138,138,138); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +102,6 @@ const ReviewTitle = styled.div`
 
 const ReviewTime = styled.div`
   width: 15%;
-  /* background-color: rgb(138,138,138); */
   padding: 10px;
   margin: 10px;
   display: flex;
@@ -121,7 +112,6 @@ const ReviewTime = styled.div`
 
 const ReviewUserName = styled.div`
   width: 15%;
-  /* background-color: rgb(138,138,138); */
   padding: 10px;
   margin: 10px;
   display: flex;

@@ -10,7 +10,7 @@ const initialState = {
 
 export const __postSignUp = createAsyncThunk("signUp/postSignUp", async (payload, thunkAPI) => {
   try {
-    const data = await axios.post(`${API_URL}/member/signup`, payload);
+    await axios.post(`${API_URL}/member/signup`, payload);
   } catch (error) {
     return thunkAPI.rejectWithValue(error.reponse.data);
   }

@@ -9,16 +9,15 @@ const ReviewChange = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [updateTitle, setUpdateTitle] = useState(movie.title);
+  const [updateContent, setUpdateContent] = useState(movie.content);
 
   const { isLoading, error, movies } = useSelector((state) => state.movies);
   const movie = movies.find((movie) => movie.boardId === parseInt(param.id));
 
-  // useInput custom hook 사용
-  // const [updateTitle, onChangeTitleHandler] = useInput(movie.title);
-  // const [updateContent, onChangeContentHandler] = useInput(movie.content);
-
-  const [updateTitle, setUpdateTitle] = useState(movie.title);
-  const [updateContent, setUpdateContent] = useState(movie.content);
+  useEffect(() => {
+    dispatch(__getMovies());
+  }, [dispatch]);
 
   const onChangeTitleHandler = (e) => {
     setUpdateTitle(e.target.value);
@@ -27,10 +26,6 @@ const ReviewChange = () => {
   const onChangeContentHandler = (e) => {
     setUpdateContent(e.target.value);
   };
-
-  useEffect(() => {
-    dispatch(__getMovies());
-  }, [dispatch]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -65,15 +60,20 @@ const ReviewChange = () => {
           <StSecondInput name="updateContent" value={updateContent} onChange={onChangeContentHandler} />
         </FormContentWrap>
         <Buttons>
+          <Button btntype="yellow" width="150px" height="40px" border="1px solid #35247b;">
+            저장하기
+          </Button>
           <Button
-          btntype="yellow" width="150px" height="40px" border="1px solid #35247b;"
-          >저장하기</Button>
-          <Button
-          btntype="yellow" width="150px" height="40px" border="1px solid #35247b;"
-          onClick={() => {
-            navigate(`/detail/${param.id}`);
-          }}
-          >취소하기</Button>
+            btntype="yellow"
+            width="150px"
+            height="40px"
+            border="1px solid #35247b;"
+            onClick={() => {
+              navigate(`/detail/${param.id}`);
+            }}
+          >
+            취소하기
+          </Button>
         </Buttons>
       </FormSecondWrap>
     </FormContainer>
@@ -83,7 +83,6 @@ const ReviewChange = () => {
 export default ReviewChange;
 
 const FormContainer = styled.form`
-  /* border: 1px solid white; */
   width: 1400px;
   height: 80%;
   display: flex;
@@ -95,10 +94,8 @@ const FormContainer = styled.form`
 const FormSecondWrap = styled.div`
   background-color: rgb(45, 45, 45);
   border-radius: 5px;
-  height: 70%;
   margin-top: 20px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 `;
@@ -141,4 +138,5 @@ const Buttons = styled.div`
   justify-content: right;
   gap: 20px;
   width: 95%;
+  margin: 10px 0 25px 0;
 `;
