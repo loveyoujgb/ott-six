@@ -157,6 +157,8 @@ const CommentBottom = styled.div`
 `;
 
 const StInput = styled.input`
+  padding-left: 20px;
+  width: 100%;
   box-sizing: border-box;
   background-color: white;
   color: black;
