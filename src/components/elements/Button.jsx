@@ -20,7 +20,8 @@ const StButton = styled.button`
         border: transparent;
         color: white;
         margin: 5px;
-        width: 100px;
+        /* width: 100px; */
+        width: ${(props) => props.width};
         height: 35px;
         border-radius: 5px;
         font-weight: bold;

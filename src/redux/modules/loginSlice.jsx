@@ -20,7 +20,6 @@ export const __loginCheck = createAsyncThunk("Login/loginCheck", async (payload,
         Authorization: accessToken,
       },
     });
-    console.log(data.data);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
