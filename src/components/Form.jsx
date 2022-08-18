@@ -55,7 +55,14 @@ const Form = () => {
           <StSecondInput maxLength="200" type="text" name="content" value={content} onChange={onChangeHandler} placeholder="내용을 입력해주세요.(200자 이내)" />
         </FormContentWrap>
         <StButtons>
-          <Button btntype="basic" type="submit" margin="0 10px 0 0" width="200px" height="40px" border="1px solid rgb(251,188,4)">
+          <Button
+            btntype="basic"
+            type="submit"
+            margin="0 10px 0 0"
+            width="200px"
+            height="40px"
+            border="1px solid rgb(251,188,4)"
+          >
             작성하기
           </Button>
           <Button

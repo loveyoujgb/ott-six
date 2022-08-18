@@ -130,6 +130,7 @@ const CommentBox = styled.div`
   width: 1300px;
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 const CommentContent = styled.div`
   width: 990px;

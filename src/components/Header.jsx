@@ -38,12 +38,14 @@ const Header = () => {
   const onClickSignUp = () => {
     navigate("/signup");
   };
-  const onClickLogout = () => {
+  const onClickLogout = (e) => {
     logout();
     navigate("/login");
     window.location.reload();
     alert("로그아웃 되었습니다.");
   };
+
+  
 
   return (
     <HeaderWrap>

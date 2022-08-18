@@ -54,27 +54,17 @@ const Detail = () => {
           {nickname === movie.nickname ? (
             <>
               <Button
-                btntype="blue"
-                width="150px"
-                height="40px"
-                border="1px solid rgb(251, 188, 4);"
+                btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
                 onClick={() => {
-                  navigate(`/detail/${param.id}/change`);
+                  navigate(`/detail/${param.id}/change`)
                 }}
-              >
-                수정하기
-              </Button>
+              >수정하기</Button>
               <Button
-                btntype="blue"
-                width="150px"
-                height="40px"
-                border="1px solid rgb(251, 188, 4);"
+                btntype="blue" width="150px" height="40px" border="1px solid rgb(251, 188, 4);"
                 onClick={() => {
                   onClickDeleteHandler();
                 }}
-              >
-                삭제하기
-              </Button>
+              >삭제하기</Button>
             </>
           ) : null}
         </Buttons>
