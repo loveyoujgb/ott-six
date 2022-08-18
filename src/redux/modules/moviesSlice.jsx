@@ -30,6 +30,7 @@ export const __postMovies = createAsyncThunk("movies/postMovies", async (payload
         Authorization: accessToken,
       },
     });
+    thunkAPI.dispatch(__getMovies());
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
