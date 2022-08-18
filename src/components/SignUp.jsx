@@ -111,11 +111,11 @@ const SignUp = () => {
 
   //아이디
   const onChangeusername = useCallback((e) => {
-    const emailCurrent = e.target.value;
-    setusername(emailCurrent);
-    const emailRegex = /^[a-zA-Z](?=.{0,15}[0-9])[0-9a-zA-Z]{4,15}$/;
+    const usernameCurrent = e.target.value;
+    setusername(usernameCurrent);
+    const usernameRegex = /^[a-zA-Z](?=.{0,15}[0-9])[0-9a-zA-Z]{4,15}$/;
     //6자리 이상, 영문 대소문자 가능
-    if (!emailRegex.test(emailCurrent)) {
+    if (!usernameRegex.test(usernameCurrent)) {
       setusernameMessage("5~15자의 영문 대 소문자+숫자 조합으로 입력해주세요.");
       setIsUsername(false);
     } else {
@@ -126,10 +126,10 @@ const SignUp = () => {
 
   // 닉네임
   const onChangenickname = useCallback((e) => {
-    const emailCurrent = e.target.value;
-    setnickname(emailCurrent);
-    const emailRegex = /^([a-zA-Z0-9가-힣]){3,10}$/;
-    if (!emailRegex.test(emailCurrent)) {
+    const nicknameCurrent = e.target.value;
+    setnickname(nicknameCurrent);
+    const nicknameRegex = /^([a-zA-Z0-9가-힣]){3,10}$/;
+    if (!nicknameRegex.test(nicknameCurrent)) {
       setnicknameMessage("3~10자의 영문 대 소문자, 숫자, 한글을 입력해주세요.");
       setIsNickname(false);
     } else {
@@ -216,7 +216,7 @@ const SignUp = () => {
               {/* 중복확인 */}
             </Button>
           </FirstValidButton>
-          {username.length > 0 && <span className={`message ${isUsername ? "success" : "error"}`}>{usernameMessage}</span>}
+          {username.length > 0 && <span>{usernameMessage}</span>}
           {/* 닉네임 */}
           <FirstValidButton>
             <Input
@@ -241,10 +241,10 @@ const SignUp = () => {
               {/* 중복확인 */}
             </Button>
           </FirstValidButton>
-          {nickname.length > 0 && <span className={`message ${isNickname ? "success" : "error"}`}>{nicknameMessage}</span>}
+          {nickname.length > 0 && <span>{nicknameMessage}</span>}
           {/* 비밀번호 */}
           <Input name="password" onChange={onChangePassword} value={password} placeholder="비밀번호" type="password" inputType="basic"></Input>
-          {password.length > 0 && <span className={`message ${isPassword ? "success" : "error"}`}>{passwordMessage}</span>}
+          {password.length > 0 && <span>{passwordMessage}</span>}
           {/* 비밀번호 확인 */}
           <Input
             name="validPassword"
@@ -254,8 +254,12 @@ const SignUp = () => {
             type="password"
             inputType="basic"
           ></Input>
-          {validPassword.length > 0 && <span className={`message ${isValidPassword ? "success" : "error"}`}>{validPasswordMessage}</span>}
-          {nicknameValid && usernameVaild ? <span>중복확인을 완료했습니다</span> : <span>중복확인을 해주세요</span>}
+          {validPassword.length > 0 && <span>{validPasswordMessage}</span>}
+          {nicknameValid && usernameVaild ? (
+            <span>중복확인을 완료했습니다</span>
+          ) : (
+            nickname.length > 0 && username.length > 0 && <span>중복확인을 해주세요</span>
+          )}
           <Button
             height="45px"
             width="360px"
@@ -304,12 +308,6 @@ const FirstValidButton = styled.div`
   padding-left: 80px;
   display: flex;
 `;
-
-const SecondValidButton = styled.div`
-  left: 410px;
-  top: 160px;
-`;
-
 const Title = styled.div`
   font-family: "나눔고딕", NanumGothic, "돋움", Dotum, Helvetica, sans-serif;
   height: 30px;
